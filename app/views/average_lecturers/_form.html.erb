@@ -1,0 +1,211 @@
+<div class="tform">
+<h2>Lecturer & Course Details</h2>
+<table width=100% >
+	
+	<tr>
+		<td  width=20%><label for="short_name">&nbsp;Lecturer & Course Name</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.collection_select :lecturer_id, EvaluateLecturer.find(:all), :id, :evaluate_detail, :prompt => "Select Lecturer Name | Course Name | Subject Name" %></td>
+	</tr>
+	
+</table>
+<h2>Analysis Details</h2>
+<table width=100% border=0 >
+	<tr>
+		<td>Average Score</td>
+		<td width=3%><b>:</b></td>
+		<td>
+<table width=100% border=1 cellspacing=0 cellpadding=7 BORDERCOLOR="#E8E8E8 ">	
+		<tr>
+			<td width="10" ><font size=2><b>BIL</b></font></td>
+			<td align="center" width=45%><font size=2 ><b>PERKARA</b></font></th>
+			<td width="10" colspan=9 align="center"><font size=2><b>SKOR</b></font></td>
+		</tr>
+
+
+	<tr>
+		<td>1.</td>
+		<td>Pencapaian objektif pelajaran</td>
+		<td align="center"><font color="#A0A0A0">1</font></td>
+		<td align="center"><font color="#A0A0A0">2</font></td>
+		<td align="center"><font color="#A0A0A0">3</font></td>
+		<td align="center"><font color="#A0A0A0">4</font></td>
+		<td align="center"><font color="#A0A0A0">5</font></td>
+		<td align="center"><font color="#A0A0A0">6</font></td>
+		<td align="center"><font color="#A0A0A0">7</font></td>
+		<td align="center"><font color="#A0A0A0">8</font></td>
+		<td align="center"><font color="#A0A0A0">9</font></td>
+	</tr>
+
+	<tr>
+		<td>2.</td>
+		<td>Pengetahuan pensyarah tentang pelajaran yang diajar</td>
+		<td align="center"><font color="#A0A0A0">1</font></td>
+		<td align="center"><font color="#A0A0A0">2</font></td>
+		<td align="center"><font color="#A0A0A0">3</font></td>
+		<td align="center"><font color="#A0A0A0">4</font></td>
+		<td align="center"><font color="#A0A0A0">5</font></td>
+		<td align="center"><font color="#A0A0A0">6</font></td>
+		<td align="center"><font color="#A0A0A0">7</font></td>
+		<td align="center"><font color="#A0A0A0">8</font></td>
+		<td align="center"><font color="#A0A0A0">9</font></td>
+	</tr>
+
+	<tr>
+		<td>3.</td>
+		<td>Mutu pencapaian pensyarah</td>
+		<td align="center"><font color="#A0A0A0">1</font></td>
+		<td align="center"><font color="#A0A0A0">2</font></td>
+		<td align="center"><font color="#A0A0A0">3</font></td>
+		<td align="center"><font color="#A0A0A0">4</font></td>
+		<td align="center"><font color="#A0A0A0">5</font></td>
+		<td align="center"><font color="#A0A0A0">6</font></td>
+		<td align="center"><font color="#A0A0A0">7</font></td>
+		<td align="center"><font color="#A0A0A0">8</font></td>
+		<td align="center"><font color="#A0A0A0">9</font></td>
+	</tr>
+
+	<tr>
+		<td>4.</td>
+		<td>Isi kandungan pelajaran</td>
+		<td align="center"><font color="#A0A0A0">1</font></td>
+		<td align="center"><font color="#A0A0A0">2</font></td>
+		<td align="center"><font color="#A0A0A0">3</font></td>
+		<td align="center"><font color="#A0A0A0">4</font></td>
+		<td align="center"><font color="#A0A0A0">5</font></td>
+		<td align="center"><font color="#A0A0A0">6</font></td>
+		<td align="center"><font color="#A0A0A0">7</font></td>
+		<td align="center"><font color="#A0A0A0">8</font></td>
+		<td align="center"><font color="#A0A0A0">9</font></td>
+	</tr>
+
+	<tr>
+		<td>5.</td>
+		<td>Mutu alat pandang dengar yang digunakan</td>
+		<td align="center"><font color="#A0A0A0">1</font></td>
+		<td align="center"><font color="#A0A0A0">2</font></td>
+		<td align="center"><font color="#A0A0A0">3</font></td>
+		<td align="center"><font color="#A0A0A0">4</font></td>
+		<td align="center"><font color="#A0A0A0">5</font></td>
+		<td align="center"><font color="#A0A0A0">6</font></td>
+		<td align="center"><font color="#A0A0A0">7</font></td>
+		<td align="center"><font color="#A0A0A0">8</font></td>
+		<td align="center"><font color="#A0A0A0">9</font></td>
+	</tr>
+
+	<tr>
+		<td>6.</td>
+		<td>Kesesuaian turutan topik dalam jadual</td>
+		<td align="center"><font color="#A0A0A0">1</font></td>
+		<td align="center"><font color="#A0A0A0">2</font></td>
+		<td align="center"><font color="#A0A0A0">3</font></td>
+		<td align="center"><font color="#A0A0A0">4</font></td>
+		<td align="center"><font color="#A0A0A0">5</font></td>
+		<td align="center"><font color="#A0A0A0">6</font></td>
+		<td align="center"><font color="#A0A0A0">7</font></td>
+		<td align="center"><font color="#A0A0A0">8</font></td>
+		<td align="center"><font color="#A0A0A0">9</font></td>
+	</tr>
+
+	<tr>
+		<td>7.</td>
+		<td>Kesesuaian kerja sindikit dengan objektif pelajaran</td>
+		<td align="center"><font color="#A0A0A0">1</font></td>
+		<td align="center"><font color="#A0A0A0">2</font></td>
+		<td align="center"><font color="#A0A0A0">3</font></td>
+		<td align="center"><font color="#A0A0A0">4</font></td>
+		<td align="center"><font color="#A0A0A0">5</font></td>
+		<td align="center"><font color="#A0A0A0">6</font></td>
+		<td align="center"><font color="#A0A0A0">7</font></td>
+		<td align="center"><font color="#A0A0A0">8</font></td>
+		<td align="center"><font color="#A0A0A0">9</font></td>
+	</tr>
+
+	<tr>
+		<td>8.</td>
+		<td>Faedah bahan/nota yang diedarkan</td>
+		<td align="center"><font color="#A0A0A0">1</font></td>
+		<td align="center"><font color="#A0A0A0">2</font></td>
+		<td align="center"><font color="#A0A0A0">3</font></td>
+		<td align="center"><font color="#A0A0A0">4</font></td>
+		<td align="center"><font color="#A0A0A0">5</font></td>
+		<td align="center"><font color="#A0A0A0">6</font></td>
+		<td align="center"><font color="#A0A0A0">7</font></td>
+		<td align="center"><font color="#A0A0A0">8</font></td>
+		<td align="center"><font color="#A0A0A0">9</font></td>
+	</tr>			
+	</table></td>
+	</tr>
+
+	
+	<tr>
+		<td width=20%><label for="short_name"><font size=2>&nbsp;General Dissatisfaction</font></label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.text_area :dissactifaction, :size => "50x7" %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="short_name">Improvements Proposal</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.text_area :recommend_for_improvement, :size => "50x7" %></td>
+	</tr>	
+</table>
+
+<h2>Summary Evaluation</h2>
+<table width=100% border=0 cellspacing=0 >
+	
+	<tr>
+		<td colspan=4><font color="grey", size="-2">Kriteria Penilaian LAYAK atau TIDAK LAYAK adalah berdasarkan tiga aspek
+	    teras di bawah yang mana skor purata setiap aspek tidak boleh kurang dari nilai 5:</font></td>
+	</tr>
+	
+	<tr>
+		<td width=20%><label for="short_name"><font size=2>&nbsp;Evaluation Criteria</font></label></td>
+		<td width=3%><b>:</b></td>
+		<td width=25%>a. Pengetahuan Pensyarah</td>
+		<td><%= f.text_field :programme_id, :size => "5" %></td>
+	</tr>
+	
+	<tr>
+		<td width=20%><label for="short_name"><font size=2></font></label></td>
+		<td width=3%><b>:</b></td>
+		<td>b. Mutu Penyampaian</td>
+		<td><%= f.text_field :lesson_topic, :size => "5" %></td>
+	</tr>
+	
+	<tr>
+		<td width=20%><label for="short_name"><font size=2></font></label></td>
+		<td width=3%><b>:</b></td>
+		<td>c. Isi Kandungan Pelajaran</td>
+		<td><%= f.text_field :summary_evaluation, :size => "5" %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="short_name">Evaluation Category</label></td>
+		<td width=3%><b>:</b></td>
+		<td colspan=2><%= f.radio_button :evaluate_category,'1' %>Layak<%= f.radio_button :evaluate_category,'2' %>Tidak Layak</td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="short_name">Supporting Justification</label></td>
+		<td width=3%><b>:</b></td>
+		<td colspan=2><%= f.text_area :support_justify, :size => "50x7" %></td>
+	</tr>	
+</table>
+<h2>Authentication Principal</h2>
+<table width=100% >
+	
+	<tr>
+		<td width=20%><label for="short_name"><font size=2>&nbsp;Principal Name</font></label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.collection_select :principal_id, Staff.find(:all, :include => [:title], :order => 'titles.id ASC'), :id, :staff_name_with_title, :include_blank => true %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="short_name">Date</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.date_select :principal_date, :order => [:day, :month, :year] %></td>
+	</tr>	
+</table>
+<BR>
+</div>
