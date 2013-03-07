@@ -11,7 +11,13 @@
 			<td><b>:</b></td>
 			<td><%= f.collection_select :staff_id, Staff.find(:all, :conditions => ["id = ?", current_user.staff_id]), :id, :staff_name_with_position %></td>
 		</tr>
-
+		<!--27Feb2013-annual leave balance added-->
+		<tr>
+			<td class="leftcol"><label for="staff_id"><%= t 'staffleave.balance' %></label></td>
+			<td><b>:</b></td>
+			<td><%= Staff.find(User.current_user.staff_id).staffgrade.nil? ?  "No record" : Leaveforstaff.annual_leave_balance.to_s+" / "+Staff.find(current_user.staff_id).staffgrade.total_leave.to_s+" days" %></td>
+		</tr>
+		<!--27Feb2013-annual leave balance added-->
 		<tr>
 			<td class="leftcol"><label for="leavetype"><%= t 'staffleave.leavetype' %></label><font color="red"> * </font></td>
 			<td><b>:</b></td>

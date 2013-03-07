@@ -2,7 +2,7 @@ class Leaveforstaff < ActiveRecord::Base
 
   before_save :save_my_approvers
   
-  belongs_to :applicant,    :class_name => 'Staff', :foreign_key => 'staff_id'
+  belongs_to :applicant,    :class_name => 'Staff', :foreign_key => 'staff_id' 
   belongs_to :replacement,  :class_name => 'Staff', :foreign_key => 'replacement_id'
   belongs_to :seconder,     :class_name => 'Staff', :foreign_key => 'approval1_id'
   belongs_to :approver,     :class_name => 'Staff', :foreign_key => 'approval2_id'
@@ -10,8 +10,8 @@ class Leaveforstaff < ActiveRecord::Base
   validates_presence_of :staff_id, :leavetype, :submit
   
   named_scope :mine,        :conditions =>  ["staff_id=?", User.current_user.staff_id]
-  named_scope :forsupport,  :conditions =>  ["approval1_id=? AND approval1 IS ?", User.current_user.staff_id, nil]
-  named_scope :forapprove,  :conditions =>  ["approval2_id=? AND approver2 IS ? AND approval1=?", User.current_user.staff_id, nil, true]
+  #named_scope :forsupport,  :conditions =>  ["approval1_id=? AND approval1 IS ?", User.current_user.staff_id, nil]
+  #named_scope :forapprove,  :conditions =>  ["approval2_id=? AND approver2 IS ? AND approval1=?", User.current_user.staff_id, nil, true]
   named_scope :rest,      :conditions => { :leavetype => 1 }
   named_scope :sick,    :conditions => { :leavetype => 2 }
   named_scope :norecord,   :conditions => { :leavetype => 3 }
@@ -47,25 +47,71 @@ class Leaveforstaff < ActiveRecord::Base
     Staff.find(:all, :condition => ['staff_id IS NULL'])
   end
   
-  def save_my_approvers
-		self.approval1_id = applicant.position.bosses.staff_id
-		self.approval2_id = applicant.position.bosses.bosses.staff_id
+  #28Feb2013-ref JB
+  def save_my_approvers                 
+    if applicant.position.nil?                                        #must hv position (task & responsibilities)
+    else
+      if approval1_id == nil
+        self.approval1_id = set_approver1
+      end                                                   
+      if approval2_id == nil && applicant.position.parent_id != nil   #1March2013- this condition "if applicant.position.parent_id != nil" added - for highest staff level to work...
+        self.approval2_id = set_approver2                             #so it won't go to seta_approver2 whereby (if applicant.position.bosses.bosses == nil) at line 73 will FAILED if there's NO SUPERIOR of applicant
+      end
+    end
   end
   
-  def apply_leave_status
-    if approval1 == nil
-      "Awaiting for Endorsed"
-    elsif approval1 == false || approver2 == false 
+  def set_approver1
+   #if applicant.position.bosses.staff_id == []                       #if 1st level superior not exist
+   if applicant.position.bosses == nil                                #use this instead for highest level-position(root)
+      approver1 = nil                                                               
+    else
+      approver1 = applicant.position.bosses.staff_id
+    end  
+  end
+  
+  def set_approver2
+    if applicant.position.bosses.bosses == nil                        #if 2nd level superior not exist -> dah root?
+      approver2 = 0
+    else
+      approver2 = applicant.position.bosses.bosses.staff_id
+    end
+  end
+  
+  def endorser
+    if approval2_id == 0
+      "Not Required"
+    else
+      approver.staff_name_with_title
+    end
+  end
+  #28Feb2013-ref JB
+  
+  #28Feb2013-1March2013
+  def apply_leave_status      
+    if approval1 == nil && approval1_id != nil                                                                            #1st approval NOT EVEN DONE
+      "Awaiting for Endorsement"
+    elsif approval1 == false || approver2 == false                                                                        #Both 1st & 2nd approver reject application
       "Rejected"
-    elsif approval1 == true && approver2 == nil
+    elsif approval1 == true && approver2 == nil && approval2_id != nil                                                    #1st approver EXIST & APPROVED, 2nd approver EXIST but NOT YET ENDORSE.
       "Endorsed by 1st Approval, Awaiting 2nd Approval"
-    elsif approval1 == true && approver2 == true
-      " All Approvals Complete"
+    elsif approval1_id == nil && approval2_id != nil && approver2 != true 
+      "Awaiting for Approval"
+    #-------------------notes for below conditions:
+    #Condition A:1st approver EXIST & APPROVED, 2nd approver EXIST & APPROVED  
+    #Condition B:1st approver EXIST & APPROVED but 2nd approver NOT EXIST. (Only 1 level approval required)
+    #Condition C:1st approver NOT EXIST, but 2nd approver EXIST & already APPROVED. (Only 1 level approval required)      #1march2013-added
+    #Condition D:Endorsed by 1st Approval, 2nd Approval not available
+    #Condition E:"Awaiting for Approval (2nd), 1st approver not available"
+    elsif approval1 == true && approver2 == true || (approval1 == true && approval2_id == 0)||(approval1_id == nil && approval2_id != nil && approver2 == true)||(approval1 == true && approver2 == nil && approval2_id == nil)||(approval1_id == nil && approval2_id != nil && approver2 == true)      
+      "All Approvals Complete"                                                                       
+    elsif approval1_id == nil && approval2_id == nil                                                                      #for highest level
+      "Not Required"
     else
       "No Status available"
     end
   end
-  
+  #28Feb2013-1March2013
+   
   def leave_for
     if leavenddate == 'null' || leavestartdate == 'null' || (leavenddate - leavestartdate) == 0
       1
@@ -105,6 +151,21 @@ class Leaveforstaff < ActiveRecord::Base
        35
      end
    end
+   
+  #27Feb2013-calculate balance of annual leave
+  def self.annual_leave_balance
+      total_annual_leave = Staff.find(User.current_user.staff_id).staffgrade.total_leave[0].to_i                           #designated TOTAL yearly leave - according to grade
+      if total_annual_leave != 0   #have to make sure annual leave for current user(of current grade) really exist!
+        leave_taken = 0                                           
+        Leaveforstaff.mine.rest.each do |bb|                                                                              #leave_taken_list = Leaveforstaff.find(:all, :conditions=>['staff_id=? AND leavetype=?', User.current_user.staff_id, 1])      
+				  leave_taken = leave_taken + bb.leave_for                                                                        #1 leave record - may have >1 day #cuti tahunan-cuti rehat)
+			  end
+        total_annual_leave-leave_taken
+      else
+        "No record"
+      end
+  end
+  #27FEB2013-calculate balance of annual leave
   
   def applicant_details 
        suid = staff_id.to_a
@@ -124,9 +185,9 @@ class Leaveforstaff < ActiveRecord::Base
        suid = approval1_id.to_a
        exists = Staff.find(:all, :select => "id").map(&:id)
        checker = suid & exists     
-   
+
        if approval1_id == nil
-          "" 
+          ""          
         elsif checker == []
           "Staff No Longer Exists" 
        else
@@ -148,6 +209,7 @@ class Leaveforstaff < ActiveRecord::Base
        end
   end
   
+
   
 STAFFLEAVETYPE = [
          #  Displayed       stored in db

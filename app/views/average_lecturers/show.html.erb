@@ -36,10 +36,23 @@
 		<td><%=h @average_lecturer.lecturer.course_type_evaluate %></td>
 	</tr>
 	
+	<!--20Feb2013-subject added-->
+	<tr>
+		<td  width=20%><label for="short_name">&nbsp;Subject</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%=h @average_lecturer.lecturer.subject_evaluate %></td>
+	</tr>
+	<!--20Feb2013-subject added-->
+	
 	<tr>
 		<td  width=20%><label for="short_name">&nbsp;Jumlah Pelatih</label></td>
 		<td width=3%><b>:</b></td>
-		<td></td>
+		<td>
+			<!--20Feb2013-Jumlah pelatih : total student completed appraisal out of total student-->
+			<%= AverageLecturer.find_evaluations(@average_lecturer.lecturer.staff_id,@average_lecturer.subject_id).count %>
+			 / <%=h Student.find(:all, :conditions=>['course_id=?', @average_lecturer.lecturer.course_id]).count %>
+			<!--20Feb2013-Jumlah pelatih : total student completed appraisal out of total student-->
+		</td>
 	</tr>
 	
 	<tr>
@@ -69,118 +82,34 @@
 			<td width="10" colspan=9 align="center"><font size=2><b>SKOR</b></font></td>
 		</tr>
 
-
-	<tr>
-		<td>1.</td>
-		<td>Pencapaian objektif pelajaran</td>
-		<td align="center"><font color="#A0A0A0">1</font></td>
-		<td align="center"><font color="#A0A0A0">2</font></td>
-		<td align="center"><font color="#A0A0A0">3</font></td>
-		<td align="center"><font color="#A0A0A0">4</font></td>
-		<td align="center"><font color="#A0A0A0">5</font></td>
-		<td align="center"><font color="#A0A0A0">6</font></td>
-		<td align="center"><font color="#A0A0A0">7</font></td>
-		<td align="center"><font color="#A0A0A0">8</font></td>
-		<td align="center"><font color="#A0A0A0">9</font></td>
-	</tr>
-
-	<tr>
-		<td>2.</td>
-		<td>Pengetahuan pensyarah tentang pelajaran yang diajar</td>
-		<td align="center"><font color="#A0A0A0">1</font></td>
-		<td align="center"><font color="#A0A0A0">2</font></td>
-		<td align="center"><font color="#A0A0A0">3</font></td>
-		<td align="center"><font color="#A0A0A0">4</font></td>
-		<td align="center"><font color="#A0A0A0">5</font></td>
-		<td align="center"><font color="#A0A0A0">6</font></td>
-		<td align="center"><font color="#A0A0A0">7</font></td>
-		<td align="center"><font color="#A0A0A0">8</font></td>
-		<td align="center"><font color="#A0A0A0">9</font></td>
-	</tr>
-
-	<tr>
-		<td>3.</td>
-		<td>Mutu pencapaian pensyarah</td>
-		<td align="center"><font color="#A0A0A0">1</font></td>
-		<td align="center"><font color="#A0A0A0">2</font></td>
-		<td align="center"><font color="#A0A0A0">3</font></td>
-		<td align="center"><font color="#A0A0A0">4</font></td>
-		<td align="center"><font color="#A0A0A0">5</font></td>
-		<td align="center"><font color="#A0A0A0">6</font></td>
-		<td align="center"><font color="#A0A0A0">7</font></td>
-		<td align="center"><font color="#A0A0A0">8</font></td>
-		<td align="center"><font color="#A0A0A0">9</font></td>
-	</tr>
-
-	<tr>
-		<td>4.</td>
-		<td>Isi kandungan pelajaran</td>
-		<td align="center"><font color="#A0A0A0">1</font></td>
-		<td align="center"><font color="#A0A0A0">2</font></td>
-		<td align="center"><font color="#A0A0A0">3</font></td>
-		<td align="center"><font color="#A0A0A0">4</font></td>
-		<td align="center"><font color="#A0A0A0">5</font></td>
-		<td align="center"><font color="#A0A0A0">6</font></td>
-		<td align="center"><font color="#A0A0A0">7</font></td>
-		<td align="center"><font color="#A0A0A0">8</font></td>
-		<td align="center"><font color="#A0A0A0">9</font></td>
-	</tr>
-
-	<tr>
-		<td>5.</td>
-		<td>Mutu alat pandang dengar yang digunakan</td>
-		<td align="center"><font color="#A0A0A0">1</font></td>
-		<td align="center"><font color="#A0A0A0">2</font></td>
-		<td align="center"><font color="#A0A0A0">3</font></td>
-		<td align="center"><font color="#A0A0A0">4</font></td>
-		<td align="center"><font color="#A0A0A0">5</font></td>
-		<td align="center"><font color="#A0A0A0">6</font></td>
-		<td align="center"><font color="#A0A0A0">7</font></td>
-		<td align="center"><font color="#A0A0A0">8</font></td>
-		<td align="center"><font color="#A0A0A0">9</font></td>
-	</tr>
-
-	<tr>
-		<td>6.</td>
-		<td>Kesesuaian turutan topik dalam jadual</td>
-		<td align="center"><font color="#A0A0A0">1</font></td>
-		<td align="center"><font color="#A0A0A0">2</font></td>
-		<td align="center"><font color="#A0A0A0">3</font></td>
-		<td align="center"><font color="#A0A0A0">4</font></td>
-		<td align="center"><font color="#A0A0A0">5</font></td>
-		<td align="center"><font color="#A0A0A0">6</font></td>
-		<td align="center"><font color="#A0A0A0">7</font></td>
-		<td align="center"><font color="#A0A0A0">8</font></td>
-		<td align="center"><font color="#A0A0A0">9</font></td>
-	</tr>
-
-	<tr>
-		<td>7.</td>
-		<td>Kesesuaian kerja sindikit dengan objektif pelajaran</td>
-		<td align="center"><font color="#A0A0A0">1</font></td>
-		<td align="center"><font color="#A0A0A0">2</font></td>
-		<td align="center"><font color="#A0A0A0">3</font></td>
-		<td align="center"><font color="#A0A0A0">4</font></td>
-		<td align="center"><font color="#A0A0A0">5</font></td>
-		<td align="center"><font color="#A0A0A0">6</font></td>
-		<td align="center"><font color="#A0A0A0">7</font></td>
-		<td align="center"><font color="#A0A0A0">8</font></td>
-		<td align="center"><font color="#A0A0A0">9</font></td>
-	</tr>
-
-	<tr>
-		<td>8.</td>
-		<td>Faedah bahan/nota yang diedarkan</td>
-		<td align="center"><font color="#A0A0A0">1</font></td>
-		<td align="center"><font color="#A0A0A0">2</font></td>
-		<td align="center"><font color="#A0A0A0">3</font></td>
-		<td align="center"><font color="#A0A0A0">4</font></td>
-		<td align="center"><font color="#A0A0A0">5</font></td>
-		<td align="center"><font color="#A0A0A0">6</font></td>
-		<td align="center"><font color="#A0A0A0">7</font></td>
-		<td align="center"><font color="#A0A0A0">8</font></td>
-		<td align="center"><font color="#A0A0A0">9</font></td>
-	</tr>			
+		<!--20feb2013-display of table for Average Score-->
+		<% 1.upto(8) do |counter| %>
+		<tr>
+			<td><%=counter%>.</td>
+			<td>
+				<% if counter==1 %>Pencapaian objektif pelajaran
+				<% elsif counter==2 %>Pengetahuan pensyarah tentang pelajaran yang diajar
+				<% elsif counter==3 %>Mutu pencapaian pensyarah
+				<% elsif counter==4 %>Isi kandungan pelajaran
+				<% elsif counter==5 %>Mutu alat pandang dengar yang digunakan
+				<% elsif counter==6 %>Kesesuaian turutan topik dalam jadual
+				<% elsif counter==7 %>Kesesuaian kerja sindikit dengan objektif pelajaran
+				<% elsif counter==8 %>Faedah bahan/nota yang diedarkan
+				<% end %>
+				<% @purata = AverageLecturer.find_average(@average_lecturer.lecturer.staff_id,@average_lecturer.subject_id,counter)%>
+			</td>
+			<td align="center"><% if @purata == 1  %><b><%= @purata %></b><% else %><font color="#A0A0A0">1</font><% end %></td>
+			<td align="center"><% if @purata == 2  %><b><%= @purata %></b<% else %><font color="#A0A0A0">2</font><% end %></td>	
+			<td align="center"><% if @purata == 3  %><b><%= @purata %></b<% else %><font color="#A0A0A0">3</font><% end %></td>
+			<td align="center"><% if @purata == 4  %><b><%= @purata %><b><% else %><font color="#A0A0A0">4</font><% end %></td>
+			<td align="center"><% if @purata == 5  %><b><%= @purata %></b<% else %><font color="#A0A0A0">5</font><% end %></td>
+			<td align="center"><% if @purata == 6  %><b><%= @purata %></b<% else %><font color="#A0A0A0">6</font><% end %></td>
+			<td align="center"><% if @purata == 7  %><b><%= @purata %></b<% else %><font color="#A0A0A0">7</font><% end %></td>
+			<td align="center"><% if @purata == 8  %><b><%= @purata %></b<% else %><font color="#A0A0A0">8</font><% end %></td>
+			<td align="center"><% if @purata == 9  %><b><%= @purata %></b<% else %><font color="#A0A0A0">9</font><% end %></td>
+		</tr>
+		<% end %>
+		<!--20feb2013-display of table for Average Score-->		
 	</table></td>
 	</tr>
 	
@@ -216,7 +145,7 @@
 		<td width=20%><label for="short_name"><font size=2></font></label></td>
 		<td width=3%><b>:</b></td>
 		<td>b. Mutu Penyampaian</td>
-		<td><%=h @average_lecturer.lesson_topic %></td>
+		<td><%=h @average_lecturer.delivery_quality %></td>
 	</tr>
 	
 	<tr>
@@ -244,13 +173,13 @@
 	<tr>
 		<td width=20%><label for="short_name"><font size=2>&nbsp;Principal Name</font></label></td>
 		<td width=3%><b>:</b></td>
-		<td><%=h @average_lecturer.principal.staff_name_with_title %></td>
+		<td><%=h @average_lecturer.principal_id? ? @average_lecturer.principal.staff_name_with_title : "" %><!--20Feb2013--></td>
 	</tr>
 	
 	<tr>
-		<td class="leftcol"><label for="short_name">Date</label></td>
+		<td class="leftcol"><label for="short_name">&nbsp;Date</label></td>
 		<td width=3%><b>:</b></td>
-		<td><%=h @average_lecturer.principal_date.strftime("%d-%b-%Y") %></td>
+		<td><%=h @average_lecturer.principal_date? ? @average_lecturer.principal_date.strftime("%d-%b-%Y") : "" %><!--20Feb2013--></td>
 	</tr>	
 </table>
 <BR>

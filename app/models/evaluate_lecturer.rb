@@ -6,6 +6,8 @@ class EvaluateLecturer < ActiveRecord::Base
   
   has_many :lecturer,       :class_name => 'Averagelecturer', :foreign_key => 'lecturer_id'
   
+  validates_presence_of :evaluate_date, :staff_id #20Feb2013-staff_id added
+  
   def lecturer_evaluate
     if staffevaluate.blank?
       "-"
@@ -58,5 +60,5 @@ class EvaluateLecturer < ActiveRecord::Base
     "#{lecturer_evaluate} | #{course_evaluate} | #{subject_evaluate} "
   end
   
-  validates_presence_of :evaluate_date
+
 end

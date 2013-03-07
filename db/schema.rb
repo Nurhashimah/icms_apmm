@@ -306,7 +306,6 @@ ActiveRecord::Schema.define(:version => 20130227053657) do
   create_table "average_lecturers", :force => true do |t|
     t.integer  "lecturer_id"
     t.integer  "programme_id"
-    t.integer  "lesson_topic"
     t.string   "dissactifaction"
     t.string   "recommend_for_improvement"
     t.string   "summary_evaluation"
@@ -316,6 +315,8 @@ ActiveRecord::Schema.define(:version => 20130227053657) do
     t.date     "principal_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "subject_id"
+    t.integer  "delivery_quality"
   end
 
   create_table "bankaccounts", :force => true do |t|
