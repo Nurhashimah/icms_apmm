@@ -14,6 +14,7 @@ class Topic < ActiveRecord::Base
   
   validates_presence_of    :topic_code, :sequenceno, :name
   validates_uniqueness_of  :sequenceno, :scope => :subject_id, :message => 'This sequence is already taken'
+  validates_presence_of :subject_id
   
   has_many :training_notes, :dependent => :destroy
   accepts_nested_attributes_for :training_notes, :reject_if => lambda { |a| a[:title].blank? }
