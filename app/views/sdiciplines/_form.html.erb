@@ -63,7 +63,7 @@
 	
 	<% if @sdicipline.status == "New" && @sdicipline.warden_id != " "  %>
     <%= render :partial => 'show_report_details' %>
-	<H2>Action By Principal (<%=h @sdicipline.warden.staff_name_with_title %>)</H2>
+	<H2>Action By Principal (<%=h check_kin{ @sdicipline.warden.staff_name_with_title} %>)</H2>
 
 	<table width=100% border=0>		
 		<tr>
