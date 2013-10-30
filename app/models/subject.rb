@@ -1,4 +1,6 @@
 class Subject < ActiveRecord::Base
+  
+  validates_presence_of :subjectcode, :name, :status
  
   #Link to HABTM programme_subject
   has_and_belongs_to_many :programmes
