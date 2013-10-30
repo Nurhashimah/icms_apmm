@@ -1,8 +1,9 @@
 class Student < ActiveRecord::Base
   
-  before_save  :titleize_name
+  #before_save  :titleize_name
 
-  validates_presence_of     :name, :gender, :sbirthdt #freeze - :icno, :stelno, :sbirthdt, :mrtlstatuscd, :sstatus
+  validates_presence_of     :name, :gender, :sbirthdt 
+ #freeze - :icno, :stelno, :sbirthdt, :mrtlstatuscd, :sstatus
  # validates_numericality_of :icno, :stelno
  # validates_length_of       :icno, :is =>12
  # validates_uniqueness_of   :icno
@@ -12,7 +13,7 @@ class Student < ActiveRecord::Base
   has_and_belongs_to_many :klasses
   has_and_belongs_to_many :studentattendances
   
-  attr_accessible :reason
+  #attr_accessible :reason
 
   belongs_to :course,         :class_name => 'Programme', :foreign_key => 'course_id'       #Link to Programme
   belongs_to :intakestudent,  :class_name => 'Intake',    :foreign_key => 'intake_id'       #Link to Model intake
@@ -63,7 +64,7 @@ class Student < ActiveRecord::Base
   end
   
   def age
-    Date.today.year - sbirthdt.year
+    Date.today.year - DateTime.parse(sbirthdt.to_s).year
   end
   
   #group by course
@@ -250,7 +251,7 @@ RANK = [
 ]
     
     def approver_details
-      suid = approve_id.to_a
+      suid = Array(approve_id)
       exists = Staff.find(:all, :select => "id").map(&:id)
       checker = suid & exists
 

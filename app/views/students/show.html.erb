@@ -4,7 +4,7 @@
 		<tr>
 			<td class="leftcol"><%= t 'student.icno' %></td>
 			<td><b>:</b></td>
-			<td><%=h @student.formatted_mykad %></td>
+			<td><%=h check_kin {@student.formatted_mykad} %></td>
 			<td rowspan=10 align=right><% if @student.photo.exists? then %>
 			  <%= image_tag (@student.photo.url, :size => '150x200')%>
 			<% else %>

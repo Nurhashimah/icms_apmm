@@ -1,5 +1,13 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def check_kin
+       begin
+           return yield
+       rescue
+           return " -N/A- "
+       end
+  end
+  
   def ringgols(money)
     number_to_currency(money, :unit => "RM ", :separator => ".", :delimiter => ",", :precision => 2)
   end
