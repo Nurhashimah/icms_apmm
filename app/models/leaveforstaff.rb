@@ -90,19 +90,26 @@ class Leaveforstaff < ActiveRecord::Base
        else
         a = (applicant.staffgrade.name)[-2,4].to_i
        end
-     b = Date.today.year - applicant.appointdt.year
-     if a < 21 && b < 10
+     if a < 21 && years_of_service < 10
        20
-     elsif a < 21 && b > 10
+     elsif a < 21 && years_of_service > 10
        25
-     elsif a < 31 && b < 10
+     elsif a < 31 && years_of_service < 10
        25
-     elsif a < 31 && b > 10
+     elsif a < 31 && years_of_service > 10
        30
-     elsif a > 30 && b < 10
+     elsif a > 30 && years_of_service < 10
        30
      else
        35
+     end
+   end
+   
+   def years_of_service
+     if applicant.appointdt == nil
+       0
+     else
+       Date.today.year - applicant.appointdt.year
      end
    end
   
