@@ -1,5 +1,7 @@
 class Programme < ActiveRecord::Base
   
+  validates_presence_of :code, :name, :specialisation
+  
   #Link to HABTM programme_subject
   has_and_belongs_to_many :subjects
   
