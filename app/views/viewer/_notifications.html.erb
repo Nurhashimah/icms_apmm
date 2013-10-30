@@ -116,16 +116,16 @@
 	<% end %>
 	
 	<!-- Notification for Documents-->
-	<% mydocs = Document.count(:all, :conditions => ["cc1staff_id=? AND cc1action IS ? ", User.current_user.staff_id, nil]) %>
-  	<% if mydocs > 0 %>
-  	<%= mydocs %> <%= link_to "New Documents for Your Attention", { :controller => "documents", :action => "index" } %><br>
+	<% mydocs2 = Document.count(:all, :conditions => ["cc1staff_id=? AND cc1action IS ? ", User.current_user.staff_id, nil]) %>
+  	<% if mydocs2 > 0 %>
+  	<%= mydocs2 %> <%= link_to "New Documents for Your Attention", { :controller => "documents", :action => "index" } %><br>
   	<% else %>
 	<% end %>
 	
 	<!-- Notification for Documents-->
-	<% my_docs = Document.count(:all, :include => :staffs, :conditions => ['staff_id =? AND documents.cc2action IS ?' , User.current_user.staff_id, nil]) %>
+	<% my_docs = Document.count(:all, :conditions => ['stafffiled_id =? AND documents.cc2action IS ?' , User.current_user.staff_id, nil]) %>
   	<% if my_docs > 0 %>
-  	<%= mydocs %> <%= link_to "New Documents for Your Attention", { :controller => "documents", :action => "index" } %><br>
+  	<%= my_docs %> <%= link_to "New Documents for Your Attention", { :controller => "documents", :action => "index" } %><br>
   	<% else %>
 	<% end %>
 	

@@ -1,5 +1,5 @@
 <div class="tform">
-	<% if @sdicipline.status == nil %>
+	<% if @sdicipline.status.blank? %>
 	<H2>Report Details</H2>
   <table width=100% border=0>
 		<tr>
@@ -31,7 +31,7 @@
 		<tr>
 			<td class="leftcol" colspan=2><label for="casedt">Date of Infraction</label></td>
 			<td><b>:</b></td>
-			<td><%= f.datetime_select :casedt, :start_year => 2010, :end_year => 2020, :order => [:day, :month, :year], :include_blank => true  %></td>
+			<td><%= f.datetime_select :casedt, :start_year => 2.years.ago.year, :end_year => Date.today.year, :order => [:day, :month, :year], :include_blank => true  %></td>
 		</tr>
 		
 		<tr>
@@ -62,7 +62,7 @@
 <% end %>
 	
 	<% if @sdicipline.status == "New" && @sdicipline.warden_id != " "  %>
-    <%= render :partial => '_show_report_details' %>
+    <%= render :partial => 'show_report_details' %>
 	<H2>Action By Principal (<%=h @sdicipline.warden.staff_name_with_title %>)</H2>
 
 	<table width=100% border=0>		
@@ -115,7 +115,7 @@
 	
 
 <% if @sdicipline.status == "Refer to Mentor" && @sdicipline.mentor_id != "" || @sdicipline.status == "Refer to Counsellor" && @sdicipline.caunsellor_id != "" || @sdicipline.status == "Refer to Komandan" %> 	
-	<%= render :partial => '_show_report_details' %>
+	<%= render :partial => 'show_report_details' %>
 	<H2>Action By <%=h User.current_user.staff.staff_name_with_title %> </H2>
 	<table width=100% border=0>
 		<tr>

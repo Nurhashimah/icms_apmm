@@ -12,7 +12,7 @@ class Sdicipline < ActiveRecord::Base
   belongs_to :counsellor, :class_name=> 'Position', :foreign_key => 'caunsellor_id'
   has_many :commandant, :class_name => 'Position', :foreign_key => 'commandant_id'
   
-  validates_presence_of :reportedby_id, :student_id, :status
+  validates_presence_of :reportedby_id, :student_id, :status, :infraction, :casedt
    
     def self.find_main
       Staff.find(:all, :condition => ['staff_id IS NULL'])

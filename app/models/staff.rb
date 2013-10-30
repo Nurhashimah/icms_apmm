@@ -283,7 +283,7 @@ class Staff < ActiveRecord::Base
   
   def title_for_staff # 14/12/2011 - Shaliza added code if title blank
     if title.blank?
-      "-"
+      " "
     else
       title.name
     end

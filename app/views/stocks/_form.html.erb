@@ -20,7 +20,7 @@
 	<tr>
 		<td class="leftcol"><label for="app_date">Ordered Date</label></td>
 		<td><b>:</b></td>
-		<td><%= f.date_select :app_date, :start_year => 2010, :end_year => 2020, :order => [:day, :month, :year], :include_blank => true %></td>
+		<td><%= f.date_select :app_date, :start_year => 1.year.ago.year, :end_year => Time.now.year, :order => [:day, :month, :year], :include_blank => true %></td>
 	</tr>
 	
 	<tr>
@@ -34,7 +34,7 @@
 	<tr>	
 		<td class="leftcol"><label for="received_date">Received Date</label></td>
 		<td><b>:</b></td>
-		<td><%= f.date_select :received_date, :start_year => 2011, :end_year => 2020, :order => [:day, :month, :year], :include_blank => true %></td>
+		<td><%= f.date_select :received_date, :start_year => 1.year.ago.year, :end_year => Time.now.year, :order => [:day, :month, :year], :include_blank => true %></td>
 	</tr>
 
 	<% end %>

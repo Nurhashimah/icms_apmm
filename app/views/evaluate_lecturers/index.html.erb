@@ -21,9 +21,9 @@
 
 <% @evaluate_lecturers.each do |evaluate_lecturer| %>
   <tr>
-	<td><%= evaluate_lecturer.student_id.blank? ? "No Student" : evaluate_lecturer.studentevaluate.name %></td>
+	<td><%= evaluate_lecturer.student_id.blank? ? "No Student" : check_kin{evaluate_lecturer.studentevaluate.name} %></td>
 	<!--20Feb2013-subject added-->
-	<td><%= evaluate_lecturer.course_id.blank? ? "No Course" : evaluate_lecturer.stucourse.name+" - "+evaluate_lecturer.subjectevaluate.name %></td>
+	<td><%= evaluate_lecturer.course_id.blank? ? "No Course" : check_kin{evaluate_lecturer.stucourse.name}+" - "+ check_kin{evaluate_lecturer.subjectevaluate.name} %></td>
 	<!--20Feb2013-subject added-->
 	<td ><%= evaluate_lecturer.evaluate_date.blank? ? "-" : evaluate_lecturer.evaluate_date.strftime("%d %b %Y") %></td>
 	<td><%= evaluate_lecturer.staff_id.blank? ? "No Staff" : evaluate_lecturer.staffevaluate.staff_name_with_title %></td>

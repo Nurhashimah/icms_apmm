@@ -12,6 +12,8 @@ before_save :save_my_vars
    
    has_many :supplies
    
+   validates_presence_of :approver_id, :app_date, :status
+   
    def save_my_vars
    self.app_no = (sv).to_s
   end
