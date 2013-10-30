@@ -19,8 +19,8 @@
   <tr>
 	<td><%=h studentattendance.date_attendance.blank? ? "-" : studentattendance.date_attendance.strftime("%d %b %Y") %></td>
   	<td><%=h studentattendance.klass_for_student  %></td>
-  	<td><%=h studentattendance.topic_id.blank? ? "-" : studentattendance.timetable.topic.subject_topic  %></td>	
-	<td><%=h studentattendance.topic_id.blank? ? "-" : studentattendance.timetable.topic.name  %></td>	
+  	<td><%=h check_kin {studentattendance.timetable.topic.subject_topic}  %></td>	
+	<td><%=h check_kin {studentattendance.timetable.topic.name}  %></td>	
     <td width=10px><%= link_to image_tag("document.png", :border => 0, :title => 'Student Attendance Details'), :action => 'show', :id => studentattendance %></td>
     <td width=10px><%= link_to image_tag("edit.png", :border => 0, :title => 'Edit Student Attendance'), :action => 'edit', :id => studentattendance %></td>
     <td width=10px ><%= link_to image_tag("delete.png", :border => 0, :title => 'Delete'), studentattendance, :confirm => 'Are you sure?', :method => :delete %></td>

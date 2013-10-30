@@ -1,4 +1,6 @@
 class Studentattendance < ActiveRecord::Base
+  
+   validates_presence_of :timetable_id
 	 belongs_to :klass, :class_name => "Klass", :foreign_key => 'timetable_id'
 	 belongs_to :timetable
    has_and_belongs_to_many :students

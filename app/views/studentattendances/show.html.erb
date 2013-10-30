@@ -11,13 +11,13 @@
 	<tr>
 		<td class="leftcol"><label for="timetable_id">Subject Name</label></td>
 		<td width=3%><b>:</b></td>
-	    <td><%=h @studentattendance.topic_id.blank? ? "-" : @studentattendance.timetable.topic.subject_topic  %></td>
+	    <td><%=h check_kin{@studentattendance.timetable.topic.subject_topic}  %></td>
 	</tr>
 	
 	<tr>
 		<td class="leftcol"><label for="timetable_id">Topic Name</label></td>
 		<td width=3%><b>:</b></td>
-	    <td><%=h @studentattendance.topic_id.blank? ? "-" : @studentattendance.timetable.topic.name  %></td>
+	    <td><%=h check_kin{@studentattendance.timetable.topic.name}  %></td>
 	</tr>
 	
 	<tr>
