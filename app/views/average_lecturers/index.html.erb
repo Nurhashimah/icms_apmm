@@ -21,11 +21,9 @@
 	 <td><%=h average_lecturer.lecturer.course_evaluate %></td>
 	 <!--20Feb2013-subject added-->
 	 <td><%=h average_lecturer.lecturer.subject_evaluate%></td>
-     <!--20Feb2013-subject added-->
-	 <!--20Feb2013-changed from lesson_topic-->
-	 <td>
-		<%=h (AverageLecturer::CATEGORY.find_all{|disp, value| value == average_lecturer.evaluate_category.to_s}).map {|disp, value| disp} %>		
-	 </td>
+	 <!--20Feb2013-subject added-->
+	 <!--20Feb2013-changed from lesson_topic-->	
+	 <td><%=h (AverageLecturer::CATEGORY.find_all{|disp, value| value == average_lecturer.evaluate_category.to_s}).map {|disp, value| disp} %>		</td>
 	 <!--20Feb2013-changed from lesson_topic-->
 	 <td width=10px ><%= link_to image_tag("printer.png", :border => 0, :title => 'BK-KKM-04-04'), :action => 'average_score', :id => average_lecturer %></td>
 	 <td width=10px ><%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => average_lecturer %></td>	

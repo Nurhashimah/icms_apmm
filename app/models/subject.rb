@@ -32,10 +32,12 @@ class Subject < ActiveRecord::Base
   #links to Model klass
   has_many :subjectclass,    :class_name => 'Klass', :foreign_key => 'subject_id'
   
+  #20Feb2013
+  has_many :subjectaverage, :class_name => 'average_lecturer', :foreign_key => 'subject_id'
+  
   def subject_code_with_subject_name
      "#{subjectcode} - #{name}"
    end
-  
   
     
 STATUS = [

@@ -13,7 +13,7 @@ overflow: hidden;
 position: relative;
 left: 10px;
 top: 8px;
-width: 718px;
+width: 100%;
 overflow: hidden;
 }
 ul.newsticker { /* that's your list */

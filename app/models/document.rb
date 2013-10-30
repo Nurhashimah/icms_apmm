@@ -3,7 +3,7 @@ class Document < ActiveRecord::Base
 #belongs_to :documents, :foreign_key => 'staff_id'
 # has_one :title
 
-has_and_belongs_to_many :staffs
+#has_and_belongs_to_many :staffs ~ MYMN 2013-10-30
 
 validates_presence_of :refno, :category, :title, :letterdt, :letterxdt, :from, :stafffiled_id
 

@@ -42,16 +42,17 @@ class AverageLecturersController < ApplicationController
   # POST /average_lecturers.xml
   def create
     @average_lecturer = AverageLecturer.new(params[:average_lecturer])
-
     respond_to do |format|
-      if @average_lecturer.save
-        flash[:notice] = 'AverageLecturer was successfully created.'
+      if @average_lecturer.save                                                             
+        flash[:notice] = 'AverageLecturer was successfully created.'  
         format.html { redirect_to(@average_lecturer) }
         format.xml  { render :xml => @average_lecturer, :status => :created, :location => @average_lecturer }
       else
+        flash[:error] = 'Data Analysis and Average Score for selected lecturer, course and subject already exist. Please edit/delete accordingly.'    
         format.html { render :action => "new" }
         format.xml  { render :xml => @average_lecturer.errors, :status => :unprocessable_entity }
       end
+      
     end
   end
 

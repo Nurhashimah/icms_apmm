@@ -14,11 +14,6 @@ class Employgrade < ActiveRecord::Base
    def name_and_group
      "#{name} (#{booboo})"
    end
-   
-   #27Feb2013-display total of annual leave
-   def total_leave
-     (Employgrade::ANNUAL_LEAVE.find_all{|disp, value| value == yearly_leave.to_i}).map {|disp, value| disp}
-   end
 
 
    GROUP = [
@@ -26,12 +21,4 @@ class Employgrade < ActiveRecord::Base
         [ "Sokongan", 2 ],
         [ "Bersepadu", 4 ]
    ]
-   
-   #27Feb2013-coded list for annual leave -28Feb2013 changed from yearly to annual
-   ANNUAL_LEAVE = [
-      ["30", 1],
-      ["25", 2],
-      ["20", 3]
-  
-  ]
 end

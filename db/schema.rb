@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130227053657) do
+ActiveRecord::Schema.define(:version => 20131026184634) do
 
   create_table "accessions", :force => true do |t|
     t.integer  "book_id"
@@ -1432,7 +1432,7 @@ ActiveRecord::Schema.define(:version => 20130227053657) do
     t.integer  "race"
     t.integer  "religion"
     t.string   "phonecell"
-    t.boolean  "phonehome"
+    t.string   "phonehome"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"

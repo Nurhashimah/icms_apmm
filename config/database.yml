@@ -4,8 +4,11 @@ development:
   adapter: postgresql
   database: icmsapmm
   host: localhost
+  #### password on tpsbdev server #####
+  #username: teknikpadu
+  #password: tpsb_private
   username: postgres
-  password: password
+  password: maximum8
   encoding: UTF8
 
 # Warning: The database defined as "test" will be erased and

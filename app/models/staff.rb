@@ -7,7 +7,7 @@ class Staff < ActiveRecord::Base
   end
   
   has_and_belongs_to_many :messages
-  has_and_belongs_to_many :documents
+  #has_and_belongs_to_many :documents ~ MYMN 2013-10-30
   
   has_attached_file :photo
   

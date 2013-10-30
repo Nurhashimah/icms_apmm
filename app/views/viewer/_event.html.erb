@@ -18,7 +18,7 @@
 			<% end %>
 			
 			<H3>Recent Events</H3>
-			<% dash_events = Event.find(:all, :conditions => ["eventendt < ? AND eventendt >= ? ", Time.now, 1.days.ago], :order => 'eventendt desc', :limit => 6) %>
+			<% dash_events = Event.find(:all, :conditions => ["eventendt < ? AND eventendt >= ? ", Time.now, 7.days.ago], :order => 'eventendt desc', :limit => 6) %>
 			<% if dash_events == [] %>
 				<div class="sidebar_event_item0">
 					<H5>No events since last week</H5>
