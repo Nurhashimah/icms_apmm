@@ -1,6 +1,7 @@
 authorization do
   
   role :administration do
+    has_omnipotence
     #Staff Menu Items
     has_permission_on :staffs,             :to => [:manage,:borang_maklumat_staff]        #Staff Information
     has_permission_on :attendances,        :to => [:manage, :approve, :kedatangan_harian] #Staff Attendance

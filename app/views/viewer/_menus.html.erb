@@ -1,6 +1,10 @@
+
 <ul class="dropdown">
 <!-- Home Page -->
 <li><%= link_to (t 'menu.home'),  root_url %></li>
+
+<% if logged_in? && current_user.staff_id.blank? && current_user.student_id.blank? %>
+<% else %>
 	
 <!-- Staff Menu -->
 <% permitted_to? :menu, :staffs do %>
@@ -242,6 +246,8 @@
 		</ul>
 	</li>
 	<% end %>
+<% end %>  
+  
 	<!-- Administration Menu -->
 	<% permitted_to? :core, :roles do %>
 	<li><a href="#"><%= t 'menu.admin' %></a>
