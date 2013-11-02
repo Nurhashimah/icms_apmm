@@ -2,7 +2,7 @@ class Ptschedule < ActiveRecord::Base
 
   before_save :varmyass
   belongs_to :ptcourse
-  validates_presence_of :branch
+  validates_presence_of :branch, :coursename
   has_many :ptdos
   
   def bil
@@ -11,39 +11,55 @@ class Ptschedule < ActiveRecord::Base
    
   DUR_TYPE = [
        #  Displayed       stored in db
-       [ "Hours",  1 ],
-       [ "Days",2 ]
+       [ "Hours", 1 ],
+       [ "Days",  8 ]
   ]
   
   
   
   def varmyass
-  self.total_speaker = speaker
-	self.total_meal = meal
-	self.big_total = total
+  self.total_speaker = speaker_calc
+	self.total_meal = meal_calc
+	self.big_total = total_course_value
 #	self.total_speaker_hour = rate_speaker_byhour
   end
-   
-   def speaker
-		allowance_speaker * duration
-   end
-   
-    def rate_speaker_byhour
-		allowance_speaker * rate_speaker
-   end
-   
-   
-   def meal
-		(meals * min_participants) * duration
-   end
-   
-    def total
-		if rate_speaker == nil
-			speaker + meal
-		else
-			rate_speaker_byhour + meal
-		end
-   end
+  
+  def total_course_value
+    speaker_calc + meal_calc
+  end
+  
+  def speaker_calc
+    if rate_speaker == 8
+      speaker_unit_rate * (course_duration_hours/8)
+    else
+      speaker_unit_rate * course_duration_hours
+    end
+  end
+  
+  def meal_calc
+	  (meals * min_participants) * duration_in_course_days
+  end
+  
+  def duration_in_course_days
+    if ((course_duration_hours)/8) < 1
+      1
+    else 
+      (course_duration_hours)/8
+    end
+  end
+  
+  def speaker_unit_rate
+    if allowance_speaker == nil || allowance_speaker == 0
+      0
+    else
+      allowance_speaker
+    end
+  end
+  
+  def course_duration_hours
+    duration * duration_type
+  end
+    
     
     
 def course_name

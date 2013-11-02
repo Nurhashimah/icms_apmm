@@ -21,13 +21,6 @@
 		<td><b>:</b></td>
 		<td><%=h @ptschedule.description %></td>
 	</tr>
-	
-	<tr>
-		<td class="leftcol"><label for="min_participants"><%= t 'ptschedule.participant' %></label></td>
-		<td><b>:</b></td>
-		<td><%=h @ptschedule.min_participants %></td>
-	</tr>
-	
 		
 	<tr>
 		<td class="leftcol"><label for="start"><%= t 'ptschedule.start' %></label></td>
@@ -48,12 +41,14 @@
 		<td colspan=3><table width=70% border=1 cellspacing=0>
 			<tr>
 				<th align="center">Rate</th>
+        <th align="center">Participants</th>
 				<th align="center">Duration</th>
 				<th align="center">Total</th>
 			</tr>
 			<tr>
 				<td align="center"><%=h ringgols(@ptschedule.meals) %></td>
-				<td align="center"><%=h @ptschedule.duration %> <%=h (Ptcourse::DUR_TYPE.find_all{|disp, value| value == @ptschedule.duration_type}).map {|disp, value| disp} %></td>
+        <td align="center"><%=h @ptschedule.min_participants %></td>
+				<td align="center"><%= pluralize(@ptschedule.duration_in_course_days, "day")%></td>
 				<td align="center"><%=h ringgols(@ptschedule.total_meal) %> </td>
 		</table>
 		</td>
@@ -66,14 +61,17 @@
 			<tr>
 				<th align="center">Rate</th>
 				<th align="center">Duration</th>
-				<th align="center">Total (Day)</th>
-				<th align="center">Total (Hour)</th>
+				<th align="center">Total</th>
 			</tr>
 			<tr>
-				<td align="center"><%=h ringgols(@ptschedule.allowance_speaker) %></td>
-				<td align="center"><%=h @ptschedule.duration %> <%=h (Ptcourse::DUR_TYPE.find_all{|disp, value| value == @ptschedule.duration_type}).map {|disp, value| disp} %></td>
-				<td align="center"><% if @ptschedule.rate_speaker == nil %><%=h ringgols(@ptschedule.total_speaker) %> <%else %> - <% end%></td>
-				<td align="center"><%=h ringgols(@ptschedule.total_speaker_hour) %></td>
+				<td align="center">
+          <%=h ringgols(@ptschedule.allowance_speaker) %>
+          <%= if @ptschedule.rate_speaker == 8; "/Day"; else; "/Hour"; end %></td>
+				<td align="center">
+          <%= if @ptschedule.rate_speaker == 8; 
+          pluralize((@ptschedule.course_duration_hours)/8, "day"); else; 
+          pluralize((@ptschedule.course_duration_hours), "hour"); end %></td>
+				<td align="center"><%=h ringgols(@ptschedule.speaker_calc) %></td>
 		</table>
 		</td>
 	</tr>
