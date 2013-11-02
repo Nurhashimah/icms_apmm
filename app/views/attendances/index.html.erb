@@ -30,7 +30,7 @@
 	  <tr>
 		<td><%=h attendance.attdate.blank? ? "-" : attendance.attdate.strftime("%d-%b-%Y") %></td>
 	    <td><%=h attendance.time_in.strftime("%I:%M %p") %></td>
-	    <td><%=h attendance.staffthatattend.staff_name_with_title %></td>
+	    <td><%=h check_kin {attendance.staffthatattend.staff_name_with_title} %></td>
 	    <td><%=h attendance.reason %></td>
 	    <td width=10px><%= link_to image_tag("approval.png", :border => 0, :title => 'Approval'), :action => 'approve', :id => attendance %>
 	  </tr>
@@ -53,7 +53,7 @@
   <tr>
 	  <td><%=h attendance.attdate.blank? ? "-" : attendance.attdate.strftime("%d-%b-%Y") %></td>
     <td><%=h attendance.time_in.strftime("%I:%M %p") %></td>
-    <td><%=h attendance.approve_id.blank? ? "No Staff" : attendance.approvedby.staff_name_with_title %></td>
+    <td><%=h check_kin {attendance.approvedby.staff_name_with_title} %></td>
     <td width=10px ><%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => attendance %></td>
     <td width=10px><%= link_to image_tag("edit.png", :border => 0), :action => 'edit', :id => attendance %></td>
     <% if permitted_to? :destroy, @attendance %>

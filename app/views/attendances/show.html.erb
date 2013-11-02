@@ -6,12 +6,12 @@
 		<tr>
 			<td class="leftcol"><label for="staff_id"><%= t 'attendance.staff_id' %></label></td>
 			<td width=3%><b>:</b></td>
-			<td><%=h @attendance.staffthatattend.staff_name_with_title %></td>	
+			<td><%=h check_kin {@attendance.staffthatattend.staff_name_with_title} %></td>	
 		</tr>
 		<tr>
 			<td class="leftcol"><%= t 'staff.position' %>:</td>
 			<td><b>:</b></td>
-			<td><%=h @attendance.staffthatattend.position_for_staff %></td>	
+			<td><%=h check_kin {@attendance.staffthatattend.position_for_staff} %></td>	
 		</tr>
 	</table>
 	<table width=100%>
@@ -45,7 +45,7 @@
 	<tr>
 		<td class="leftcol"><label for="approve_id"><%= t 'attendance.approve_id' %></label></td>
 		<td><b>:</b></td>
-		<td><%=h @attendance.approve_id.blank? ? "No Staff" : @attendance.approvedby.staff_name_with_position %></td>
+		<td><%=h check_kin {@attendance.approvedby.staff_name_with_position} %></td>
     </tr>
 
 	<tr>
