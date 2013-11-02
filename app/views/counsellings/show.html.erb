@@ -4,17 +4,17 @@
 		
 			<td class="leftcol"><label for="icno">IC No</label></td>
 			<td width=3%><b>:</b></td>
-			<!--<td><#%=h @counselling.student.icno %></td>-->
+			<td><%=h check_kin {@counselling.student.icno} %></td>
 		</tr>
 		<tr>
 			<td class="leftcol"><label for="matrixno">Matrix No:</label></td>
 			<td><b>:</b></td>
-			<!--<td><#%=h @counselling.student.matrixno %></td>-->
+			<td><%=h check_kin {@counselling.student.matrixno} %></td>
 		</tr>
 		<tr>
 			<td class="leftcol"><label for="name">Student Name:</label></td>
 			<td><b>:</b></td>
-			<td><%=h @counselling.student_details %></td>
+			<td><%=h check_kin{@counselling.student_details} %></td>
 		</tr>
 		<tr>
 			<td class="leftcol"><label for="fileno">File Name:</label></td>
