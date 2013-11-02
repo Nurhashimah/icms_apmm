@@ -46,9 +46,9 @@
 				
     <tr>
 		<td align="center"><%=h bil %></td>	
-		<td ><%= evaluate_coach.staff_id.blank? ? "No Staff" : evaluate_coach.staffcoachev.staff_name_with_title %></td>	
+		<td ><%= check_kin {evaluate_coach.staffcoachev.staff_name_with_title} %></td>	
 		<td align="center"><%= evaluate_coach.subject_id.blank? ? "No Subject" : evaluate_coach.subject.name %></td>
-		<td align="center" ><%= evaluate_coach.evaluate_date.strftime("%d-%b-%Y") %></td>
+		<td align="center" ><%= check_kin{evaluate_coach.evaluate_date.strftime("%d-%b-%Y")} %></td>
 		<td align="center"> <%= evaluate_coach.result %></td>
 		<td align="center"><%=h evaluate_coach.status_eva %></td>
 	
