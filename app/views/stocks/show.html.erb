@@ -10,7 +10,7 @@
 	<tr>
 		<td class="leftcol"><label for="staff_id">Staff Name</label></td>
 		<td width=2%><b>:</b></td>
-		<td><%=h @stock.applicant.staff_name_with_title %></td>
+		<td><%=h check_kin {@stock.applicant.staff_name_with_title} %></td>
 	</tr>
 	
 	<tr>
@@ -70,7 +70,7 @@
 	<tr>
 		<td class="leftcol"><label for="app_no">Approving Officer</label></td>
 		<td><b>:</b></td>
-		<td><%=h @stock.approver.staff_name_with_title %></td>
+		<td><%=h check_kin {@stock.approver.staff_name_with_title} %></td>
 	</tr>
 </table>
 	<% if @stock.status == 2 || @stock.status == 3 %>
@@ -116,7 +116,7 @@
 			<tr>
 				<td class="leftcol"><label for="app_date">Store Officer</label></td>
 				<td><b>:</b></td>
-				<td><%=h @stock.storeman_id.blank? ? "-" : @stock.storeman.staff_name_with_title %></td>
+				<td><%=h check_kin {@stock.storeman.staff_name_with_title} %></td>
 			</tr>
 </table>
 <% end %>
@@ -164,7 +164,7 @@
 			
 			<tr>
 				<td class="leftcol"><label for="app_date">Store Officer</label></td>
-				<td><%=h @stock.storeman.staff_name_with_title %></td>
+				<td><%=h check_kin {@stock.storeman.staff_name_with_title} %></td>
 			</tr>
 </table>
 <H2>Store Officer</H2>
