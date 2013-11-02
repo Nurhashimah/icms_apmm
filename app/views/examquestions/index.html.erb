@@ -42,7 +42,7 @@
 		 <!-- <td><%=h examquestion.category %></td>-->
 		  <td><%=h examquestion.render_difficulty %></td>
 	    <td><%=h examquestion.qstatus %></td>
-	    <td><%=h examquestion.creator_id? ? examquestion.creator_details : "" %></td>
+	    <td><%=h check_kin {examquestion.creator.staff_name_with_title} %></td>
 	    <td width=10px><% if permitted_to? :show, examquestion %><%= link_to image_tag("document.png", :border => 0, :title => 'Show'), :action => 'show', :id => examquestion %><%end%></td>
 	    <td width=10px><% if permitted_to? :update, examquestion %><%= link_to image_tag("edit.png", :border => 0, :title => 'Edit'), :action => 'edit', :id => examquestion %><%end%></td>
 	    <td width=10px><% if permitted_to? :destroy, examquestion %><%= link_to image_tag("delete.png", :border => 0, :title => 'Delete'), examquestion, :confirm => 'Are you sure?', :method => :delete %><% end %></td>

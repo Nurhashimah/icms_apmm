@@ -1,9 +1,9 @@
 class Examquestion < ActiveRecord::Base
  
-  belongs_to :creator,       :class_name => 'Staff', :foreign_key => 'creator_id'
-  belongs_to :approverqc,       :class_name => 'Position', :foreign_key => 'approver_id'
-  belongs_to :editor,       :class_name => 'Position', :foreign_key => 'editor_id'
-  belongs_to :subject,       :class_name => 'Subject', :foreign_key => 'curriculum_id'
+  belongs_to :creator,     :class_name => 'Staff', :foreign_key => 'creator_id'
+  belongs_to :approverqc,  :class_name => 'Position', :foreign_key => 'approver_id'
+  belongs_to :editor,      :class_name => 'Position', :foreign_key => 'editor_id'
+  belongs_to :subject,     :class_name => 'Subject', :foreign_key => 'curriculum_id'
   belongs_to :topic
 
   has_and_belongs_to_many :exammakers
@@ -104,21 +104,8 @@ class Examquestion < ActiveRecord::Base
          end
     end
    
-     def creator_details 
-           suid = creator_id.to_a
-           exists = Staff.find(:all, :select => "id").map(&:id)
-           checker = suid & exists     
-
-           if creator_id == nil
-              "" 
-            elsif checker == []
-              "Staff No Longer Exists" 
-           else
-             creator.staff_name_with_title
-           end
-      end
       
-       
+
         
         def approver_details 
                suid = approver_id.to_a
