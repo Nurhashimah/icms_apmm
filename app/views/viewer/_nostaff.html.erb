@@ -1,12 +1,10 @@
 <div class="alert-box warning">
   <span>warning: </span><BR/>
   Your user account is currently not associated with and staff or student record.  
-  <% permitted_to? :create, :users do %>
     
-  <% end %>
   
   
-  <% if current_user.roles(:authname => 'administration').present? %>
+  <% if current_user.roles.include?(2) %>
     Please click <%= link_to "here", :action => 'edit', :id => current_user %> to edit your account and associate a user.
   <% else %>
     Please contact your ICMS system administrator.<BR/>
