@@ -27,8 +27,8 @@
 	<% for grade in grades %>
 
   <tr class="<%= (check_kin{grade.set_row_color}) %>">
-    <td><%=h grade.student_details %></td>
-    <td><%=h grade.subject_id.blank? ? "" : grade.subject_details %></td>
+    <td><%=h check_kin {grade.student_details} %></td>
+    <td><%=h check_kin {grade.subject_details} %></td>
    <!-- <td><#%=h grade.sent_to_BPL %></td>-->
     <td><%=h grade.sent_date.blank? ? "-" : grade.sent_date.strftime("%d-%b-%Y") %></td>
     <td><%=h grade.total_formative %>%</td>
