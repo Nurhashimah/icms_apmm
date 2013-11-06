@@ -74,11 +74,15 @@ class Student < ActiveRecord::Base
   end
   
   def formatted_mykad
-    "#{icno[0,6]}-#{icno[6,2]}-#{icno[-4,4]}"
+    if icno.blank?
+      "-"
+    else
+      "#{icno[0,6]}-#{icno[6,2]}-#{icno[-4,4]}"
+    end
   end
   
   def formatted_mykad_and_student_name
-    " #{formatted_mykad} #{name}" 
+     "#{formatted_mykad} #{name}" 
   end
   
   def student_name_with_programme
