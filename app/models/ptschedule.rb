@@ -2,7 +2,7 @@ class Ptschedule < ActiveRecord::Base
 
   before_save :varmyass
   belongs_to :ptcourse
-  validates_presence_of :branch, :coursename
+  validates_presence_of :branch, :coursename, :duration, :duration_type,:meals,:min_participants
   has_many :ptdos
   
   def bil

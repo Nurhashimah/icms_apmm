@@ -2,13 +2,15 @@
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
   adapter: postgresql
-  database: icmsapmm
+  database: icmsapmm2
   host: localhost
   #### password on tpsbdev server #####
   #username: teknikpadu
   #password: tpsb_private
+  #username: postgres
+  #password: maximum8
   username: postgres
-  password: maximum8
+  password: password
   encoding: UTF8
 
 # Warning: The database defined as "test" will be erased and

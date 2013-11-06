@@ -31,8 +31,10 @@
     
 	<tr>
 	  
-	   <td><%=h librarytransaction.isbn_details %></td>
-	   <td><%=h librarytransaction.title_details %></td>
+	   <td><%#=h librarytransaction.isbn_details %>
+			<%=h check_kin {librarytransaction.isbn_details} %></td>
+	   <td><%#=h librarytransaction.title_details %>
+			<%=h check_kin {librarytransaction.title_details} %></td>
 	   <td><%=h librarytransaction.ru_staff? ?  librarytransaction.staff_details : librarytransaction.student_details %></td>
 	   <td><%=h librarytransaction.checkoutdate.strftime('%d %b %Y') %></td>
 	   <td><%=h librarytransaction.returnduedate.strftime('%d %b %Y') %><!--<#%=h librarytransaction.extoond  %>--></td>

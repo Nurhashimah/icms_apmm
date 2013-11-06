@@ -119,7 +119,8 @@ def staff_details
        elsif checker == []
          "-"
        else
-         accession.accession_book
+         accession.book.title
+         #accession.accession_book
        end
      end
     
