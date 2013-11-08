@@ -161,6 +161,7 @@ en:
     name: Name
     create: Create New Staff
     position: Position  #move to position when ready
+    title: Title
 
     personal_details: Personal Details
     code: Staff Code

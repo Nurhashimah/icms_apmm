@@ -17,6 +17,7 @@
   	<tr>
 		<th width=2%>Bil</th>
     	<th width=13%><%= t 'staff.icno' %></th>
+		<th width=13%><%= t 'staff.title' %></th>
 		<th width=30%><%= t 'staff.name' %></th>
 		<th width=25%><%= t 'staff.position' %></th>
 		<th width=25%>Unit</th>
@@ -30,7 +31,8 @@
     <tr>
 	    <td align="center"><%=h bil %></td>
         <td><%=h staff.formatted_mykad %></td>
-        <td><%=h staff.title_for_staff %> <%=h staff.name %></td>
+        <td><%=h staff.title_for_staff %></td>
+		<td><%=h staff.name %></td>
         <td><%=h staff.position.blank? ? "-" : staff.position.positionname %></td>
 	    <td><%=h staff.position.blank? ? "-" : staff.position.unit %></td>
         <td width=10px><%= link_to image_tag("document.png", :border => 0, :title => 'Show'), :action => 'show', :id => staff %></td>   

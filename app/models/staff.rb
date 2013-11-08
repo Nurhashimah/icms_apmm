@@ -518,7 +518,7 @@ class Staff < ActiveRecord::Base
      if search
       @staff = Staff.find(:all, :conditions => ["icno LIKE ? or name ILIKE ?", "%#{search}%","%#{search}%"])
      else
-      @staff = Staff.find(:all,  :include => [:title], :order => 'titles.id ASC')
+      @staff = Staff.find(:all, :order => 'name ASC')
      end
   end
  
