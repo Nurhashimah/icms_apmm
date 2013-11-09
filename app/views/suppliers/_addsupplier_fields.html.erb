@@ -19,7 +19,7 @@
 		</tr>
 		
 		<tr>
-			<td class="leftcol"><label for="addressbook_id">Received By</label></td>
+			<td class="leftcol"><label for="addressbook_id">Received From</label></td>
 			<td><b>:</b></td>
 			<td> <%= f.collection_select :addressbook_id, Addbook.find(:all), :id, :name, :include_blank => true %></td>
 		</tr>

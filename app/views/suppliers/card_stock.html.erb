@@ -62,7 +62,7 @@
 			
 				<td><%=h addsupplier.received.blank? ? "-" : addsupplier.received.strftime("%d-%b-%Y") %> </td>
 				<td><%=h addsupplier.lpono %> </td>
-				<td><%=h addsupplier.addsupp.name %> </td>
+				<td><%=h check_kin {addsupplier.addsupp.name} %> </td>
 				<td align="center"><%=h addsupplier.quantity %> <%=h addsupplier.supplier.unittype %> </td>
 			
 			
