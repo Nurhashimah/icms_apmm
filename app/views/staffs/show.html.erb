@@ -17,7 +17,7 @@
 		<% end %></td>
 		</tr>
 		<tr>
-			<td width=23% colspan=2><label for="icno"><font size=2>&nbsp;<%= t 'staff.icno' %></font></label></td>
+			<td width=23% colspan=2><label for="icno"><font size=2><%= t 'staff.icno' %></font></label></td>
 			<td><b>:</b></td>
 			<td><%=h @staff.formatted_mykad %></td>
 		</tr>
@@ -162,7 +162,7 @@
 	<H2><%= t 'staff.employment_details' %></H2>
 	<table width=100% >	
 		<tr>
-			<td width=23% colspan=2><label for="staffgrade_id"><font size=2>&nbsp;<%= t 'staff.staffgrade_id' %></font></label></td>
+			<td width=23% colspan=2><label for="staffgrade_id"><font size=2><%= t 'staff.staffgrade_id' %></font></label></td>
 			<td width=3%><b>:</b></td>
 			<td><%=h @staff.staffgrade_id.blank? ? "" : @staff.staffgrade.name_and_group %></td>
 		</tr>
@@ -286,7 +286,7 @@
 <H2><%= t 'staff.finance' %></H2>
 	<table width=100%>
 			<tr>
-			  <td width=23% colspan=2><label for="kwspcode">&nbsp;<%= t 'staff.kwspcode' %></label></td>
+			  <td width=23% colspan=2><label for="kwspcode"><%= t 'staff.kwspcode' %></label></td>
 			  <td><b>:</b></td>
 			  <td><%=h @staff.kwspcode %></td>
 			</tr>

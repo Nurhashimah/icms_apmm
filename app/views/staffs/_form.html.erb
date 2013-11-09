@@ -4,7 +4,7 @@
 	<table width=100% >
 	
 		<tr>
-			<td  width=23%><label for="icno"><font size=2>&nbsp;<%= t 'staff.icno' %></font></label><font color="red"> * </font></td>
+			<td  width=23%><label for="icno"><font size=2><%= t 'staff.icno' %></font></label><font color="red"> * </font></td>
 			<td><b>:</b></td>
 			<td><%= f.text_field :icno, :size => 12 %><font color="grey", size="-2"> Fill MyCardNo Without (-) </font></td>
 		<tr>
@@ -106,7 +106,7 @@
 
 	<table width=100%>
 		<tr>
-			<td width=23%><font size=2>&nbsp;Vehicle Reg No</font></td>
+			<td width=23%><font size=2>Vehicle Reg No</font></td>
 			<td width=2%><b>:</b></td>
 			<td>
 			<% f.fields_for :vehicleregnos do |builder| %>
@@ -120,7 +120,7 @@
 <table width=100%>
 		
 		<tr>
-			<td width=23%><label for="upload">&nbsp;<%= t 'staff.upload' %></label></td>
+			<td width=23%><label for="upload"><%= t 'staff.upload' %></label></td>
 			<td width=2%><b>:</b></td>
 			<td><%= f.file_field :photo %></td></tr>
 </table>
@@ -128,7 +128,7 @@
 
 <table  width=100% >
 		<tr>
-			<td width=23% colspan=2><label for="staffgrade_id"><font size=2>&nbsp;<%= t 'staff.staffgrade_id' %></font></label><font color="red"> * </font></td>
+			<td width=23% colspan=2><label for="staffgrade_id"><font size=2><%= t 'staff.staffgrade_id' %></font></label><font color="red"> * </font></td>
 			<td><b>:</b></td>
 			<td><%= f.collection_select :staffgrade_id, Employgrade.find(:all, :order => 'id'), :id, :name_and_group, :include_blank => true %></td>
 		</tr>
