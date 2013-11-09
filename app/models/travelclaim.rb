@@ -50,7 +50,19 @@ class Travelclaim < ActiveRecord::Base
   def mo_mileage
     gettcr = Travelclaimrequest.find(:all, :conditions => ["travelclaim_id = ?", id], :select => :id).map(&:id)
     getkm = Traveldetail.find(:all, :conditions => ["travelclaimrequest_id IN (?)", gettcr], :select => :distance).map(&:distance)
-    getkm.inject(:+)
+    
+    gkm=0
+    if getkm.include?(nil)
+        0.upto(getkm.size-1) do |count|
+          if getkm[count]!= nil
+            gkm += getkm[count] 
+          end
+        end  
+        return gkm
+    else
+      return getkm.inject(:+)
+    end
+    
   end
   
   def km500

@@ -25,25 +25,25 @@
 			 <th colspan=2><center><b>MAKLUMAT PEGAWAI<b></center></th>
 		</tr>
 		<tr>
-			<td colspan=2>Nama (Huruf Besar) : <%=h @travelclaim.staff.staff_name_with_title %></td>
+			<td colspan=2>Nama (Huruf Besar) : <%=h check_kin {@travelclaim.staff.staff_name_with_title}  %></td>
 		</tr>
 		<tr>
-			<td colspan=2>No. Kad Pengenalan : <%=h @travelclaim.staff.formatted_mykad %></td>
+			<td colspan=2>No. Kad Pengenalan : <%=h check_kin {@travelclaim.staff.formatted_mykad} %></td>
 		</tr>
 		<tr>
-			<td colspan=2>Nama & No. Akaun Bank : <%=h @travelclaim.staff.my_bank %> <%=h @travelclaim.staff.bankaccno %></td>
+			<td colspan=2>Nama & No. Akaun Bank : <%=h check_kin {@travelclaim.staff.my_bank} %> <%=h check_kin {@travelclaim.staff.bankaccno} %></td>
 		</tr>
 		<tr>
-			<td colspan=2>No. Tel. Bimbit & Alamat E-Mail : <%=h @travelclaim.staff.phonecell %> / <%=h @travelclaim.staff.coemail %></td>
+			<td colspan=2>No. Tel. Bimbit & Alamat E-Mail : <%=h check_kin {@travelclaim.staff.phonecell}  %> / <%=h check_kin {@travelclaim.staff.coemail} %></td>
 		</tr>
 		<tr>
-			<td colspan=2>Gred/Kategori/Kumpulan (*) : <%=h @travelclaim.staff.staffgrade.name_and_group %> </td>
+			<td colspan=2>Gred/Kategori/Kumpulan (*) : <%=h check_kin {@travelclaim.staff.staffgrade.name_and_group} %> </td>
 		</tr>
 		<tr>
-			<td colspan=2>Jawatan : <%=h @travelclaim.staff.position.positionname %></td>
+			<td colspan=2>Jawatan : <%=h check_kin {@travelclaim.staff.position.positionname} %></td>
 		</tr>
 		<tr>
-			<td colspan=2>Unit : <%=h @travelclaim.staff.position.unit %></td>
+			<td colspan=2>Unit : <%=h check_kin {@travelclaim.staff.position.unit} %></td>
 		</tr>
 		<tr>
 			<td rowspan=3>Pendapatan (RM) :</td>
@@ -111,9 +111,9 @@
 			<% for travelclaimrequest in @travelclaim.travelclaimrequests %>
 			<tr align="center">
 				<td colspan="6">
-						<b><%=h travelclaimrequest.travelrequest.purpose %>
-						<%=h travelclaimrequest.travelrequest.destination %>
-						<%=h travelclaimrequest.travelrequest.trcode %></b>
+						<b><%=h check_kin {travelclaimrequest.travelrequest.purpose} %>
+						<%=h check_kin {travelclaimrequest.travelrequest.destination} %>
+						<%=h check_kin {travelclaimrequest.travelrequest.trcode} %></b>
 				</td>
 			</tr>
 			
@@ -140,39 +140,39 @@
 			</tr>
 			<tr>
 				<td>500 km pertama</td>
-				<td align=right><!--<#%= @travelclaim.km500 %>--></td>
+				<td align=right><%= check_kin {@travelclaim.km500} %></td>
 				<td>km x </td>
-				<td align=right><%= @travelclaim.sen_per_km500 %></td>
+				<td align=right><%= check_kin {@travelclaim.sen_per_km500} %></td>
 				<td>sen/km :</td>
-				<td align=right width=100><!--<#%= ringgols(@travelclaim.value_km500) %>--></td>
+				<td align=right width=100><%= check_kin {ringgols(@travelclaim.value_km500)} %></td>
 			</tr>
 			<tr>
 				<td>501 km - 1,000 km</td>
-				<td align=right><!--<#%= @travelclaim.km1000 %>--></td>
+				<td align=right><%= check_kin {@travelclaim.km1000} %></td>
 				<td>km x </td>
-				<td align=right><!--<%= @travelclaim.sen_per_km1000 %>--></td>
+				<td align=right><%= check_kin {@travelclaim.sen_per_km1000} %></td>
 				<td>sen/km :</td>
-				<td align=right><!--<#%= ringgols(@travelclaim.value_km1000) %>--></td>
+				<td align=right><%= check_kin {ringgols(@travelclaim.value_km1000)} %></td>
 			</tr>
 			<tr>
 				<td>1,001 km - 1,700 km</td>
-				<td align=right><!--<#%= @travelclaim.km1700 %>--></td>
+				<td align=right><%=  check_kin {@travelclaim.km1700} %></td>
 				<td>km x </td>
-				<td align=right><!--<#%= @travelclaim.sen_per_km1700 %>--></td>
+				<td align=right><%=  check_kin {@travelclaim.sen_per_km1700} %></td>
 				<td>sen/km :</td>
-				<td align=right><!--<#%= ringgols(@travelclaim.value_km1700) %>--></td>
+				<td align=right><%=  check_kin {ringgols(@travelclaim.value_km1700)} %></td>
 			</tr>
 			<tr>
 				<td>1,701 km dan seterusnya</td>
-				<td align=right><!--<#%= @travelclaim.kmmo %>--></td>
+				<td align=right><%=  check_kin {@travelclaim.kmmo} %></td>
 				<td>km x </td>
-				<td align=right><!--<#%= @travelclaim.sen_per_kmmo %>--></td>
+				<td align=right><%=  check_kin {@travelclaim.sen_per_kmmo} %></td>
 				<td>sen/km :</td>
-				<td align=right><!--<#%= ringgols(@travelclaim.value_kmmo) %>--></td>
+				<td align=right><%=  check_kin {ringgols(@travelclaim.value_kmmo)} %></td>
 			</tr>
 			<tr>
 				<td colspan=5 align=right><strong>Jumlah</strong></td>
-				<td align=right><strong><!--<#%= ringgols(@travelclaim.value_km) %>--></strong></td>
+				<td align=right><strong><%=  check_kin {ringgols(@travelclaim.value_km)} %></strong></td>
 			</tr>
 
 
@@ -239,7 +239,7 @@
 			<td width=20 align="center"><%= travelallowance.no_of_day %></td>
 			<td>x Elaun Makan sebanyak</td>
 			<td><%= ringgols(travelallowance.allowance_per_day) %>/Hari</td>
-			<td width=100 align="right"><%= ringgols(travelallowance.meal) %></td>
+			<td width=100 align="right"><%= check_kin {ringgols(travelallowance.meal)} %></td>
 		</tr>
 		<% end %>
 		
@@ -257,7 +257,7 @@
 			<td align="center"><%= travelallowance.no_of_day %></td>
 			<td>x Elaun Harian sebanyak</td>
 			<td><%= ringgols(travelallowance.allowance_per_day) %>/Hari</td>
-			<td align="right"><%= ringgols(travelallowance.daily) %></td>
+			<td align="right"><%= check_kin {ringgols(travelallowance.daily)} %></td>
 		</tr>
 		<% end %>
 	
@@ -282,7 +282,7 @@
 			<td align="center"><%= travelallowance.no_of_day %></td>
 			<td>x Elaun Lojing Sebanyak</td>
 			<td><%= ringgols(travelallowance.allowance_per_day) %>/Hari </td>
-			<td align="right"><%= ringgols(travelallowance.lodging) %></td>
+			<td align="right"><%= check_kin {ringgols(travelallowance.lodging)} %></td>
 		</tr>
 		<% end %>	
 		
@@ -291,7 +291,7 @@
 			<td align="center"><%= travelallowance.no_of_day %></td>
 			<td>x Sewa Hotel [No Resit: ]</td>
 			<td><%= ringgols(travelallowance.allowance_per_day) %>/Hari </td>
-			<td align="right"><%= ringgols(travelallowance.hotel) %></td>
+			<td align="right"><%= check_kin{ringgols(travelallowance.hotel) } %></td>
 		</tr>
 		<% end %>
 		<tr>
