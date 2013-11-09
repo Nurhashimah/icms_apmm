@@ -115,7 +115,8 @@ class Exammaker < ActiveRecord::Base
          		  @questions_available << mcqq_meqq.id 
          	  end
        	  end
-         	errors.add(:examquestion_ids, " was not selected. Upon new selection, previous record of question will be 
+       	  #:examquestion_ids
+         	errors.add(:question, " was not selected. Upon new selection, previous record of question will be 
          	replaced.") if (examquestion_ids & @questions_available).count==0  #compare array with another array 
          end
 
