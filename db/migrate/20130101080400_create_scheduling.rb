@@ -1,4 +1,4 @@
-class CreateAdmin < ActiveRecord::Migration
+class CreateScheduling < ActiveRecord::Migration
   def self.up
     create_table :intakes do |t|
       t.string   :name

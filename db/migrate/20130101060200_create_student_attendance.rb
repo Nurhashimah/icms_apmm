@@ -1,4 +1,4 @@
-class CreateLeave < ActiveRecord::Migration
+class CreateStudentAttendance < ActiveRecord::Migration
   def self.up
     create_table :studentattendances do |t|
       t.integer  :timetable_id
