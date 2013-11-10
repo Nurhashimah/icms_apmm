@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20131026184634) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  
 
   create_table "assetnums", :force => true do |t|
     t.integer  "asset_id"
@@ -237,7 +238,7 @@ ActiveRecord::Schema.define(:version => 20131026184634) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
+    
   create_table "assets", :force => true do |t|
     t.string   "assetcode"
     t.string   "cardno"
@@ -1220,7 +1221,7 @@ ActiveRecord::Schema.define(:version => 20131026184634) do
   end
 
   add_index "residences", ["ancestry"], :name => "index_residences_on_ancestry"
-
+## Done
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -1619,7 +1620,7 @@ ActiveRecord::Schema.define(:version => 20131026184634) do
     t.datetime "photo_updated_at"
     t.integer  "intake_id"
   end
-
+## Done
   create_table "subjects", :force => true do |t|
     t.string   "subjectcode"
     t.string   "name"
@@ -1629,6 +1630,7 @@ ActiveRecord::Schema.define(:version => 20131026184634) do
     t.integer  "status"
     t.integer  "semester"
   end
+
 
   create_table "suppliers", :force => true do |t|
     t.string   "supplycode"
@@ -1786,7 +1788,7 @@ ActiveRecord::Schema.define(:version => 20131026184634) do
     t.integer  "appraosal_id"
     t.integer  "appraisal_id"
   end
-
+## Done
   create_table "travelallowances", :force => true do |t|
     t.integer  "travelclaim_id"
     t.integer  "allowance_type"
