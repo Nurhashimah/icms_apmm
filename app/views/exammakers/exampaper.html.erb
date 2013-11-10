@@ -89,79 +89,94 @@
 <BR>
 <div id="title" width=21cm>
 <table width=90% border="0" cellspacing="0" cellpadding="0" align="center">
-	
-		<tr>
-			<td width="7%"  style="vertical-align:middle"></td>
-			<td with="50%" style="vertical-align:middle"></td>
-			<td width="15%"></td>
-	    </tr>
-	
-    	<% bil = 0 %>
-	  	<% for examquestion in @exammaker.examquestions %>
+	<tr>
+		<td width="7%"  style="vertical-align:middle"></td>
+		<td with="50%" style="vertical-align:middle"></td>
+		<td width="15%"></td>
+	</tr>
+	<% objmarks=Examquestion.sum(:marks,:joins=>:exammakers, :conditions => ["exammaker_id=? and questiontype=?", @exammaker.id, 'OBJ']).to_i %>
+	<% trmarks=Examquestion.sum(:marks,:joins=>:exammakers, :conditions => ["exammaker_id=? and questiontype=?", @exammaker.id, 'TF']).to_i %>
+	<% mcqmarks=Examquestion.sum(:marks,:joins=>:exammakers, :conditions => ["exammaker_id=? and questiontype=?", @exammaker.id, 'MCQ']).to_i %>
+	<% essaymarks=Examquestion.sum(:marks,:joins=>:exammakers, :conditions => ["exammaker_id=? and questiontype=?", @exammaker.id, 'ESSAY']).to_i %>
+    <% bil = 0 %>
+	<% no=0 %>
+	<% for examquestion in @exammaker.examquestions.obj %>
 		<% bil += 1 %>
-		
-		<% if examquestion.questiontype == 'OBJ'  %> 
-	 		<tr>
-				<td colspan=2><font face="arial"><b>BAHAGIAN I - OBJEKTIF ( 2 MARKAH )</b></font></td>
-			</tr>
-			<tr>
-				<td colspan=2>&nbsp;</td>
-			</tr>
-			<tr>
+		<% if no==0 %>
+		<tr>
+			<td colspan=2><font face="arial"><b>BAHAGIAN I - OBJEKTIF ( <%=objmarks%> MARKAH )</b></font></td>
+		</tr>
+		<% end %><% no+=1 %>
+		<tr>
+			<td colspan=2>&nbsp;</td>
+		</tr>
+		<tr>
 			<td valign="top"><font size=3><%=h bil %></font></td>
 			<td><font size=3><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %>  <BR><BR> 
-			   <%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br) ) %> </font><BR><BR></td>
-		    </tr>
-		<% end %>
-		
-			<% if examquestion.questiontype == 'TF'%>
-			 	<tr>
-					<td colspan=2><font face="arial"><b>BAHAGIAN II - BETUL ATAU SALAH ( 2 MARKAH )</b></font></td>
-				</tr>
-				<tr>
-					<td colspan=2>&nbsp;</td>
-				</tr>
-				<tr>
-					<td valign="top"><font size=3><%=h bil %></font></td>
-					<td><font size=3><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %>  <BR><BR>
-					<%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br) ) %> </font><BR><BR></td>
-				</tr>
-			<% end %>
-		
-		<% if examquestion.questiontype == 'MCQ'  %> 
-			<tr>
-				<td colspan=2><font face="arial"><b>BAHAGIAN III - PELBAGAI PILIHAN ( 2 MARKAH )</b></font></td>
-			</tr>
-			<tr>
-				<td colspan=2>&nbsp;</td>
-			</tr>
-			<tr>
-				<td valign="top"><font size=3><%=h bil %></font></td>
-				<td><font size=3><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %>  <BR> 
-						<% for exammcqanswer in examquestion.exammcqanswers %>
-						&nbsp; <%=h exammcqanswer.sequence %> &nbsp; &nbsp; - &nbsp;  <%=h exammcqanswer.answer %><BR>
-						<% end %><BR>
-						<%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br) ) %> </font><BR><BR ></td>
-			</tr>
-		<% end %>
-
-		<% if examquestion.questiontype == 'ESSAY'  %> 
-			<tr>
-				<td colspan=2><font face="arial"><b>BAHAGIAN IV - ESEI</b></font></td>
-			</tr>
-			<tr>
-				<td colspan=2>&nbsp;</td>
-			</tr>
-			<tr>
-				<td valign="top"><font size=3><%=h bil %></font></td>
-				<td><font size=3><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %><BR> 
-					<% for examsubquestion in examquestion.examsubquestions %>
-					<%=h examsubquestion.sequence %>  <%=h examsubquestion.question %>
-					<%=raw sanitize(simple_format(examsubquestion.answer), :tags => %w(br p) ) %><% end %></font></td>
-			</tr>
-		<% end %>	
-		<% end %>
+				<%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br) ) %> </font><BR><BR></td>
+		</tr>
+	<% end %>
+	<% no2=0 %>
+	<% for examquestion in @exammaker.examquestions.tf %>
+		<% bil += 1 %>
+		<% if no2==0%>
+		<tr>
+			<td colspan=2><font face="arial"><b>BAHAGIAN II - BETUL ATAU SALAH ( <%=trmarks%> MARKAH )</b></font></td>
+		</tr>
+		<% end %><% no2+=1 %>
+		<tr>
+			<td colspan=2>&nbsp;</td>
+		</tr>
+		<tr>
+			<td valign="top"><font size=3><%=h bil %></font></td>
+			<td><font size=3><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %>  <BR><BR>
+				<%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br) ) %> </font><BR><BR></td>
+		</tr>
+	<% end %>
+	<% no3=0 %>
+	<% for examquestion in @exammaker.examquestions.mcq %>
+		<% bil += 1 %>
+		<% if no3==0%>
+		<tr>
+			<td colspan=2><font face="arial"><b>BAHAGIAN III - PELBAGAI PILIHAN ( <%=mcqmarks%> MARKAH )</b></font></td>
+		</tr>
+		<% end %><% no3+=1 %>
+		<tr>
+			<td colspan=2>&nbsp;</td>
+		</tr>
+		<tr>
+			<td valign="top"><font size=3><%=h bil %></font></td>
+			<td><font size=3><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %><BR>
+				<% for exammcqanswer in examquestion.exammcqanswers %>
+					&nbsp; <%=h exammcqanswer.sequence %> &nbsp; &nbsp; - &nbsp;  <%=h exammcqanswer.answer %><BR>
+				<% end %><BR>
+				<%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br) ) %> </font><BR><BR >
+			</td>
+		</tr>
+	<% end %>
+	<% no4=0 %>
+	<% for examquestion in @exammaker.examquestions.essay %>
+		<% bil += 1 %>
+		<% if no4==0 %>
+		<tr>
+			<td colspan=2><font face="arial"><b>BAHAGIAN IV - ESEI ( <%=essaymarks%> MARKAH )</b></font></td>
+		</tr>
+		<% end %><% no4+=1 %>
+		<tr>
+			<td colspan=2>&nbsp;</td>
+		</tr>
+		<tr>
+			<td valign="top"><font size=3><%=h bil %></font></td>
+			<td><font size=3><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %><BR><BR> 
+				<% for examsubquestion in examquestion.examsubquestions %>
+					<%=h examsubquestion.sequence %>  <%=h examsubquestion.question %> (<%=h examsubquestion.marks %> markah)<BR><BR><BR>
+					<%#=raw sanitize(simple_format(examsubquestion.answer), :tags => %w(br p) ) %><!--hide answer in exam paper-->
+				<% end %></font>
+			</td>
+		</tr>
+	<% end %>	
 </table>
+
 </div>
 </form>
 </fieldset>

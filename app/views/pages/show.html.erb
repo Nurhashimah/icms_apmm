@@ -15,7 +15,7 @@
 	
 	<tr>
 		<td class="leftcol"><label for="message">Body:</label></td>
-		<td><%=h @page.body %></td>
+		<td><%=h simple_format(@page.body) %></td>
 	</tr>
 	
 	<tr>

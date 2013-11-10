@@ -47,7 +47,9 @@
 	
 	
 	<tr>
-		<td class="leftcol"><label for="question">Question:</label><font color="red"> * </font></td>
+		<td class="leftcol"><label for="question">Question:</label><font color="red"> * </font><BR>
+			<font color="grey", size="-2">MAIN question for short essay questions.</font>
+		</td>
 		<td><b>:</b></td>
 		<td><%= f.text_area :question, :size => '60 x 5' %></td>
 	</tr>
@@ -75,24 +77,27 @@
 
 <table width=100% border=0>	
 	<tr>
-		<td class="leftcol"><label for="answer">Answer</label><font color="red"> * </font></td>
+		<td class="leftcol"><label for="answer">Answer</label><font color="red"> * </font><BR>
+			<font color="grey", size="-2">Leaves BLANK for short essay questions.</font>
+		</td>
 		<td width = 3%><b>:</b></td>
 		<td width=7%><%= f.text_area :answer, :size => "30x7" %></td>
-		<td width=10%><font color="grey", size="-2">Example: <BR> A Testing A <BR>  B Testing B <BR> C Testing C <BR> D Testing D</font></td>
-		<td><font color="grey", size="-2"><BR> A i dan ii <BR>  B ii dan iii <BR> C ii,iii, dan iv <BR> D All Above</font></td>
+		<td width=10%><font color="grey", size="-2">Objective<BR><BR> A-Testing A <BR>  B-Testing B <BR> C-Testing C <BR> D-Testing D</font></td>
+		<td width=12%><font color="grey", size="-2">Multiple Choice<BR>(MCQ)<BR> A-i dan ii <BR>  B-ii dan iii <BR> C-ii,iii, dan iv <BR> D-All Above</font></td>
+		<td><font color="grey", size="-2">True / False<BR><BR> A-True <BR> B-False</font></td>	
 	</tr>
 	
 	<tr>
 		<td class="leftcol"><label for="marks">Marks</label><font color="red"> * </font></td>
 		<td><b>:</b></td>
-		<td><%= f.text_field :marks, :size => 12, :precision => 1 %></td>
+		<td><%= f.text_field :marks, :size => 12, :precision => 1 %><BR><font color="grey", size="-2">Enter TOTAL MARKS for short essay questions.</font></td>
 	</tr>
 	
 </table>
 <HR>
 <table>
 		<tr>
-			<td class="leftcol">Short Essay Question</td>
+			<td class="leftcol">Short Essay Questions & Answers</td>
 			<td width=3%><b>:</b></td>
 			<td>
 				<div>

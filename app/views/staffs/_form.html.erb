@@ -4,7 +4,7 @@
 	<table width=100% >
 	
 		<tr>
-			<td  width=23%><label for="icno"><font size=2>&nbsp;<%= t 'staff.icno' %></font></label><font color="red"> * </font></td>
+			<td  width=23%><label for="icno"><font size=2><%= t 'staff.icno' %></font></label><font color="red"> * </font></td>
 			<td><b>:</b></td>
 			<td><%= f.text_field :icno, :size => 12 %><font color="grey", size="-2"> Fill MyCardNo Without (-) </font></td>
 		<tr>
@@ -52,11 +52,11 @@
 		<tr>
 			<td class="leftcol"><label for="phonecell"><%= t 'staff.phonecell' %></label></td>
 			<td><b>:</b></td>
-			<td><%= f.text_field :phonecell, :size => 14 %></td></tr>
+			<td><%= f.text_field :phonecell, :size => 14 %><font color="grey", size="-2"> example : 012766XXXX / 012-766XXXX </font></td></tr>
 		<tr>
 			<td class="leftcol"><label for="phonehome"><%= t 'staff.phonehome' %></label></td>
 			<td><b>:</b></td>
-			<td><%= f.text_field :phonehome, :size => 14 %></td></tr>
+			<td><%= f.text_field :phonehome, :size => 14 %><font color="grey", size="-2"> example : 078992XXX / 07-8992XXX </font></td></tr>
 		<tr>
 			<td class="leftcol"><label for="addr"><%= t 'staff.addr' %></label><font color="red"> * </font></td>
 			<td><b>:</b></td>
@@ -106,7 +106,7 @@
 
 	<table width=100%>
 		<tr>
-			<td width=23%><font size=2>&nbsp;Vehicle Reg No</font></td>
+			<td width=23%><font size=2>Vehicle Reg No</font></td>
 			<td width=2%><b>:</b></td>
 			<td>
 			<% f.fields_for :vehicleregnos do |builder| %>
@@ -120,7 +120,7 @@
 <table width=100%>
 		
 		<tr>
-			<td width=23%><label for="upload">&nbsp;<%= t 'staff.upload' %></label></td>
+			<td width=23%><label for="upload"><%= t 'staff.upload' %></label></td>
 			<td width=2%><b>:</b></td>
 			<td><%= f.file_field :photo %></td></tr>
 </table>
@@ -128,7 +128,7 @@
 
 <table  width=100% >
 		<tr>
-			<td width=23% colspan=2><label for="staffgrade_id"><font size=2>&nbsp;<%= t 'staff.staffgrade_id' %></font></label><font color="red"> * </font></td>
+			<td width=23% colspan=2><label for="staffgrade_id"><font size=2><%= t 'staff.staffgrade_id' %></font></label><font color="red"> * </font></td>
 			<td><b>:</b></td>
 			<td><%= f.collection_select :staffgrade_id, Employgrade.find(:all, :order => 'id'), :id, :name_and_group, :include_blank => true %></td>
 		</tr>
@@ -300,7 +300,7 @@
 	</div>
 
 	<div><!--12/12/2011 - Shaliza changed label name nested model-->
-	  <H2>Individu Course</H2>
+	  <H2>Individual Course</H2>
 		<table width=100% border=1 cellspacing=0 BORDERCOLOR="#C0C0C0 " BORDERSTYLE="solid">
 			<th width=20% align="center">Course Name </font></th>
 			<th width=25% align="center">Start Date</th>

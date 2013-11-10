@@ -58,12 +58,14 @@
 		</td></tr>-->
 
 	<tr>
-		<td class="leftcol">Attachment Uploaded</td>
+		<td class="leftcol">Uploaded Attachment</td>
 		<td><b>:</b></td>
 		<td><% if @examquestion.diagram_file_name == nil %>
 			<% else %>
-			<%= image_tag @examquestion.diagram.url, :class => 'diagram' %>
-			<% end %></td>
+				<%= image_tag @examquestion.diagram.url, :class => 'diagram' %>
+				<%= link_to (t 'document.download'), @examquestion.diagram.url %> 
+			<% end %>
+		</td>
 	</tr>
 
 	<tr>
@@ -79,7 +81,7 @@
 		<td><b>:</b></td>
 		<td>
 		<% for exammcqanswer in @examquestion.exammcqanswers %>
-		<%=h exammcqanswer.sequence %> &nbsp &nbsp - &nbsp &nbsp <%=h exammcqanswer.answer %><BR>
+		<%=h exammcqanswer.sequence %> &nbsp; &nbsp; - &nbsp; &nbsp; <%=h exammcqanswer.answer %><BR>
 		<% end %></td>
 	</tr>
 	<% end %>
@@ -104,7 +106,7 @@
 		<td><b>:</b></td>
 		<td>
 		<% for examsubquestion in @examquestion.examsubquestions %>
-		<%=h examsubquestion.sequence %> &nbsp - &nbsp <%=h examsubquestion.question %><BR>
+		<%=h examsubquestion.sequence %> &nbsp; - &nbsp; <%=h examsubquestion.question %><BR>
 			<%=raw sanitize(simple_format(examsubquestion.answer), :tags => %w(br p) ) %>
 		<% end %></td>
 	</tr>

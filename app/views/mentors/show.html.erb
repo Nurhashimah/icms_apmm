@@ -5,7 +5,7 @@
 	<tr>
 		<td class="leftcol"><label for="mentor_id">Mentor Name</label></td>
 		<td width=3%><b>:</b></td>
-		<td><%=h @mentor.staff.staff_name_with_title %> - <%=h @mentor.staff.position_for_staff %></td>
+		<td><%=h @mentor.staff.staff_name_with_title %><%=h @mentor.staff.position.blank? ? "" : " - "+ @mentor.staff.position_for_staff %></td>
 	</tr>
 	<tr>
 		<td class="leftcol"><label for="mentor_date">Date</label></td>

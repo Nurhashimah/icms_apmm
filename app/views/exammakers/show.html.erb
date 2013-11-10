@@ -52,16 +52,99 @@
 <H2>Questions</H2>
 <table border=0 >
 	<% bil = 0 %>
-  <% for examquestion in @exammaker.examquestions %>
-	 <% bil += 1 %>
-   <tr>
-		<td colspan=2><b><%=h (Examquestion::QTYPE.find_all{|disp, value| value == examquestion.questiontype}).map {|disp, value| disp} %></b></td>
-    </tr>
-	<tr>
-		<td><center><%=h bil %></center></td>
-		<td><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %> <BR> <%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br p) ) %> </td>
-	</tr>
+	<!--Objective-->
+	<% no2=0 %>
+	<% for examquestion in @exammaker.examquestions.obj %>
+		<% bil += 1 %>
+		<% if no2==0 %>
+		<tr><td colspan=2><b>
+				<%=h (Examquestion::QTYPE.find_all{|disp, value| value == examquestion.questiontype}).map {|disp, value| disp} %>
+		</b></td></tr>
 		<% end %>
+		<tr><td><center><%=h bil %></center></td>
+			<td><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %> (<%=h examquestion.marks.to_i%>&nbsp;Markah)
+				<BR><%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br p) ) %> 
+		</td></tr><% no2+=1 %>
+	<% end %>
+	<!--True / False-->
+	<% no3=0 %>
+	<% for examquestion in @exammaker.examquestions.tf %>
+		<% bil += 1 %>
+		<% if no3==0 %>
+		<tr><td colspan=2><b>
+				<%=h (Examquestion::QTYPE.find_all{|disp, value| value == examquestion.questiontype}).map {|disp, value| disp} %>
+		</b></td></tr>
+		<% end %>
+		<tr><td><center><%=h bil %></center></td>
+			<td><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %> (<%=h examquestion.marks.to_i%>&nbsp;Markah)
+				<BR><%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br p) ) %> 
+		</td></tr><% no3+=1 %>
+	<% end %>
+	<!--Multiple Choice-->
+	<% no1=0 %>
+	<% for examquestion in @exammaker.examquestions.mcq %>
+		<% bil += 1 %>
+		<% if no1==0 %>
+		<tr><td colspan=2><b>
+				<%=h (Examquestion::QTYPE.find_all{|disp, value| value == examquestion.questiontype}).map {|disp, value| disp} %>
+		</b></td></tr>
+		<% end %>
+		<tr><td><center><%=h bil %></center></td>
+			<td><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %> (<%=h examquestion.marks.to_i%>&nbsp;Markah)
+				<BR><BR>
+				<% for exammcqanswer in examquestion.exammcqanswers %>
+					<%=h exammcqanswer.sequence %> &nbsp; &nbsp; - &nbsp; &nbsp; <%=h exammcqanswer.answer %><BR>
+				<% end %>
+				<%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br p) ) %> 
+		</td></tr><% no1+=1 %>
+	<% end %>	
+	<!--Short Essay-->
+	<% no4=0 %>
+	<% for examquestion in @exammaker.examquestions.essay %>
+		<% bil += 1 %>
+		<% if no4==0%>
+		<tr><td colspan=2><b>
+				<%=h (Examquestion::QTYPE.find_all{|disp, value| value == examquestion.questiontype}).map {|disp, value| disp} %>
+		</b></td></tr>
+		<% end %>
+		<tr><td><center><%=h bil %></center></td>
+			<td><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %> (Jumlah Markah : <%=h examquestion.marks.to_i%>)
+				<BR><BR>
+				<% for examsubquestion in examquestion.examsubquestions %>
+					<%=h examsubquestion.sequence %> &nbsp; - &nbsp; <%=h examsubquestion.question %> 
+					(<%=h examsubquestion.marks.to_i%>&nbsp;Markah)<BR>
+					<%=raw sanitize(simple_format(examsubquestion.answer), :tags => %w(br p) ) %>
+				<% end %>
+		</td></tr><% no4+=1 %>
+	<% end %>
+	<!--Blank-->
+	<% no5=0 %>
+	<% for examquestion in @exammaker.examquestions.blank %>
+		<% bil += 1 %>
+		<% if no5==0 %>
+		<tr><td colspan=2><b>
+				<%=h (Examquestion::QTYPE.find_all{|disp, value| value == examquestion.questiontype}).map {|disp, value| disp} %>
+		</b></td></tr>
+		<% end %>
+		<tr><td><center><%=h bil %></center></td>
+			<td><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %> (<%=h examquestion.marks.to_i%>&nbsp;Markah)
+				<BR><%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br p) ) %> 
+		</td></tr><% no5+=1 %>
+	<% end %>
+	<!--Match-->
+	<% no6=0 %>
+	<% for examquestion in @exammaker.examquestions.match %>
+		<% bil += 1 %>
+		<% if no6==0 %>
+		<tr><td colspan=2><b>
+				<%=h (Examquestion::QTYPE.find_all{|disp, value| value == examquestion.questiontype}).map {|disp, value| disp} %>
+		</b></td></tr>
+		<% end %>
+		<tr><td><center><%=h bil %></center></td>
+			<td><%=raw sanitize(simple_format(examquestion.question), :tags => %w(br) ) %> (<%=h examquestion.marks.to_i%>&nbsp;Markah)
+				<BR><%=raw sanitize(simple_format(examquestion.answer), :tags => %w(br p) ) %> 
+		</td></tr><% no6+=1 %>
+	<% end %>
 </table>
 
 </div>

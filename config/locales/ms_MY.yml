@@ -161,6 +161,7 @@ ms_MY:
     name: Nama
     create: Cipta Kakitangan Baru
     position: Jawatan  #move to position when ready
+    title: Gelaran
 
     personal_details: Butir Peribadi
     code: Kod Kakitangan

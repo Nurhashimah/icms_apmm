@@ -1,9 +1,11 @@
 class EventsController < ApplicationController
+  helper_method :sort_column, :sort_direction
   # GET /events
   # GET /events.xml
   def index
    @events = Event.search(params[:search])
-
+   @events = Event.find(:all, :order => sort_column + ' ' + sort_direction)#, :conditions => ['category ILIKE ?', "%#{params[:search]}%"])
+   
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @events }
@@ -81,5 +83,12 @@ class EventsController < ApplicationController
       format.html { redirect_to(events_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def sort_column
+      Event.column_names.include?(params[:sort]) ? params[:sort] : "eventstdt" 
+  end
+  def sort_direction
+      %w[asc desc].include?(params[:direction])? params[:direction] : "asc" 
   end
 end

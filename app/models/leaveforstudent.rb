@@ -43,7 +43,7 @@ class Leaveforstudent < ActiveRecord::Base
   
 def self.search(search)
      if search
-       @leaveforstudent = Leaveforstudent.find(:all, :conditions => ['leavetype LIKE ?' , "%#{search}%"])
+       @leaveforstudent = Leaveforstudent.find(:all, :conditions => ['leavetype ILIKE ?' , "%#{search}%"])
      else
       @leaveforstudent = Leaveforstudent.find(:all)
      end
