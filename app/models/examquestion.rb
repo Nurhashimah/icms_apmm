@@ -8,7 +8,8 @@ class Examquestion < ActiveRecord::Base
 
   has_and_belongs_to_many :exammakers
   
-  validates_presence_of :curriculum_id, :questiontype, :question, :answer, :marks, :qstatus
+  validates_presence_of :curriculum_id, :questiontype, :question, :marks, :qstatus
+  validates_presence_of :answer, :unless => :questiontype_shortessays?
   
   has_attached_file :diagram,
                     :url => "/assets/examquestions/:id/:style/:basename.:extension",
@@ -18,7 +19,7 @@ class Examquestion < ActiveRecord::Base
   accepts_nested_attributes_for :examsubquestions, :reject_if => lambda { |a| a[:question].blank? }
   
   has_many :exammcqanswers, :dependent => :destroy
-  accepts_nested_attributes_for :exammcqanswers, :reject_if => lambda { |a| a[:answer].blank? }
+  accepts_nested_attributes_for :exammcqanswers, :reject_if => lambda { |a| a[:answer].blank? }, :allow_destroy=> true
   
    def self.find_main
      Subject.find(:all, :condition => ['subject_id IS NULL'])
@@ -135,5 +136,10 @@ class Examquestion < ActiveRecord::Base
       end
    end
     
+   private
+   
+    def questiontype_shortessays?
+      questiontype == "ESSAY"
+    end  
   
 end

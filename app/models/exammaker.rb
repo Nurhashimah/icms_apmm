@@ -110,9 +110,9 @@ class Exammaker < ActiveRecord::Base
          	#------------------------------------------------------------------------------------------------------------------------------------------------------------------------
            @questions_available=[]       
            if subject_id
-     	      @combine_mcqq_meqq = Exammaker.get_mcq_questions(subject_id)+Exammaker.get_obj_questions(subject_id)
-     	  	  for mcqq_meqq in @combine_mcqq_meqq do
-         		  @questions_available << mcqq_meqq.id 
+     	      @combine_mcqq_meqq_tf_seq = Exammaker.get_mcq_questions(subject_id)+Exammaker.get_obj_questions(subject_id)+Exammaker.get_tf_questions(subject_id)+Exammaker.get_seq_questions(subject_id)
+     	  	  for mcqq_meqq_tf_seq in @combine_mcqq_meqq_tf_seq do
+         		  @questions_available << mcqq_meqq_tf_seq.id 
          	  end
        	  end
        	  #:examquestion_ids
