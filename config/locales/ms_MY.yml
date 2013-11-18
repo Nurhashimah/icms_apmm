@@ -65,6 +65,11 @@ ms_MY:
               sio_id: "Investigating Officer"
             librarytransaction:
               book_id: "Accession No"
+            analysispaperexam:
+              student_id: "Student"   
+              exam_id: "Examination Paper"
+              course_id: "Programme"              
+            
         errors:
           template:
             body: "Berikut adalah beberapa masalah:"

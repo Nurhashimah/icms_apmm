@@ -10,6 +10,7 @@ class Examquestion < ActiveRecord::Base
   
   validates_presence_of :curriculum_id, :questiontype, :question, :marks, :qstatus
   validates_presence_of :answer, :unless => :questiontype_shortessays?
+  validates_attachment_content_type :diagram, :content_type => /^diagram\/(jpg|jpeg|pjpeg|png|x-png|gif)$/, :message => 'is not allowed (only jpeg / png / gif images)'
   
   has_attached_file :diagram,
                     :url => "/assets/examquestions/:id/:style/:basename.:extension",

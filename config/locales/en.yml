@@ -26,6 +26,7 @@ en:
           assetloss: "Asset Loss"
           librarytransaction: "Library Transaction"
           user: User
+          analysispaperexam: "Analysis Paper Examination"
       attributes:
           staff:
               icno: "MyCard No"
@@ -65,7 +66,11 @@ en:
           librarytransaction:
              book_id: "Accession No"   
           analysis_grade:
-              exam_paper_name: "Examination Name"       
+              exam_paper_name: "Examination Name"    
+          analysispaperexam:
+              student_id: "Student"   
+              exam_id: "Examination Paper"
+              course_id: "Programme"
       errors:
           template:
             body: "There were problems with the following fields:"
@@ -847,6 +852,7 @@ en:
     public: Public
     private: Private
     
+     
       
   date:
     formats:

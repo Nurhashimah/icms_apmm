@@ -2,8 +2,9 @@ class Book < ActiveRecord::Base
   belongs_to :staff  , :foreign_key => 'receiver_id'
   belongs_to :addbook, :foreign_key => 'supplier_id'
   has_many  :accessions
-  accepts_nested_attributes_for :accessions, :allow_destroy => true 
+  accepts_nested_attributes_for :accessions, :allow_destroy => true
   
+  before_destroy :destroy_accession
   
   #-----------Attach Photo---------------
   has_attached_file :photo
@@ -76,5 +77,18 @@ class Book < ActiveRecord::Base
           [ "Amazon.com",2 ],
           [ "Others",3 ]
 ]
+  
+  private 
+  
+  def destroy_accession
+    for accession in self.accessions
+      if accession.librarytransactions.nil?
+        self.accessions.destroy_all
+      else
+        
+        return false         
+      end
+    end
+  end
   
 end

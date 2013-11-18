@@ -3,30 +3,45 @@
 	<div class="box-head">
 		<h2 class="left">Lists of Analysis Examination Paper</h2>
 	</div>
-	</div>
-	<div class="tlist">
-	    <table width=100% border="0" cellpadding="0" cellspacing="0">
-		  <tr>
-    		<th>Examination Name</th>
-		    <th>Examination Date</th>
+</div>
+<div class="tlist">
+	<table width=100% border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<th>Student Name</th>
+    		<!--<th>Examination Name</th>
+		    <th>Examination Date</th>-->
 			<th>Course</th>
 		    <th>Class</th>
+			<th>Total Marks</th>
     		<th colspan=3 class="ac">Control</th>
   		</tr>
-<table>
-  <tr>
-  </tr>
-
-<% @analysispaperexams.each do |analysispaperexam| %>
-  <tr>
-    <td><%= link_to 'Show', analysispaperexam %></td>
-    <td><%= link_to 'Edit', edit_analysispaperexam_path(analysispaperexam) %></td>
-    <td><%= link_to 'Destroy', analysispaperexam, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+		<%student_count=0%>
+		<%# @analysispaperexams.each do |analysispaperexam| %>
+		<% @analysispaperexams.group_by{|x|x.exam_id}.each do |group, analysispaperexams|%>
+		<tr>
+			<td colspan=8 style="background-color:#EFF1F1;">
+				<strong>Examination Paper : <%#=group%><%=analysispaperexams[0].examname.subject_of_exammaker%></strong>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<%= link_to 'Edit Multiple Students Examination Marks', edit_analysispaperexam_path(:edit_type => "2",:id=>analysispaperexams[0].id) %><!--&nbsp;|&nbsp;Analysis-->
+			</td>
+		</tr>
+			<% analysispaperexams.each do |analysispaperexam| %>
+  			<tr>
+				<td>&nbsp;<%=student_count+=1%>)&nbsp;<%=Student.find(analysispaperexam.student_id).name%></td>
+    			<!--<td><%#=analysispaperexam.examname.subject_name%></td>
+				<td><%#=analysispaperexam.examname.exam_date.strftime('%d %b %Y')%></td>-->
+				<td><%=analysispaperexam.examname.course_exam.programme_with_specialisation%></td>
+				<td><%= Klass.find(:first, :joins=> :students,:conditions=>['subject_id=? AND student_id=?',analysispaperexam.examname.subject_id,analysispaperexam.student_id]).name %></td>
+				<td><%=analysispaperexam.total_marks%><%=h analysispaperexam.examname.full_mark.blank? ? "" : " / "+analysispaperexam.examname.full_mark.to_f.to_s %></td>
+				<td width=10px><%#= link_to image_tag("document.png", :border => 0, :title => 'Show'), :action => 'show', :id => analysispaperexam  %></td>
+				<td width=10px><%#= link_to image_tag("edit.png", :border => 0, :title => 'Edit'), :action => 'edit', :id => analysispaperexam  %></td>
+				<td width=10px><%= link_to image_tag("delete.png", :border => 0, :title => 'Delete'), analysispaperexam , :confirm => 'Are you sure?', :method => :delete %></td>
+  			</tr>
+			<% end %>
+		<% end %>
+	</table>
 </div>
-<br />
+<br>
 
 <%#= link_to 'New analysispaperexam', new_analysispaperexam_path %>
-<%= link_to 'New Multiple Examination Mark', new_analysispaperexam_path(:new_type => "2") %>
+<%= link_to 'New Multiple Examination Marks', new_analysispaperexam_path(:new_type => "2") %>
