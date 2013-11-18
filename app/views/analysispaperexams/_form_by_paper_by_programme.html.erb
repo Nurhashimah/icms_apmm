@@ -1,5 +1,4 @@
-<div class="tform">
-	<% if index==0 %>
+<% if index==0 %>
 	<H2>Exam Marks</H2>
 	
 	<table width=100% >
@@ -7,7 +6,7 @@
 			<td class="leftcol">Programme </td>
 			<td><b>:</b></td>
 			<td>
-				<%= f.collection_select :programme_id, Programme.find(:all), :id, :programme_with_specialisation,{:include_blank => true},
+				<%= f.collection_select :programme_id, Programme.find(:all), :id, :programme_with_specialisation,{:include_blank =>'Select a programme'},
 								:onchange => remote_function(:update => form_tag_id(f.object_name, :subject_list), 
 								:url => {:action => 'view_subject' }, 
 								:with => "'programmeid='+$('"+form_tag_id(f.object_name, :programme_id)+"').value 
@@ -23,5 +22,4 @@
 			</td>
 		</tr>			
 	</table>
-	<% end %>
-</div>
+<% end %>

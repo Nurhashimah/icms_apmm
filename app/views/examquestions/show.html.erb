@@ -58,12 +58,16 @@
 		</td></tr>-->
 
 	<tr>
-		<td class="leftcol">Uploaded Attachment</td>
+		<td class="leftcol">Uploaded Diagram</td>
 		<td><b>:</b></td>
 		<td><% if @examquestion.diagram_file_name == nil %>
 			<% else %>
-				<%= image_tag @examquestion.diagram.url, :class => 'diagram' %>
-				<%= link_to (t 'document.download'), @examquestion.diagram.url %> 
+				<% if @examquestion.diagram_content_type =~ /image(.*)/ %>
+					<%= image_tag @examquestion.diagram.url, :class => 'diagram' %>
+					<%= link_to (t 'document.download'), @examquestion.diagram.url %> 
+				<% else %>
+					<font color=red>Only images allowed. Re-select diagram.</font>
+				<% end %>
 			<% end %>
 		</td>
 	</tr>

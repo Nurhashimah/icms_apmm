@@ -85,11 +85,17 @@ class BooksController < ApplicationController
   # DELETE /books/1.xml
   def destroy
     @book = Book.find(params[:id])
-    @book.destroy
-
     respond_to do |format|
-      format.html { redirect_to(books_url) }
-      format.xml  { head :ok }
+      if @book.destroy
+        format.html { redirect_to(books_url) }
+        format.xml  { head :ok }
+        
+      else
+        flash[:error] = 'Deletion of selected book is not allowed due to existing library transaction record.'
+        format.html { redirect_to(books_url) }
+        format.xml  { head :ok }
+      end
     end
-  end
+    
+    end
 end
