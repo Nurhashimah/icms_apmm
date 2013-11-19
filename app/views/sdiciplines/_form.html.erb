@@ -1,5 +1,5 @@
 <div class="tform">
-	<% if @sdicipline.status.blank? || @sdicpline.nil? %>
+	<% if @sdicipline.status.blank? || @sdicipline.nil? || (@sdicipline.status == "New" && @sdicipline.warden_id.blank? )%>
 	<H2>Report Details</H2>
   <table width=100% border=0>
 		<tr>
@@ -61,8 +61,10 @@
 	</table>
 <% end %>
 	
-	<% if @sdicipline.status == "New" && @sdicipline.warden_id != " "  %>
+	<% if ((@sdicipline.status == "New" ||@sdicipline.status == "Open") && !@sdicipline.warden_id.blank?) || (@sdicipline.status=="Refer to Counsellor" && @sdicipline.commandant_id.blank?) || (@sdicipline.status=="Refer to Mentor" && @sdicipline.commandant_id.blank?) || (@sdicipline.status=="Refer to Komandan" && @sdicipline.commandant_id.blank?) || (@sdicipline.status=="Refer to Komandan" && @sdicipline.commandant_id==current_user.staff.position.id) %>
     <%= render :partial => 'show_report_details' %>
+	<% end %>
+	<% if (@sdicipline.status == "New" ||@sdicipline.status == "Open") && @sdicipline.warden_id == current_user.staff_id %>
 	<H2>Action By Principal (<%=h check_kin{ @sdicipline.warden.staff_name_with_title} %>)</H2>
 
 	<table width=100% border=0>		
@@ -78,30 +80,49 @@
 			<td><%= f.text_area:principal_takeaction, :size => "40x2" %></td>
 		</tr>
 		<script type="text/javascript">
-			  function switchvisibility(el) {
-			    if (document.getElementById(el).checked) {
-			      document.getElementById('mentor').style.display = "table-row";
-			      document.getElementById('counsellor').style.display = "none";
-			    } else {
-			      document.getElementById('mentor').style.display = "none";
-			      document.getElementById('counsellor').style.display = "table-row";
-			    }
-			  }
+			$j(document).ready(function(){
+					//show mentor vs counsellor selection
+
+					$j("input[id='is_mentor']").change(function() {  
+					 if($j('#is_mentor').is(':checked')) { 
+					    $j(".span_mentor").show(""); 
+						$j(".span_counsellor").hide(""); 
+					 }else		{
+					    $j(".span_mentor").hide(""); 
+						$j(".span_counsellor").show(""); 
+					 }	
+					});
+
+					$j("input[id='is_mentor']").each(function() {  
+					 if($j('#is_mentor').is(':checked')) { 
+					    $j(".span_mentor").show(""); 
+						$j(".span_counsellor").hide(""); 
+					 }else		{
+					    $j(".span_mentor").hide(""); 
+						$j(".span_counsellor").show(""); 
+					 }	
+					});
+
+			});
 			</script>
 				<tr>
 					<td class="leftcol" colspan=2><label for="staff_id">Mentor?</label></td>
 					<td><b>:</b></td>
-					<td colspan=3><%= f.check_box :ru_staff, :id => 'staff', :onchange => "switchvisibility('staff')" %><font color="grey", size="-2"> Please Tick if Action to Mentor </font></td>
+					<td colspan=3><%= f.check_box :ru_staff, :id => 'is_mentor' %><font color="grey", size="-2"> Please Tick if Action to Mentor </font></td>
 				</tr>
 		
 		
-		<tr id="mentor" style="display: none;">
+		<tr id="mentor" class="span_mentor" style="display: none;">
 			<td class="leftcol" colspan=2><label for="principal_takeaction">Mentor Name</label></td>
 			<td><b>:</b></td>
-			<td><%= f.collection_select :mentor_id, Mentee.find(:all, :order => :mentor_id), :id, :mentor_mentee, :include_blank => true %></td>
+			<td><%= f.collection_select :mentor_id, Mentee.find(:all, :order => :mentor_id, :conditions=>['student_id=?',@sdicipline.student_id]), :id, :mentor_mentee, :include_blank => "Please select" %><% @mentees=Mentee.all.map(&:student_id)%>
+				<% if @mentees.include?(@sdicipline.student_id)==false %>
+					&nbsp;<font size=-2 color=red>Mentor-mentee record for current student is not exist. Please create one.</font>
+				<% end %>
+			</td>
 		</tr>
 		
-		<tr id="counsellor" style="display: table-row;">
+		<tr id="counsellor" class="span_counsellor" style="display: table-row;">
 			<td class="leftcol" colspan=2><label for="principal_takeaction">Counsellor Name</label></td>
 			<td><b>:</b></td>
 			<td><%= f.collection_select :caunsellor_id, Position.find(:all , :conditions => {:unit => "Kaunseling"}), :id, :name_for_staff, :include_blank => true %></td>
@@ -109,13 +130,11 @@
 		
 	</table>
 	<% end %>
-
-	
-	
-	
-
-<% if @sdicipline.status == "Refer to Mentor" && @sdicipline.mentor_id != "" || @sdicipline.status == "Refer to Counsellor" && @sdicipline.caunsellor_id != "" || @sdicipline.status == "Refer to Komandan" %> 	
-	<%= render :partial => 'show_report_details' %>
+<% @mentees_ids=[]%><!--compulsory for other than mentors-->	
+<% if User.current_user.staff.mentors.count>0 %>
+	<% @mentees_ids = User.current_user.staff.mentors[0].mentees.map(&:id)%>
+<% end %>
+<% if ((@sdicipline.status == "Refer to Mentor" && @sdicipline.mentor_id != "" && @mentees_ids.include?(@sdicipline.mentor_id)) || (@sdicipline.status == "Refer to Counsellor" && @sdicipline.caunsellor_id != "" && @sdicipline.caunsellor_id == current_user.staff.position.id) ) || (@sdicipline.status=="Refer to Komandan" && @sdicipline.commandant_id.blank?) %> 	
 	<H2>Action By <%=h User.current_user.staff.staff_name_with_title %> </H2>
 	<table width=100% border=0>
 		<tr>
@@ -135,7 +154,8 @@
 			<td><b>:</b></td>
 			<td><%=h @sdicipline.principal_takeaction %></td>
 		</tr>
-		
+<%# end %>
+<%# if  (@sdicipline.caunsellor_id == current_user.staff_id || @sdicipline.mentor_id == current_user.staff_id) %>		
 			<tr>
 				<td class="leftcol" colspan=2><label for="otherinfo">Investigation Summary</label></td>
 				<td><b>:</b></td>
@@ -162,8 +182,9 @@
 	</table>
 	<% end %>
 	
-	<% if @sdicipline.status == "Refer to Komandan" %>	
+	<% if (@sdicipline.commandant_id == current_user.staff.position.id) && ((@sdicipline.status == "Refer to Komandan") || (@sdicipline.status == "Closed" && @sdicipline.closedtcollege.blank?)) %>	
 	
+	<%= render :partial => 'show_mentorcounsellor_details' %>
 	
 	<H2>Refer To Komandan</H2>
 	<table width=100%>
@@ -210,10 +231,10 @@
 		</tr>
 	</table>
 	<% end %>
-	
+<%# if ((@sdicipline.status == "Refer to Mentor" && @sdicipline.mentor_id != "" && @sdicipline.mentor_id == current_user.staff_id) || (@sdicipline.status == "Refer to Counsellor" && @sdicipline.caunsellor_id != "" && @sdicipline.caunsellor_id == current_user.staff_id) || @sdicipline.status == "Refer to Komandan")  %> 	
 	<table width=100% border=0>	
 		<tr>
-			<td width=23% colspan=2><label for="status"><font size=2>&nbsp;Status Report</font></label><font color="red"> * </font></td>
+			<td width=23% colspan=2><label for="status"><font size=2>Status Report</font></label><font color="red"> * </font></td>
 			<td width=3%><b>:</b></td>
 			<td><%= f.select :status, 
 			                  Sdicipline::STATUS,
@@ -221,11 +242,14 @@
 		</tr>
 		
 		<tr>
-			<td  colspan=2><label for="closedtcollege"><font size=2>&nbsp;Case Closed</font></label></td>
+			<td  colspan=2><label for="closedtcollege"><font size=2>Case Closed</font></label></td>
 			<td><b>:</b></td>
 			<td><%= f.date_select :closedtcollege, :start_year => 2010, :end_year => 2020, :order => [:day, :month, :year], :include_blank => true  %></td>
 		</tr>
 	</table>
+<%# else %>
+	<!--Case already forwarded to Mentor / Counsellor for Action.-->
+<%# end %>
 <BR>
 </div>		
 		
