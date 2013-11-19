@@ -4,7 +4,7 @@
 <H2>Action By Principal </H2>
 	<table width=100% border=0>
 		<tr>
-			<td width=23% colspan=2><label for="action"><font size=2>&nbsp;Action Taken:</font></label></td>
+			<td width=23% colspan=2><label for="action"><font size=2>Action Taken:</font></label></td>
 			<td width=3%><b>:</b></td>
 			<td> <%=h @sdicipline.principal_takeaction %></td>
 		</tr>
@@ -14,52 +14,26 @@
 			<td><b>:</b></td>
 			<td> <%=h @sdicipline.principal_investigation %></td>
 		</tr>
- 	<% if @sdicipline.mentor_id != "" %>
+ 	<% if @sdicipline.mentor_id!="" %>
 		<tr>
 			<td class="leftcol" colspan=2><label for="otherinfo">Forward to Mentor:</label></td>
 			<td><b>:</b></td>
 			<td><%=h @sdicipline.mentor_id.blank? ? "-" : @sdicipline.mentorname.mentor_mentee %></td>
 		</tr>
     <% end %>	
-	<% if @sdicipline.mentor_id == "" %>
+	<% if @sdicipline.caunsellor_id!="" %>
 		<tr>
 			<td class="leftcol" colspan=2><label for="otherinfo">Forward to Counsellor:</label></td>
 			<td><b>:</b></td>
-			<td><%=h @sdicipline.caunsellor_id? ? "-" : @sdicipline.counsellor_details %></td>
+			<td><%=h @sdicipline.caunsellor_id.blank? ? "-" : @sdicipline.counsellor_details %></td>
 		</tr>
 			<% end %>	
 	</table>
 <% end %>
-	<% if @sdicipline.status == "Mentor" && @sdicipline.mentor_id != "" || @sdicipline.status == "Refer to Counsellor" && @sdicipline.caunsellor_id != "" || @sdicipline.status =="Closed" %> 	
+	<% if (@sdicipline.status == "Mentor" && @sdicipline.mentor_id != "") || (@sdicipline.status == "Refer to Counsellor" && @sdicipline.caunsellor_id != "") || (@sdicipline.status == "Refer to Komandan" && @sdicipline.commandant_id != "") || @sdicipline.status =="Closed" %>
 	
-	<H2>Action By Mentor / Counsellor </H2>
-	<table width=100% border=0>
-		<tr>
-			<% if @sdicipline.mentor_id != "" %>
-			<td class="leftcol" colspan=2><label for="otherinfo">Forward to Mentor:</label></td>
-			<td><b>:</b></td>
-			<td><%=h @sdicipline.mentor_id.blank? ? "-" : @sdicipline.mentorname.mentor_mentee %></td>
-			<% else %>
-			<td class="leftcol" colspan=2><label for="otherinfo">Forward to Counsellor:</label></td>
-			<td><b>:</b></td>
-			<td><%=h @sdicipline.caunsellor_id? ? "-" : @sdicipline.counsellor_details %></td>
-			<% end %>
-		</tr>
-		
-		
-		<tr>
-			<td width=23% colspan=2><label for="otherinfo"><font size=2>&nbsp;Investigation Summary</font></label></td>
-			<td width=3%><b>:</b></td>
-			<td><%=h @sdicipline.otherinfo %></td>
-		</tr>
-			
-		<tr>
-			<td class="leftcol"colspan=2><label for="action">Action Taken</label></td>
-			<td><b>:</b></td>
-			<td><%=h @sdicipline.action %></td>
-		</tr>	
-	
-	</table>
+	<%= render :partial => 'show_mentorcounsellor_details' %>
+
 	<% end %>
 
   <% if @sdicipline.jtkpdecision != nil %>
@@ -78,7 +52,7 @@
 			</tr>-->
 
 			<tr>
-				<td width=23% colspan=2><label for="jtkpdecision">&nbsp;Commandant Decision</label></td>
+				<td width=23% colspan=2><label for="jtkpdecision">Commandant Decision</label></td>
 				<td width=3%><b>:</b></td>
 				<td><%=h @sdicipline.jtkpdecision %></td>
 			</tr>
@@ -112,9 +86,10 @@
 <%end%>
 <table width=100% border=0>	
 	<tr>
-		<td width=23% colspan=2><label for="status"><font size=2>&nbsp;Status Report</font></label></td>
+		<td width=23% colspan=2><label for="status"><font size=2>Status Report</font></label></td>
 		<td width=3%><b>:</b></td>
-		<td><%=h (Sdicipline::STATUS.find_all{|disp, value| value == @sdicipline.status}).map {|disp, value| disp} %></td>
+		<td><%=h (Sdicipline::STATUS.find_all{|disp, value| value == @sdicipline.status}).map {|disp, value| disp} %>
+			<% if @sdicipline.status == "Refer to Komandan" %> - <%=h Position.find(@sdicipline.commandant_id).staff.staff_name_with_title %><% end %></td>
 	</tr>
 	
 	<tr>
@@ -124,7 +99,11 @@
 	</tr>
 </table>
 </div>
+<% @mentees_ids=[]%><!--compulsory for other than mentors-->
+<% if User.current_user.staff.mentors.count>0 %>
+	<% @mentees_ids = User.current_user.staff.mentors[0].mentees.map(&:id)%>
+<% end %>
 
-<BR>
-<%= link_to 'Edit', edit_sdicipline_path(@sdicipline) %> |
+<BR><% if ((@sdicipline.status == "Refer to Mentor" && @sdicipline.mentor_id != "" && @mentees_ids.include?(@sdicipline.mentor_id)) || (@sdicipline.status == "Refer to Counsellor" && @sdicipline.caunsellor_id != "" && @sdicipline.caunsellor_id == current_user.staff.position.id) || (@sdicipline.status == "Refer to Komandan" && @sdicipline.commandant_id == current_user.staff.position.id)) || ((@sdicipline.status == "New" && @sdicipline.warden_id.blank? && @sdicipline.reportedby_id==current_user.staff_id)|| ((@sdicipline.status == "New" || @sdicipline.status == "Open") && @sdicipline.warden_id == current_user.staff_id)) %> 	
+<%= link_to 'Edit', edit_sdicipline_path(@sdicipline) %> | <% end %>
 <%= link_to 'Back', sdiciplines_path %>

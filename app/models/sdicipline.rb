@@ -13,7 +13,17 @@ class Sdicipline < ActiveRecord::Base
   has_many :commandant, :class_name => 'Position', :foreign_key => 'commandant_id'
   
   validates_presence_of :reportedby_id, :student_id, :status, :infraction, :casedt
-   
+  validates_presence_of :closedtcollege, :if => :is_closed?
+  validates_presence_of :commandant_id, :if => :is_refer_commandant?
+  
+    def is_closed?
+      status == "Closed"
+    end  
+    
+    def is_refer_commandant?
+      status == "Refer to Komandan"
+    end
+  
     def self.find_main
       Staff.find(:all, :condition => ['staff_id IS NULL'])
     end
@@ -100,7 +110,8 @@ class Sdicipline < ActiveRecord::Base
       elsif checker == []
       "Staff No Longer Exists" 
       else
-            counsellor.title_details
+            #counsellor.title_details
+            counsellor.staff.staff_name_with_title
       end
     end
     

@@ -17,6 +17,10 @@
   <!--  <th>Otherinfo</th>-->
     <th colspan=3 class="ac"><%= t 'control' %></th>
   </tr>
+<% @mentees_ids=[]%><!--compulsory for other than mentors-->
+<% if User.current_user.staff.mentors.count>0 %>
+	<% @mentees_ids = User.current_user.staff.mentors[0].mentees.map(&:id)%>
+<% end %>
 
 <% @sdiciplines.each do |sdicipline| %>
   <tr>
@@ -30,7 +34,8 @@
     <!--<td><#%=h sdicipline.otherinfo %></td>-->
     <td width=10px ><%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => sdicipline %></td>
     <td width=10px>
-			<% if sdicipline.status != "Closed" && sdicipline.status != "No Case" %>
+			<%# if sdicipline.status != "Closed" && sdicipline.status != "No Case" %>
+			<% if ((sdicipline.status == "Refer to Mentor" && sdicipline.mentor_id != "" && @mentees_ids.include?(sdicipline.mentor_id)) || (sdicipline.status == "Refer to Counsellor" && sdicipline.caunsellor_id != "" && sdicipline.caunsellor_id == current_user.staff.position.id) || (sdicipline.status == "Refer to Komandan" && sdicipline.commandant_id == current_user.staff_id)) || ((sdicipline.status == "New" && sdicipline.warden_id.blank? && sdicipline.reportedby_id==current_user.staff_id)|| ((sdicipline.status == "New" || sdicipline.status == "Open") && sdicipline.warden_id == current_user.staff_id) || (sdicipline.status == "Refer to Komandan" && sdicipline.commandant_id == current_user.staff.position.id)) %>
 				<%= link_to image_tag("edit.png", :border => 0), :action => 'edit', :id => sdicipline %>
 			<% end %>
 		</td>
