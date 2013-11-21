@@ -24,10 +24,10 @@
 <% @trainingreports.each do |trainingreport| %>
   <tr>
 		<td><%=h trainingreport.timetable_staff_details %></td>
-		<td><%=h trainingreport.timetable_id.blank? ? "" : trainingreport.timetable.klass.subject.subject_code_with_subject_name %></td>
-		<td><%=h trainingreport.timetable_id.blank? ? "" : trainingreport.topic_details %></td>
+		<td><%=h trainingreport.timetable_id.blank? ? "" : trainingreport.timetable.topic.subject.subject_code_with_subject_name %></td>
+		<td><%=h trainingreport.timetable_id.blank? ? "" : trainingreport.timetable.topic_details%></td>
 		<td><%=h (Trainingreport::CTYPE.find_all{|disp, value| value == trainingreport.classtype}).map {|disp, value| disp} %></td>
-		<td><%=h trainingreport.timetable_id.blank? ? "" : trainingreport.location.name %></td>
+		<td><%=h trainingreport.timetable_id.blank? ? "" : trainingreport.timetable.location.name %></td>
 		<td><%=h trainingreport.timetable_id.blank? ? "" : trainingreport.timetable.start_at.strftime("%I:%M%p") + ' to ' + trainingreport.timetable.end_at.strftime("%I:%M%p %d-%b-%Y") %></td>
     	<td><%=h trainingreport.submit? ? "Yes" : "No" %></td>
     	<td width=10px><%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => trainingreport %></td>
