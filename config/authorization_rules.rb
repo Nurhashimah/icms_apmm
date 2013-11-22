@@ -295,7 +295,10 @@ end
    
    # Instructor Appraisal
    #has_permission_on :evaluate_coaches, :to => [:manage, :penilaijurulatih] 
-  
+   
+   # Average Instructor                                                                     #6 March 2013
+   has_permission_on :average_instructors, :to => [:manage, :average_score_analysis]        #6 March 2013-gives qc access
+   
    # Examination Question Bank
    has_permission_on :examquestions, :to => :manage 
    

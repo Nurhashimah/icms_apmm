@@ -1,10 +1,11 @@
 class Trainingreport < ActiveRecord::Base
   
-   belongs_to :timetable
+   belongs_to :timetable, :foreign_key => 'timetable_id'
    belongs_to :staff
    belongs_to :tpa, :class_name => 'Staff', :foreign_key => 'tpa_id'
+   belongs_to :topic
 
-    belongs_to :topic
+   validates_presence_of :timetable_id
 
    CTYPE = [
          # Displayed stored in db

@@ -1,0 +1,354 @@
+<div class="tform">
+<H2>Evaluation Information</H2>
+<table width=100% >
+	<tr>
+		<td  width=23%><label for="student_id"><font size=2>Programme</font></label></td>
+		<td><b>:</b></td>
+		<td><%=h @average_instructor.programme_id.blank? ? "" : @average_instructor.instructor_course.programme_with_specialisation %></td>
+	</tr>
+	<tr>
+		<td  width=23%><label for="student_id"><font size=2>Instructor Name</font></label></td>
+		<td><b>:</b></td>
+		<td><%=h @average_instructor.instructor_id.blank? ? "" : @average_instructor.evaluated_instructor.staff_name_with_title %>
+			<%#= @average_instructor.evaluated_instructor.position.positionname%>
+		</td>
+	</tr>	 
+	<tr>
+		<td class="leftcol"><label for="subject_id">Evaluation Date</label></td>
+		<td><b>:</b></td>
+		<td><%=h @average_instructor.evaluatedate.strftime("%d %b %Y") %></td>
+	</tr>	
+	<tr>
+		<td class="leftcol"><label for="subject_id">Evaluation Title</label></td>
+		<td><b>:</b></td>
+		<td><%=h @average_instructor.title %></td>
+	</tr> 	
+	<tr>
+		<td class="leftcol"><label for="subject_id">Objective</label></td>
+		<td><b>:</b></td>
+		<td><%=h @average_instructor.objective %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="subject_id">Start Time</label></td>
+		<td><b>:</b></td>
+		<td> <%=h @average_instructor.starttime.strftime("%H:%M") %></td>
+	</tr>		
+	<tr>
+		<td class="leftcol"><label for="subject_id">End Time</label></td>
+		<td><b>:</b></td>
+		<td><%=h @average_instructor.endtime.strftime("%H:%M") %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="subject_id">Delivery Type</label></td>
+		<td><b>:</b></td>
+		<td><%=h (AverageInstructor::DELIVERY_TYPE.find_all{|disp, value| value == @average_instructor.deliverytype }).map {|disp, value| disp} %></td>
+	</tr>
+</table>
+<BR>
+<H2>Evaluation Details</H2>
+	<table>
+		<tr><td colspan=2>1. Instrument ini mengandungi lima dimensi dengan wajaran seperti berikut:</td></tr>
+		<tr><td width=20%></td><td width=80%>
+
+		<table border=1 cellpadding=7 border=1 cellspacing=0 BORDERCOLOR="#C0C0C0">
+		<tr>
+			<th width=80% align=center>Dimensi</td>
+			<th align=center>Wajaran</td>
+		</tr>
+		<tr>
+			<td>A. PERSEDIAAN</td>
+			<td align=center>25%</td>
+		</tr>
+		<tr>
+			<td width=50%>B. PENYAMPAIAN</td>
+			<td align=center>30%</td>
+		</tr>
+		<tr>
+			<td>C. PENGGUNAAN</td>
+			<td align=center>5%</td>
+		</tr>
+		<tr>
+			<td>D. PENGESAHAN</td>
+			<td align=center>20%</td>
+		</tr>
+		<tr>
+			<td>E. TEKNIK UMUM MENGAJAR</td>
+			<td align=center>20%</td>
+		</tr>	
+		</table>
+		</td></tr>
+	</table>
+	<br/>
+	<table width=100% border=1 cellpadding=7 border=1 cellspacing=0 BORDERCOLOR="#C0C0C0">
+		<tr>
+			<th width=30%>Skala Pengukuran</td>
+			<td style="vertical-align:middle;" width=15%><b>5 : Cemerlang</b></td>
+			<td style="vertical-align:middle;" width=10%><b>4 : Baik</b></td>
+			<td style="vertical-align:middle;" width=15%><b>3 : Sederhana</b></td>
+			<td style="vertical-align:middle;" width=10%><b>2 : Lemah</b></td>
+			<td style="vertical-align:middle;" width=20%><b>1 : Sangat Lemah</b></td>
+		</tr>
+	</table>	
+	<br/>
+	<% part_name = ["A","B","C","D","E"] %>
+	<% part_title = ["PERSEDIAAN", "PENYAMPAIAN","PENGGUNAAN","PENGESAHAN","TEKNIK UMUM MENGAJAR"]%>
+	
+	<!--start-BAHAGIAN A : PERSEDIAAN-->
+	<table width=100% border=1 cellspacing=0cellpading=7 BORDERCOLOR="#C0C0C0">
+		<tr>
+			<th rowspan=2><b>BAHAGIAN <%=part_name[0]%> : <%=part_title[0]%></b></th>
+			<th colspan=5 align=center><b>SKOR</b></th>
+			<th rowspan=2 align=center><b>ULASAN</b></th>
+		</tr>
+		<tr>
+			<th align=center>5</th>
+			<th align=center>4</th>
+			<th align=center>3</th>
+			<th align=center>2</th>
+			<th align=center>1</th>
+		</tr>
+		<tr><td colspan=7><b>Sebelum Sesi Mengajar</b></td></tr>
+		<% 1.upto(4) do |counterA1| %>
+			<% if counterA1==1 %>   
+				<% questionA1="1. Penampilan diri yang kemas"%>
+				<% answerA1=@average_instructor.pbq1%>
+				<% reviewA1 = @average_instructor.pbq1review %>
+			<% elsif counterA1==2 %>
+				<% questionA1="2. Mewujudkan persekitaran yang selesa"%>	
+				<% answerA1=@average_instructor.pbq2%>
+				<% reviewA1 = @average_instructor.pbq2review %>
+			<% elsif counterA1==3 %>
+				<%questionA1="3. Bersedia dengan bahan pembelajaran"%>
+				<% answerA1=@average_instructor.pbq3%>
+				<% reviewA1 = @average_instructor.pbq3review %>
+			<% elsif counterA1==4 %>
+				<%questionA1="4. Memastikan peralatan yang cukup dan berfungsi dengan baik"%>
+				<% answerA1=@average_instructor.pbq4%><% reviewA1 = @average_instructor.pbq4review %>
+			<% end %>
+			<tr>
+				<td width=45%><%=questionA1%></td>
+				<td align=center><% if answerA1 == 5 %><%=answerA1%><%else%><font color="#A0A0A0">5</font><% end %></td>
+				<td align=center><% if answerA1 == 4 %><%=answerA1%><%else%><font color="#A0A0A0">4</font><% end %></td>
+				<td align=center><% if answerA1 == 3 %><%=answerA1%><%else%><font color="#A0A0A0">3</font><% end %></td>
+				<td align=center><% if answerA1 == 2 %><%=answerA1%><%else%><font color="#A0A0A0">2</font><% end %></td>
+				<td align=center><% if answerA1 == 1 %><%=answerA1%><%else%><font color="#A0A0A0">1</font><% end %></td>
+				<td><%=reviewA1 %></td>
+			</tr>
+		<% end %>
+
+		<tr><td colspan=7><b>Semasa Sesi Mengajar</b></td></tr>
+		<% 1.upto(5) do |counterA2| %>
+			<% if counterA2==1 %>   
+				<%questionA2="1. Memberi salam"%>
+				<% answerA2=@average_instructor.pdq1%>
+				<% reviewA2 = @average_instructor.pdq1review %>
+			<% elsif counterA2==2 %>
+				<%questionA2="2. Selesakan pelajar dan semak kehadiran"%>
+				<% answerA2=@average_instructor.pdq2%>
+				<% reviewA2 = @average_instructor.pdq2review %>
+			<% elsif counterA2==3 %>
+				<%questionA2="3. Tajuk diperkenalkan dengan jelas"%>
+				<% answerA2=@average_instructor.pdq3%>
+				<% reviewA2 = @average_instructor.pdq3review %>
+			<% elsif counterA2==4 %>
+				<%questionA2="4. Memberi gambaran keseluruhan pelajaran"%>
+				<% answerA2=@average_instructor.pdq4%>
+				<% reviewA2 = @average_instructor.pdq4review %>
+			<% elsif counterA2==5 %>
+				<% questionA2="5. Objektif/hasil diperjelaskan"%>
+				<% answerA2=@average_instructor.pdq5%>
+				<% reviewA2 = @average_instructor.pdq5review %>
+			<% end %>
+			<tr>
+				<td width=45%><%=questionA2%></td>
+				<td align=center><% if answerA2 == 5 %><%=answerA2%><%else%><font color="#A0A0A0">5</font><% end %></td>
+				<td align=center><% if answerA2 == 4 %><%=answerA2%><%else%><font color="#A0A0A0">4</font><% end %></td>
+				<td align=center><% if answerA2 == 3 %><%=answerA2%><%else%><font color="#A0A0A0">3</font><% end %></td>
+				<td align=center><% if answerA2 == 2 %><%=answerA2%><%else%><font color="#A0A0A0">2</font><% end %></td>
+				<td align=center><% if answerA2 == 1 %><%=answerA2%><%else%><font color="#A0A0A0">1</font><% end %></td>
+				<td><%=reviewA2 %></td>
+			</tr>
+		<% end %>
+		<tr><td>&nbsp;</td><td colspan=3>Skor diperolehi</td><td colspan=2 align=center><%= @average_instructor.marks_a %>/<%= @average_instructor.total_a %></td><td>&nbsp;</td></tr>
+	</table>	
+	<!--end-BAHAGIAN A : PERSEDIAAN-->
+	<br>
+	<!--start-BAHAGIAN B, C, D & E-->
+	<% h = {1=>["1. Mengulangkaji pelajaran lepas dan kaitkan dengan pelajaran yang akan diajar",@average_instructor.dq1,@average_instructor.dq1review], 2=>["2. Kandungan disampaikan dalam susunan yang logik",@average_instructor.dq2,@average_instructor.dq2review], 3=>["3. Pelajaran teori/amali disampaikan menggunakan pelbagai kaedah yang bersesuaian",@average_instructor.dq3,@average_instructor.dq3review], 4=>["4. Penyampaian yang terang dan jelas",@average_instructor.dq4,@average_instructor.dq4review],5=>["5. Mengajar di tahap keupayaan pelajar",@average_instructor.dq5,@average_instructor.dq5review],6=>["6. Menekankan perkara yang mustahak",@average_instructor.dq6,@average_instructor.dq6review],7=>["7. Menekankan aspek keselamatan8. Memberi contoh-contoh yang relevan",@average_instructor.dq7,@average_instructor.dq7review],8=>["8. Memberi contoh-contoh yang relevan",@average_instructor.dq8,@average_instructor.dq8review],9=>["9. Melibatkan pelajar dalam aktiviti pembelajaran",@average_instructor.dq9,@average_instructor.dq9review],10=>["10. Mengekalkan <i>eye contact</i>",@average_instructor.dq10,@average_instructor.dq10review],11=>["11. Bahasa yang sesuai dan jelas digunakan",@average_instructor.dq11,@average_instructor.dq11review],12=>["12. Menghadkan kandungan sewajarnya",@average_instructor.dq12,@average_instructor.dq12review]} %>
+	
+	<% i = {1=>["1. Pelajar menggunakan perkara penting",@average_instructor.uq1,@average_instructor.uq1review],2=>["2. Segera perbetulkan kesilapan pelajar",@average_instructor.uq2,@average_instructor.uq2review],3=>["3. Peringkat kefahaman pelajar selalu disemak",@average_instructor.uq3,@average_instructor.uq3review],4=>["4. Pastikan tujuan pembelajaran sudah dicapai",@average_instructor.uq4,@average_instructor.uq4review]} %>
+	
+	<% j = {1=>["1. Penilaian dijalankan pada masa yang bersesuaian ",@average_instructor.vq1,@average_instructor.vq1review],2=>["2. Nyatakan dengan terang tugas pelajar",@average_instructor.vq2,@average_instructor.vq2review],3=>["3. Penilaian berasaskan kandungan pelajaran",@average_instructor.vq3,@average_instructor.vq3review],4=>["4. Nyatakan kriteria penilaian",@average_instructor.vq4,@average_instructor.vq4review],5=>["5. Dapat mengukur tujuan pelajaran",@average_instructor.vq5,@average_instructor.vq5review]} %>
+					
+	<% k = {1=>["1. Mengikut pelan mengajar",@average_instructor.gttq1,@average_instructor.gttq1review],2=>["2. Bertutur dengan baik dan berkesan ",@average_instructor.gttq2,@average_instructor.gttq2review],3=>["3. Mengawalkan emosi semasa mengajar",@average_instructor.gttq3,@average_instructor.gttq3review],4=>["4. Pembahagian masa mengajar yang betul",@average_instructor.gttq4,@average_instructor.gttq4review],5=>["5. Mendapatkan persefahaman pelajar",@average_instructor.gttq5,@average_instructor.gttq5review],6=>["6. Menggunakan teknik soalan yang baik ",@average_instructor.gttq6,@average_instructor.gttq6review],7=>["7. Menggunakan BBM dengan baik",@average_instructor.gttq7,@average_instructor.gttq7review],8=>["8. Menunjukkan penguasaann dalam tajuk yang diajar",@average_instructor.gttq8,@average_instructor.gttq8review],9=>["9. Pelajar sentiasa mengikuti pelajaran",@average_instructor.gttq9,@average_instructor.gttq9review]} %>
+
+	<!--
+	q: <%#= h[12][0] %>
+	a: <%#= h[1][1] %>
+	r: <%#= h[1][2] %>-->
+	
+	<% 1.upto(4) do |counter| %>
+	<table width=100% border=1 cellspacing=0cellpading=7 BORDERCOLOR="#C0C0C0">
+		<tr>
+			<th rowspan=2><b>BAHAGIAN <%=part_name[counter]%> : <%=part_title[counter]%></b></th>
+			<th colspan=5 align=center><b>SKOR</b></th>
+			<th rowspan=2 align=center><b>ULASAN</b></th>
+		</tr>
+		<tr>
+			<th align=center>5</th>
+			<th align=center>4</th>
+			<th align=center>3</th>
+			<th align=center>2</th>
+			<th align=center>1</th>
+		</tr>	
+
+			<% question_qty=12 if counter==1 %>
+			<% question_qty=4 if counter==2 %>
+			<% question_qty=5 if counter==3 %>
+			<% question_qty=9 if counter==4 %>		
+			
+			<% 1.upto(question_qty) do |question_count|%>
+				<% if counter==1%>
+					<% question = h[question_count][0]%>
+					<% answer = h[question_count][1] %>
+					<% review = h[question_count][2] %>
+				<% elsif counter==2%>
+					<% question = i[question_count][0]%>
+					<% answer = i[question_count][1] %>
+					<% review = i[question_count][2] %>
+				<% elsif counter==3%>
+					<% question = j[question_count][0]%>
+					<% answer = j[question_count][1] %>
+					<% review = j[question_count][2] %>	
+				<% elsif counter==4%>
+					<% question = k[question_count][0]%>
+					<% answer = k[question_count][1] %>
+					<% review = k[question_count][2] %>
+				<% end %>
+				<tr>
+					<td width=45%><%=question%></td>
+					<td align=center><% if answer == 5 %><%=answer%><%else%><font color="#A0A0A0">5</font><% end %></td>
+					<td align=center><% if answer == 4 %><%=answer%><%else%><font color="#A0A0A0">4</font><% end %></td>
+					<td align=center><% if answer == 3 %><%=answer%><%else%><font color="#A0A0A0">3</font><% end %></td>
+					<td align=center><% if answer== 2 %><%=answer%><%else%><font color="#A0A0A0">2</font><% end %></td>
+					<td align=center><% if answer == 1 %><%=answer%><%else%><font color="#A0A0A0">1</font><% end %></td>
+					<td><%=review %></td>
+				</tr>
+			<% end %>
+			<tr><td>&nbsp;</td><td colspan=3>Skor diperolehi</td><td colspan=2 align=center>
+				<% if counter == 1 %>
+					<%= @average_instructor.marks_b %>/<%= @average_instructor.total_b %>
+				<% elsif counter == 2 %>
+					<%= @average_instructor.marks_c %>/<%= @average_instructor.total_c %>
+				<% elsif counter == 3 %>
+					<%= @average_instructor.marks_d %>/<%= @average_instructor.total_d %>
+				<% elsif counter == 4 %>
+					<%= @average_instructor.marks_e %>/<%= @average_instructor.total_e %>
+				<% end %>
+			</td><td>&nbsp;</td></tr>
+		</table>
+		<br>	
+	<% end %>
+	<!--end-BAHAGIAN B, C, D & E-->	
+<BR>
+<H2>Evaluation Summary</H2>	
+	<table border=1 cellspacing=0 cellpadding=0>
+		<tr>
+			<td colspan=2><b>Komponen Prestasi</b></td>
+			<td align=center><b>Skor Max</b><br/> (x)</td>
+			<td align=center><b>Skor diperolehi</b><br/> (y)</td>
+			<td align=center><b>Pemberat/Kewajaran</b><br/> (w)</td>
+			<td align=center><b>Peratus</b> <br>y/x x w</td>
+		</tr>
+		<tr>
+			<td><b>A</b></td>
+			<td>PERSEDIAAN</td>
+			<td align=center>45</td>
+			<td align=center><%= @average_instructor.marks_a %></td>
+			<td align=center>25</td>
+			<td align=center><%= score_a=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_a,@average_instructor.total_a,"A"), :precision => 2)%></td>
+		</tr>
+		<tr>
+			<td><b>B</b></td>
+			<td>PENYAMPAIAN</td>
+			<td align=center>60</td>
+			<td align=center><%= @average_instructor.marks_b %></td>
+			<td align=center>30</td>
+			<td align=center><%= score_b=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_b,@average_instructor.total_b,"B"), :precision => 2)%></td>
+		</tr>
+		<tr>
+			<td><b>C</b></td>
+			<td>PENGGUNAAN</td>
+			<td align=center>20</td>
+			<td align=center><%= @average_instructor.marks_c %></td>
+			<td align=center>5</td>
+			<td align=center><%= score_c=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_c,@average_instructor.total_c,"C"), :precision => 2)%></td>
+		</tr>
+		<tr>
+			<td><b>D</b></td>
+			<td>PENGESAHAN</td>
+			<td align=center>25</td>
+			<td align=center><%= @average_instructor.marks_d %></td>
+			<td align=center>20</td>
+			<td align=center><%= score_d=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_d,@average_instructor.total_d,"D"), :precision => 2)%></td>
+		</tr>
+		<tr>
+			<td><b>E</b></td>
+			<td>TEKNIK UMUM MENGAJAR</td>
+			<td align=center>45</td>
+			<td align=center><%= @average_instructor.marks_e %></td>
+			<td align=center>20</td>
+			<td align=center><%= score_e=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_e,@average_instructor.total_e,"E"), :precision => 2)%></td>
+		</tr>
+	</table>
+	<br/>
+
+	<table border=1 cellspacing=0 cellpadding=0>
+		<tr>
+			<td align=center><b>Julat skor</b></td>
+			<td align=center><b>Gred</b></td>
+			<td align=center><b>Prestasi</b></td>
+		</tr>
+		<tr>
+			<td align=center>85-100</td>
+			<td align=center><% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "A" %>C<%else%><font color="#A0A0A0">A</font><% end %></td>
+			<td align=center>Sangat Baik</td>
+		</tr>
+		<tr>
+			<td align=center>70-84</td>
+			<td align=center><% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "B" %>C<%else%><font color="#A0A0A0">B</font><% end %></td>
+			<td align=center>Baik</td>
+		</tr>
+		<tr>
+			<td align=center>50-69</td>
+			<td align=center><% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "C" %>C<%else%><font color="#A0A0A0">C</font><% end %></td>
+			<td align=center>Sederhana</td>
+		</tr>
+		<tr>
+			<td align=center>40-49</td>
+			<td align=center><% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "D" %>C<%else%><font color="#A0A0A0">D</font><% end %></td>
+			<td align=center>Lemah</td>
+		</tr>
+		<tr>
+			<td align=center><40</td>
+			<td align=center><% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "E" %>C<%else%><font color="#A0A0A0">E</font><% end %></td>
+			<td align=center>Sangat Lemah</td>
+		</tr>
+	</table>
+
+<table width=100% >
+	<tr>
+		<td  width=23%><label for="student_id"><font size=2>Review</font></label></td>
+		<td><b>:</b></td>
+		<td><%=h @average_instructor.review %></td>
+	</tr>
+	<tr>
+		<td  width=23%><label for="student_id"><font size=2>Evaluate by</font></label></td>
+		<td><b>:</b></td>
+		<td><%=h @average_instructor.evaluator_id.blank? ? "" : @average_instructor.instructor_evaluator.staff_name_with_title %></td>
+	</tr>
+</table>	
+
+</div>
+<%= link_to 'Edit', edit_average_instructor_path(@average_instructor) %> |
+<%= link_to 'Back', average_instructors_path %>

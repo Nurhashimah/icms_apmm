@@ -1,5 +1,12 @@
 <div class="fields">
-	<%= f.file_field :document %> &nbsp;   &nbsp;<BR>
+	<font color=#444 size=-2>
+		<% if f.object.document!= nil %>
+				Current file is : <b><%= f.object.document_file_name %></b> &nbsp;&nbsp;&nbsp;
+	    		<%= link_to (t 'document.download'), f.object.document.url %> 
+				<BR>Or 
+			<% end %>
+		</font>
+	<%= f.file_field :document %>&nbsp;&nbsp;<BR><font color=grey size=-2>(Supported Format : .pdf/.doc/.docs/.xls/.xlsx/.png/.jpg/.txt)</font><BR>
 	<%= f.text_field :title, :placeholder => 'Title', :size => '50x1' %>
 	<%= f.text_field :version, :placeholder => 'Version', :size => '6x1' %>  &nbsp;   &nbsp; <BR>
 	Release Date <%= f.date_select :release %><%= f.hidden_field :_destroy %>

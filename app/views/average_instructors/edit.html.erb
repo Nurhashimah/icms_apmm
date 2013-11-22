@@ -1,0 +1,12 @@
+<h3>Editing Evaluation and Average Score Analysis for Instructor</h3>
+
+<% form_for(@average_instructor) do |f| %>
+  <%= f.error_messages %>
+<%= render :partial => 'form', :locals => {:f => f} %>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @average_instructor %> |
+<%= link_to 'Back', average_instructors_path %>

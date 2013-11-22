@@ -107,6 +107,8 @@ ms_MY:
     staffattendance: Kehadiran Staf
     appraisal: Penilaian Prestasi Staf
     instructor: Penilaian Jurulatih
+    instructor_report: Laporan Penilaian Diri Untuk Jurulatih
+    instructor_average: "Penilaian & Analisa Skor Purata Jurulatih"
     lecturer: Penilaian Pensyarah
     task: Tugas dan Tanggungjawab staf
     leave: Cuti Staf

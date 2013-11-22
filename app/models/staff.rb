@@ -192,7 +192,10 @@ class Staff < ActiveRecord::Base
    
    #links to Model Average Evaluate
    has_many :principal_name, :class_name => 'Averagelecturer', :foreign_key => 'pricipal_id'
-   
+
+   #links to Model Average Instructor   #6 March 2013
+   has_many :instructor_evaluated, :class_name => 'AverageInstructor', :foreign_key => 'evaluator_id'   #6 March 2013
+   has_many :instructor_evaluation, :class_name => 'AverageInstructor', :foreign_key => 'instructor_id' #6 March 2013   
    
 #-------------Empty Field for Foreign Key Link------------------------
   has_many :downloads

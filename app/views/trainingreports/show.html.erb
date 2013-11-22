@@ -16,13 +16,13 @@
 	<tr>
 		<td class="leftcol"><label for="classtype">Subject</label></td>
 		<td><b>:</b></td>
-		<td><%=h @trainingreport.timetable_id.blank? ? "" : @trainingreport.timetable.klass.subject.subject_code_with_subject_name %></td>
+		<td><%=h @trainingreport.timetable_id.blank? ? "" : @trainingreport.timetable.topic.subject.subject_code_with_subject_name %></td>
 	</tr>
 
 	<tr>
 		<td class="leftcol"><label for="classtype">Topic</label></td>
 		<td><b>:</b></td>
-		<td><%=h @trainingreport.timetable_id.blank? ? "" : @trainingreport.topic_details %></td>
+		<td><%=h @trainingreport.timetable_id.blank? ? "" : @trainingreport.timetable.topic_details %></td>
 	</tr>
 
 	<tr>
@@ -34,13 +34,13 @@
 	<tr>
 		<td class="leftcol"><label for="classtype">Location</label></td>
 		<td><b>:</b></td>
-		<td><%=h @trainingreport.timetable_id.blank? ? "" : @trainingreport.location.name %></td>
+		<td><%=h @trainingreport.timetable_id.blank? ? "" : @trainingreport.timetable.location.name %></td>
 	</tr>
 
 	<tr>
 		<td class="leftcol"><label for="classtype">Student Count</label></td>
 		<td><b>:</b></td>
-		<td><%=h @trainingreport.timetable_id.blank? ? "" : @timetable.student_count %></td>
+		<td><%=h @trainingreport.timetable_id.blank? ? "" : @trainingreport.timetable.student_count %></td>
 	</tr>
 
 	<tr>

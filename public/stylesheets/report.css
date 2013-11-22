@@ -75,12 +75,12 @@
 #title table td{
 	font-size: 16px;
 	vertical-align: text-bottom;
-
+	height: 16px;		/*10March2013*/
 }
 
 #title table th{
 	font-size: 16px;
-	
+	height: 10px;		/*10March2013*/
 }
 
 #borangpenilaiantitle {
@@ -262,9 +262,8 @@ ol li {
 	font-family: Arial, sans-serif;
 }
 
-
-.yellow td {background-color: green; color:green;}
-
+.green td {background-color: green; color:green;}
+.yellow td{background-color:yellow;}/*9March2013*/
 .red td {background-color: #FEE; }
 .blue td {background-color: #EEF; }
 .grey td {background: #555; text-align: center; font-size: 11px; font-weight:bold; }
@@ -396,6 +395,379 @@ margin-right:1.5cm;
 	font-size:10px;
 	
     }
+	/*10March2013 - box for logo*/
+	#box_logo
+	{
+		width: 100%;
+		border: 0px;
+		padding: 0px 1px 0px 1px;
+		border-spacing: 0px;
+	}
+	#box_logo img
+	{
+		height: 100px;
+	}
+	/*10march2013 - box for logo*/
+	/*10March2013 box for evaluation information*/
+	#box_info
+	{
+		border: 2px solid;
+		padding: 5px;
+	}	
+	#box_info_inner
+	{
+		border: 0px;
+		border-spacing: 0px;
+		padding-left: 5px;
+		padding-right: 5px;
+		width: 100%
+	}
+	#box_info_inner td.left_title
+	{
+		border: 0px;
+		height: 7px;
+		width: 30%;
+	}
+	#box_info_inner td.delivery_box
+	{
+		border: 1px solid;
+		width: 5%;
+	}
+	#box_info_inner td.tpl
+	{
+		border: 0px;
+		text-align: center;
+	}
+	#box_info_inner td.timing_top_left
+	{
+		border-top: 2px solid;
+		border-left: 2px solid;
+		border-bottom: 1px solid;
+		border-right: 1px solid;
+		width:15%;
+	}
+	#box_info_inner td.timing_top_right
+	{
+		border-top: 2px solid;
+		border-right: 2px solid;
+		border-bottom: 1px solid;
+	}
+	#box_info_inner td.timing_right
+	{
+		border-right: 2px solid;
+		width:12%;
+	}
+	#box_info_inner td.timing_bottom_right
+	{
+		border-bottom: 2px solid;
+		border-right: 2px solid;
+		border-top: 1px solid;
+	}
+	#box_info_inner td.timing_bottom_left
+	{
+		border-bottom: 2px solid;
+		border-left: 2px solid;
+		border-top: 1px solid;
+		border-right: 1px solid;
+	}
+	#box_info_inner td.timing_left
+	{
+		border-left: 2px solid;
+		border-right: 1px solid;
+	}
+	/*10March2013 box for evaluation information*/
+	/*9March2013-bold*/
+	.bold {
+		font-weight: bold;
+	}
+	.grey2
+	{
+		color: #A0A0A0;
+	}
+	/*9March2013-bold*/	
+	/*9March2013-table dimensi-wajaran*/
+	#box_dimensi 
+	{
+		width: 75%;
+		border-spacing: 0;
+		padding: 2px;
+		border: 0px;
+	}
+	#box_dimensi  td.no
+	{
+		width:10%
+	}
+	#box_dimensi  td.no_penilaian
+	{
+		text-align: center;
+		width: 10%;
+		font-weight: bold;
+		border-left: 1px solid;
+		border-bottom: 1px solid;
+	}
+	#box_dimensi  td.no_penilaian_top
+	{
+		vertical-align: middle;
+		text-align: center;
+		width: 10%;
+		font-weight: bold;
+		border-top: 1px solid;
+		border-left: 1px solid;
+		border-bottom: 1px solid;
+	}
+	#box_dimensi  td.center_dimensi
+	{
+		text-align: center;
+		border-top: 1px solid;
+		border-bottom: 1px solid;
+		border-left: 1px solid;
+	}
+	#box_dimensi  td.center_dimensi_right
+	{
+		text-align: center;
+		border-top: 1px solid;
+		border-bottom: 1px solid;
+		border-left: 1px solid;
+		border-right: 1px solid;
+	}
+	#box_dimensi  td.center_top
+	{
+		text-align: center;
+		border: 1px solid;
+	}
+	#box_dimensi  td.center_top_max
+	{
+		text-align: center;
+		border: 1px solid;
+		width: 10%;
+	}
+	#box_dimensi  td.center_top_diperolehi
+	{
+		text-align: center;
+		border-top: 1px solid;
+		border-right: 1px solid;
+		border-bottom: 1px solid;
+		width: 20%;
+	}
+	#box_dimensi  td.center_other
+	{
+		text-align: center;
+		border-right: 1px solid;
+		border-bottom: 1px solid;
+		border-left: 1px solid;
+	}
+	#box_dimensi  td.center_other_right
+	{
+		text-align: center;
+		border-right: 1px solid;
+		border-bottom: 1px solid;
 
+	}
+	#box_dimensi  td.center_other_end
+	{
+		padding-left: 5px;
+		text-align: left;
+		border-right: 1px solid;
+		border-bottom: 1px solid;
+
+	}
+	#box_dimensi  td.description
+	{
+		text-align: left;
+		width: 60%;
+		border-bottom: 1px solid;
+		border-left: 1px solid;
+	}
+	/*9March2013-table dimensi-wajaran*/
+	/*10March2013-table arahan*/
+	#box_arahan
+	{
+		width: 100%;
+		padding: 0px 3px 0px 3px;
+		border: 1px solid;
+	}
+	/*10March2013-table arahan*/
+	/*10March2013-table skala pengukuran*/
+	#box_skala_pengukuran
+	{
+		width: 100%;
+		border: 1px;
+		border-spacing: 0px;
+		padding: 0px;
+		background-color: yellow;
+	}
+	#box_skala_pengukuran td.center
+	{
+		text-align: center;
+	}
+	#box_skala_pengukuran td.left
+	{
+		border-left: 1px solid;
+	}
+	/*10March2013-table skala pengukuran*/
+	/* 9March2013-box for Bahagian A,B,C,D,E*/
+	#box_bahagian {
+		width: 100%;
+		border: 0px;
+		padding: 0px;
+		border-spacing:0px;
+	}
+
+	#box_bahagian th{
+		vertical-align: middle;
+		font-weight:bold; 
+	    background-color: #D8D8D8;
+	}
+	#box_bahagian th.top_bottom_left1{
+		text-align: left;
+		border-top:1px solid;
+		border-bottom:1px solid;
+		border-left:1px solid; 
+		width: 55%;
+		padding: 0px 0px 0px 5px;
+	  }
+	#box_bahagian th.top_bottom_left2{
+		text-align: center;
+		border-top: 1px solid;
+		border-bottom:1px solid;
+		border-left:1px solid;
+		width: 25%;
+		padding: 0px 0px 0px 5px;
+	  }
+	#box_bahagian th.full{
+		text-align: center;
+		border: 1px solid;
+		width: 25%;
+		padding: 0px 0px 0px 5px;
+	  }
+	 #box_bahagian th.left_bottom{
+		text-align: center;
+	 	border-left:1px solid;
+		border-bottom:1px solid;
+		padding: 0px;
+		width: 4%;
+	  }
+	/* 9March2013-box for Bahagian A,B,C,D,E*/
+
+	/*outer box*/
+	#outer_box {
+		border:1px solid;
+		padding-left:5px;
+		padding-bottom: 10px;
+	}
+	/*outer box*/
+	/*box_question*/
+	#box_question {
+		width: 100%;
+		border: 0;/*1px solid;*/
+		padding: 0;
+		border-spacing:0;
+	}
+	#box_question th{
+		text-align: left;
+	}
+	#box_question td{
+		vertical-align: middle;
+		font-weight: normal;
+	}
+	#box_question td.no{
+		width: 5%;
+	}
+	#box_question td.wording{
+		width: 50%;
+	}
+	#box_question td.top_bottom_left{
+		text-align: center;
+		border-top:1px solid;
+		border-bottom:1px solid;
+		border-left:1px solid;
+		width: 4%;
+	  }
+
+	#box_question td.full{
+		text-align: center;
+		border:1px solid;
+		width: 4%;
+	  }
+	#box_question td.ulasan
+	{
+		text-align: left;
+		padding-left: 5px;
+	}
+	#box_question td.gap{
+		height: 5px;
+	}
+	#box_question td.score_left{
+		vertical-align: middle;
+		padding-left: 10px;
+		font-weight: normal;
+		border-top:1px solid;
+		border-bottom:1px solid;
+		border-left:1px solid;
+	}
+	#box_question td.score_full{
+		vertical-align: middle;
+		text-align: center;
+		font-weight: normal;
+		border:1px solid;
+	}
+	#box_review
+	{
+		width: 100%;
+		border: 0px;
+		height: 7px;
+	}
+	#box_review td.title
+	{
+		width: 10%;
+		font-weight: bold;
+	}
+	#box_signatory
+	{
+		width : 90%;
+		border : 0px;
+		text-align: center;
+	}
+	#box_signatory td.line1
+	{
+		border-bottom: 1px solid;
+		height :50px;
+		width :30%;
+	}
+	#box_signatory td.in_between
+	{
+		width : 10%;
+	}
+	#box_signatory td.line2
+	{
+		border-bottom: 1px solid;
+		height :50px;
+		width :60%;
+	}
+	#box_signatory td.center
+	{
+		text-align: center;
+	}
+	#box_signatory td.left
+	{
+		text-align: left;
+	}
+	#box_tag
+	{
+		border: 1px solid;
+		width: 100%;
+		padding: 0px;
+		border-spacing: 0px;
+	}
+	#box_tag td
+	{
+		padding-left: 5px;
+		font-weight: bold;	
+	}
+	#box_tag td.heading
+	{
+		border-right: 1px solid;
+		width: 50%;
+	}
 
 

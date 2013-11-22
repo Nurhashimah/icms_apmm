@@ -434,6 +434,16 @@
 		<td align="center"><% if @instructor.q48 == 1 %><%=h (Instructor::SCORE.find_all{|disp, value| value == @instructor.q48 }).map {|disp, value| disp} %><% else%>&nbsp;<%end%></td>
 		<td align="center"><% if @instructor.q48 == 0 %><%=h (Instructor::SCORE.find_all{|disp, value| value == @instructor.q48 }).map {|disp, value| disp} %><% else%>&nbsp;<%end%></td>
 	</tr>
+	<!--added 6March2013-->
+	<tr>
+	  	<td colspan=2 align="right"><b><i>JUMLAH</td>
+	  	<!--20Feb2013-Feature #11-->
+		<td align="center"><%= Instructor.totalmark(2.to_i,@instructor)%></td>
+		<td align="center"><%= Instructor.totalmark(1.to_i,@instructor)%></td>
+		<td align="center"><%= Instructor.totalmark(0.to_i,@instructor)%></td>
+		<!--20Feb2013-Feature #11-->
+	</tr>
+	<!--added 6March2013-->
 </table>
 <BR>
 <table width=60% align="center" cellpadding=7 border=1 cellspacing=0 BORDERCOLOR="#C0C0C0 ">

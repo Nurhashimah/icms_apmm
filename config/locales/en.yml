@@ -108,6 +108,8 @@ en:
     staffattendance: Staff Attendance
     appraisal: Staff Performance Evaluation
     instructor: Instructor Appraisals
+    instructor_report: Instructor Appraisals Report
+    instructor_average: Evaluation and Average Score Analysis for Instructor
     lecturer: Lecturer Appraisals
     task: Staff Task And Responsibilities
     leave: Staff Leave
