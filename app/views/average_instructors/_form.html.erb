@@ -1,0 +1,644 @@
+<div class="tform">
+<h2>Evaluation Information</h2>
+<table width=100%>
+	<tr>
+		<td width=20%><%= f.label :programme_id %></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.collection_select :programme_id, Programme.all, :id, :programme_with_specialisation %></td>
+	</tr>
+	<tr>
+		<td width=20%><%= f.label :instructor_id %></td>
+		<td width=3%><b>:</b></td>
+		<td>
+			<!--6 March 2013-->
+			<%#= f.text_field :instructor_id %>
+			<!--instructor is not a person but refers to instructor_appraisal(NEW FORM)...-->
+			<!--view instructor who have prepare his own instructor appraisal ONLY-->
+			<%#= f.collection_select :instructor_id, Instructor.find(:all), :staff_id, :instructor_details %>
+			<!--view all staff-->
+			<%#= f.collection_select :staff_id, Staff.find(:all), :id, :staff_name_with_title %>
+			<!--6 March 2013-->
+			<!--7 March 2013-select 'Jurulatih' only-->
+			<%= f.collection_select :instructor_id, Position.find(:all, :conditions=>['positionname=?','Jurulatih']), :staff_id, :name_for_staff %>
+			<!--7 March 2013-->
+		</td>
+	</tr>
+	<tr>
+		<td width=20%><label>Evaluation Date </label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.date_select :evaluatedate %></td>
+	</tr>
+	<tr>
+		<td width=20%>Evaluation Title</td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.text_field :title %></td>
+	</tr>
+	<tr>
+		<td width=20%><%= f.label :objective %></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.text_area :objective, :cols => 24, :rows => 5 %></td>
+	</tr>
+	<tr>
+		<td width=20%><label>Start Time </label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.time_select :starttime %></td>
+	</tr>
+	<tr>
+		<td width=20%><label>End Time</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.time_select :endtime %></td>
+	</tr>
+	<tr>
+		<td width=20%>    <label>Delivery Type</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.select :deliverytype, AverageInstructor::DELIVERY_TYPE, :prompt => "Please select" %>
+		</td>
+	</tr>
+</table>
+<h2>Evaluation Details</h2>
+<table>
+	<tr><td colspan=2>1. Instrument ini mengandungi lima dimensi dengan wajaran seperti berikut:</td></tr>
+	<tr><td width=20%></td><td width=80%>
+	
+	<table border=1 cellpadding=0 cellspacing=0>
+	<tr>
+		<td width=80% align=center>Dimensi</td>
+		<td align=center>Wajaran</td>
+	</tr>
+	<tr>
+		<td>A. PERSEDIAAN</td>
+		<td align=center>25%</td>
+	</tr>
+	<tr>
+		<td width=50%>B. PENYAMPAIAN</td>
+		<td align=center>30%</td>
+	</tr>
+	<tr>
+		<td>C. PENGGUNAAN</td>
+		<td align=center>5%</td>
+	</tr>
+	<tr>
+		<td>D. PENGESAHAN</td>
+		<td align=center>20%</td>
+	</tr>
+	<tr>
+		<td>E. TEKNIK UMUM MENGAJAR</td>
+		<td align=center>20%</td>
+	</tr>	
+	</table>
+	</td></tr>
+	
+	<tr>
+		<td colspan=2><b>Arahan</b><br>
+		<ol>
+			<li> Pilih skor yang berkaitan mengikut skala yang ditetapkan.
+			<li> Tuliskan ulasan jika perlu.
+		</ol>
+		</td>
+	</tr>	
+</table>
+
+<table width=100% border=1 cellspacing=0 cellpadding=0>
+	<tr>
+		<td width=30%>Skala Pengukuran</td>
+		<td width=15%><b>5 : Cemerlang</b></td>
+		<td width=10%><b>4 : Baik</b></td>
+		<td width=15%><b>3 : Sederhana</b></td>
+		<td width=10%><b>2 : Lemah</b></td>
+		<td width=20%><b>1 : Sangat Lemah</b></td>
+	</tr>
+</table>
+<br/>
+<table width=100% border=1 cellspacing=0cellpading=7 BORDERCOLOR="#C0C0C0">
+	<tr>
+		<td rowspan=2><b>BAHAGIAN A : PERSEDIAAN</b></td>
+		<td colspan=5 align=center><b>SKOR</b></td>
+		<td rowspan=2 align=center><b>ULASAN</b></td>
+	</tr>
+	<tr>
+		<td align=center>5</td>
+		<td align=center>4</td>
+		<td align=center>3</td>
+		<td align=center>2</td>
+		<td align=center>1</td>
+	</tr>
+	<tr><td colspan=7><b>Sebelum Sesi Mengajar</b></td></tr>
+	<tr>
+		<td width=45%>1. Penampilan diri yang kemas</td>
+		<td align=center><%= f.radio_button :pbq1,'5'%></td>
+		<td align=center><%= f.radio_button :pbq1,'4'%></td>
+		<td align=center><%= f.radio_button :pbq1,'3'%></td>
+		<td align=center><%= f.radio_button :pbq1,'2'%></td>
+		<td align=center><%= f.radio_button :pbq1,'1'%></td>
+		<td><%= f.text_field :pbq1review %></td>
+	</tr>
+	<tr>
+		<td>2. Mewujudkan persekitaran yang selesa</td>
+		<td align=center><%= f.radio_button :pbq2,'5'%></td>
+		<td align=center><%= f.radio_button :pbq2,'4'%></td>
+		<td align=center><%= f.radio_button :pbq2,'3'%></td>
+		<td align=center><%= f.radio_button :pbq2,'2'%></td>
+		<td align=center><%= f.radio_button :pbq2,'1'%></td>
+		<td><%= f.text_field :pbq2review %></td>
+	</tr>
+	<tr>
+		<td>3. Bersedia dengan bahan pembelajaran</td>
+		<td align=center><%= f.radio_button :pbq3,'5'%></td>
+		<td align=center><%= f.radio_button :pbq3,'4'%></td>
+		<td align=center><%= f.radio_button :pbq3,'3'%></td>
+		<td align=center><%= f.radio_button :pbq3,'2'%></td>
+		<td align=center><%= f.radio_button :pbq3,'1'%></td>
+		<td><%= f.text_field :pbq3review %></td>
+	</tr>
+	<tr>
+		<td>4. Memastikan peralatan yang cukup dan berfungsi dengan baik</td>
+		<td align=center><%= f.radio_button :pbq4,'5'%></td>
+		<td align=center><%= f.radio_button :pbq4,'4'%></td>
+		<td align=center><%= f.radio_button :pbq4,'3'%></td>
+		<td align=center><%= f.radio_button :pbq4,'2'%></td>
+		<td align=center><%= f.radio_button :pbq4,'1'%></td>
+		<td><%= f.text_field :pbq4review %></td>
+	</tr>
+	
+	<tr><td colspan=7><b>Semasa Sesi Mengajar</b></td></tr>
+	<tr>
+		<td>1. Memberi salam</td>
+		<td align=center><%= f.radio_button :pdq1,'5'%></td>
+		<td align=center><%= f.radio_button :pdq1,'4'%></td>
+		<td align=center><%= f.radio_button :pdq1,'3'%></td>
+		<td align=center><%= f.radio_button :pdq1,'2'%></td>
+		<td align=center><%= f.radio_button :pdq1,'1'%></td>
+		<td><%= f.text_field :pdq1review %></td>
+	</tr>
+		<tr>
+		<td>2. Selesakan pelajar dan semak kehadiran</td>
+		<td align=center><%= f.radio_button :pdq2,'5'%></td>
+		<td align=center><%= f.radio_button :pdq2,'4'%></td>
+		<td align=center><%= f.radio_button :pdq2,'3'%></td>
+		<td align=center><%= f.radio_button :pdq2,'2'%></td>
+		<td align=center><%= f.radio_button :pdq2,'1'%></td>
+		<td><%= f.text_field :pdq2review %></td>
+	</tr>
+		<tr>
+		<td>3. Tajuk diperkenalkan dengan jelas</td>
+		<td align=center><%= f.radio_button :pdq3,'5'%></td>
+		<td align=center><%= f.radio_button :pdq3,'4'%></td>
+		<td align=center><%= f.radio_button :pdq3,'3'%></td>
+		<td align=center><%= f.radio_button :pdq3,'2'%></td>
+		<td align=center><%= f.radio_button :pdq3,'1'%></td>
+		<td><%= f.text_field :pdq3review %></td>
+	</tr>
+		<tr>
+		<td>4. Memberi gambaran keseluruhan pelajaran</td>
+		<td align=center><%= f.radio_button :pdq4,'5'%></td>
+		<td align=center><%= f.radio_button :pdq4,'4'%></td>
+		<td align=center><%= f.radio_button :pdq4,'3'%></td>
+		<td align=center><%= f.radio_button :pdq4,'2'%></td>
+		<td align=center><%= f.radio_button :pdq4,'1'%></td>
+		<td><%= f.text_field :pdq4review %></td>
+	</tr>
+	<tr>
+		<td>5. Objektif/hasil diperjelaskan</td>
+		<td align=center><%= f.radio_button :pdq5,'5'%></td>
+		<td align=center><%= f.radio_button :pdq5,'4'%></td>
+		<td align=center><%= f.radio_button :pdq5,'3'%></td>
+		<td align=center><%= f.radio_button :pdq5,'2'%></td>
+		<td align=center><%= f.radio_button :pdq5,'1'%></td>
+		<td><%= f.text_field :pdq5review %></td>
+	</tr>
+	<tr><td>&nbsp;</td><td colspan=3>Skor diperolehi</td><td colspan=2>/</td><td>&nbsp;</td></tr>
+</table>
+<br/>
+<table width=100% border=1 cellspacing=0cellpading=7 BORDERCOLOR="#C0C0C0">
+	<tr>
+		<td rowspan=2><b>BAHAGIAN B : PENYAMPAIAN</b></td>
+		<td colspan=5 align=center><b>SKOR</b></td>
+		<td rowspan=2 align=center><b>ULASAN</b></td>
+	</tr>
+	<tr>
+		<td align=center>5</td>
+		<td align=center>4</td>
+		<td align=center>3</td>
+		<td align=center>2</td>
+		<td align=center>1</td>
+	</tr>
+	<tr>
+		<td width=45%>1. Mengulangkaji pelajaran lepas dan kaitkan dengan pelajaran yang akan diajar</td>
+		<td align=center><%= f.radio_button :dq1,'5'%></td>
+		<td align=center><%= f.radio_button :dq1,'4'%></td>
+		<td align=center><%= f.radio_button :dq1,'3'%></td>
+		<td align=center><%= f.radio_button :dq1,'2'%></td>
+		<td align=center><%= f.radio_button :dq1,'1'%></td>
+		<td><%= f.text_field :dq1review %></td>
+	</tr>
+	<tr>
+		<td width=45%>2. Kandungan disampaikan dalam susunan yang logik</td>
+		<td align=center><%= f.radio_button :dq2,'5'%></td>
+		<td align=center><%= f.radio_button :dq2,'4'%></td>
+		<td align=center><%= f.radio_button :dq2,'3'%></td>
+		<td align=center><%= f.radio_button :dq2,'2'%></td>
+		<td align=center><%= f.radio_button :dq2,'1'%></td>
+		<td><%= f.text_field :dq2review %></td>
+	</tr>
+	<tr>
+		<td width=45%>3. Pelajaran teori/amali disampaikan menggunakan pelbagai kaedah yang bersesuaian</td>
+		<td align=center><%= f.radio_button :dq3,'5'%></td>
+		<td align=center><%= f.radio_button :dq3,'4'%></td>
+		<td align=center><%= f.radio_button :dq3,'3'%></td>
+		<td align=center><%= f.radio_button :dq3,'2'%></td>
+		<td align=center><%= f.radio_button :dq3,'1'%></td>
+		<td><%= f.text_field :dq3review %></td>
+	</tr>
+	<tr>
+		<td width=45%>4. Penyampaian yang terang dan jelas</td>
+		<td align=center><%= f.radio_button :dq4,'5'%></td>
+		<td align=center><%= f.radio_button :dq4,'4'%></td>
+		<td align=center><%= f.radio_button :dq4,'3'%></td>
+		<td align=center><%= f.radio_button :dq4,'2'%></td>
+		<td align=center><%= f.radio_button :dq4,'1'%></td>
+		<td><%= f.text_field :dq4review %></td>
+	</tr>
+	<tr>
+		<td width=45%>5. Mengajar di tahap keupayaan pelajar</td>
+		<td align=center><%= f.radio_button :dq5,'5'%></td>
+		<td align=center><%= f.radio_button :dq5,'4'%></td>
+		<td align=center><%= f.radio_button :dq5,'3'%></td>
+		<td align=center><%= f.radio_button :dq5,'2'%></td>
+		<td align=center><%= f.radio_button :dq5,'1'%></td>
+		<td><%= f.text_field :dq5review %></td>
+	</tr>
+	<tr>
+		<td width=45%>6. Menekankan perkara yang mustahak</td>
+		<td align=center><%= f.radio_button :dq6,'5'%></td>
+		<td align=center><%= f.radio_button :dq6,'4'%></td>
+		<td align=center><%= f.radio_button :dq6,'3'%></td>
+		<td align=center><%= f.radio_button :dq6,'2'%></td>
+		<td align=center><%= f.radio_button :dq6,'1'%></td>
+		<td><%= f.text_field :dq6review %></td>
+	</tr>
+	<tr>
+		<td width=45%>7. Menekankan aspek keselamatan</td>
+		<td align=center><%= f.radio_button :dq7,'5'%></td>
+		<td align=center><%= f.radio_button :dq7,'4'%></td>
+		<td align=center><%= f.radio_button :dq7,'3'%></td>
+		<td align=center><%= f.radio_button :dq7,'2'%></td>
+		<td align=center><%= f.radio_button :dq7,'1'%></td>
+		<td><%= f.text_field :dq7review %></td>
+	</tr>
+	<tr>
+		<td width=45%>8. Memberi contoh-contoh yang relevan</td>
+		<td align=center><%= f.radio_button :dq8,'5'%></td>
+		<td align=center><%= f.radio_button :dq8,'4'%></td>
+		<td align=center><%= f.radio_button :dq8,'3'%></td>
+		<td align=center><%= f.radio_button :dq8,'2'%></td>
+		<td align=center><%= f.radio_button :dq8,'1'%></td>
+		<td><%= f.text_field :dq8review %></td>
+	</tr>
+	<tr>
+		<td width=45%>9. Melibatkan pelajar dalam aktiviti pembelajaran</td>
+		<td align=center><%= f.radio_button :dq9,'5'%></td>
+		<td align=center><%= f.radio_button :dq9,'4'%></td>
+		<td align=center><%= f.radio_button :dq9,'3'%></td>
+		<td align=center><%= f.radio_button :dq9,'2'%></td>
+		<td align=center><%= f.radio_button :dq9,'1'%></td>
+		<td><%= f.text_field :dq9review %></td>
+	</tr>
+	<tr>
+		<td width=45%>10. Mengekalkan <i>eye contact</i></td>
+		<td align=center><%= f.radio_button :dq10,'5'%></td>
+		<td align=center><%= f.radio_button :dq10,'4'%></td>
+		<td align=center><%= f.radio_button :dq10,'3'%></td>
+		<td align=center><%= f.radio_button :dq10,'2'%></td>
+		<td align=center><%= f.radio_button :dq10,'1'%></td>
+		<td><%= f.text_field :dq10review %></td>
+	</tr>
+	<tr>
+		<td width=45%>11. Bahasa yang sesuai dan jelas digunakan</td>
+		<td align=center><%= f.radio_button :dq11,'5'%></td>
+		<td align=center><%= f.radio_button :dq11,'4'%></td>
+		<td align=center><%= f.radio_button :dq11,'3'%></td>
+		<td align=center><%= f.radio_button :dq11,'2'%></td>
+		<td align=center><%= f.radio_button :dq11,'1'%></td>
+		<td><%= f.text_field :dq11review %></td>
+	</tr>
+	<tr>
+		<td width=45%>12. Menghadkan kandungan sewajarnya</td>
+		<td align=center><%= f.radio_button :dq12,'5'%></td>
+		<td align=center><%= f.radio_button :dq12,'4'%></td>
+		<td align=center><%= f.radio_button :dq12,'3'%></td>
+		<td align=center><%= f.radio_button :dq12,'2'%></td>
+		<td align=center><%= f.radio_button :dq12,'1'%></td>
+		<td><%= f.text_field :dq12review %></td>
+	</tr>
+	<tr><td>&nbsp;</td><td colspan=3>Skor diperolehi</td><td colspan=2>/</td><td>&nbsp;</td></tr>
+</table>
+<br/>
+<table width=100% border=1 cellspacing=0cellpading=7 BORDERCOLOR="#C0C0C0">
+	<tr>
+		<td rowspan=2><b>BAHAGIAN C : PENGGUNAAN</b></td>
+		<td colspan=5 align=center><b>SKOR</b></td>
+		<td rowspan=2 align=center><b>ULASAN</b></td>
+	</tr>
+	<tr>
+		<td align=center>5</td>
+		<td align=center>4</td>
+		<td align=center>3</td>
+		<td align=center>2</td>
+		<td align=center>1</td>
+	</tr>
+	<tr>
+		<td width=45%>1. Pelajar menggunakan perkara penting</td>
+		<td align=center><%= f.radio_button :uq1,'5'%></td>
+		<td align=center><%= f.radio_button :uq1,'4'%></td>
+		<td align=center><%= f.radio_button :uq1,'3'%></td>
+		<td align=center><%= f.radio_button :uq1,'2'%></td>
+		<td align=center><%= f.radio_button :uq1,'1'%></td>
+		<td><%= f.text_field :uq1review %></td>
+	</tr>
+	<tr>
+		<td width=45%>2. Segera perbetulkan kesilapan pelajar</td>
+		<td align=center><%= f.radio_button :uq2,'5'%></td>
+		<td align=center><%= f.radio_button :uq2,'4'%></td>
+		<td align=center><%= f.radio_button :uq2,'3'%></td>
+		<td align=center><%= f.radio_button :uq2,'2'%></td>
+		<td align=center><%= f.radio_button :uq2,'1'%></td>
+		<td><%= f.text_field :uq2review %></td>
+	</tr>
+	<tr>
+		<td width=45%>3. Peringkat kefahaman pelajar selalu disemak</td>
+		<td align=center><%= f.radio_button :uq3,'5'%></td>
+		<td align=center><%= f.radio_button :uq3,'4'%></td>
+		<td align=center><%= f.radio_button :uq3,'3'%></td>
+		<td align=center><%= f.radio_button :uq3,'2'%></td>
+		<td align=center><%= f.radio_button :uq3,'1'%></td>
+		<td><%= f.text_field :uq3review %></td>
+	</tr>
+	<tr>
+		<td width=45%>4. Pastikan tujuan pembelajaran sudah dicapai</td>
+		<td align=center><%= f.radio_button :uq4,'5'%></td>
+		<td align=center><%= f.radio_button :uq4,'4'%></td>
+		<td align=center><%= f.radio_button :uq4,'3'%></td>
+		<td align=center><%= f.radio_button :uq4,'2'%></td>
+		<td align=center><%= f.radio_button :uq4,'1'%></td>
+		<td><%= f.text_field :uq4review %></td>
+	</tr>
+	<tr><td>&nbsp;</td><td colspan=3>Skor diperolehi</td><td colspan=2>/</td><td>&nbsp;</td></tr>
+</table>
+<br/>
+<table width=100% border=1 cellspacing=0cellpading=7 BORDERCOLOR="#C0C0C0">
+	<tr>
+		<td rowspan=2><b>BAHAGIAN D : PENGESAHAN</b></td>
+		<td colspan=5 align=center><b>SKOR</b></td>
+		<td rowspan=2 align=center><b>ULASAN</b></td>
+	</tr>
+	<tr>
+		<td align=center>5</td>
+		<td align=center>4</td>
+		<td align=center>3</td>
+		<td align=center>2</td>
+		<td align=center>1</td>
+	</tr>
+	<tr>
+		<td width=45%>1. Penilaian dijalankan pada masa yang bersesuaian </td>
+		<td align=center><%= f.radio_button :vq1,'5'%></td>
+		<td align=center><%= f.radio_button :vq1,'4'%></td>
+		<td align=center><%= f.radio_button :vq1,'3'%></td>
+		<td align=center><%= f.radio_button :vq1,'2'%></td>
+		<td align=center><%= f.radio_button :vq1,'1'%></td>
+		<td><%= f.text_field :vq1review %></td>
+	</tr>
+	<tr>
+		<td width=45%>2. Nyatakan dengan terang tugas pelajar </td>
+		<td align=center><%= f.radio_button :vq2,'5'%></td>
+		<td align=center><%= f.radio_button :vq2,'4'%></td>
+		<td align=center><%= f.radio_button :vq2,'3'%></td>
+		<td align=center><%= f.radio_button :vq2,'2'%></td>
+		<td align=center><%= f.radio_button :vq2,'1'%></td>
+		<td><%= f.text_field :vq2review %></td>
+	</tr>
+	<tr>
+		<td width=45%>3. Penilaian berasaskan kandungan pelajaran </td>
+		<td align=center><%= f.radio_button :vq3,'5'%></td>
+		<td align=center><%= f.radio_button :vq3,'4'%></td>
+		<td align=center><%= f.radio_button :vq3,'3'%></td>
+		<td align=center><%= f.radio_button :vq3,'2'%></td>
+		<td align=center><%= f.radio_button :vq3,'1'%></td>
+		<td><%= f.text_field :vq3review %></td>
+	</tr>
+	<tr>
+		<td width=45%>4. Nyatakan kriteria penilaian</td>
+		<td align=center><%= f.radio_button :vq4,'5'%></td>
+		<td align=center><%= f.radio_button :vq4,'4'%></td>
+		<td align=center><%= f.radio_button :vq4,'3'%></td>
+		<td align=center><%= f.radio_button :vq4,'2'%></td>
+		<td align=center><%= f.radio_button :vq4,'1'%></td>
+		<td><%= f.text_field :vq4review %></td>
+	</tr>
+	<tr>
+		<td width=45%>5. Dapat mengukur tujuan pelajaran</td>
+		<td align=center><%= f.radio_button :vq5,'5'%></td>
+		<td align=center><%= f.radio_button :vq5,'4'%></td>
+		<td align=center><%= f.radio_button :vq5,'3'%></td>
+		<td align=center><%= f.radio_button :vq5,'2'%></td>
+		<td align=center><%= f.radio_button :vq5,'1'%></td>
+		<td><%= f.text_field :vq5review %></td>
+	</tr>
+	<tr><td>&nbsp;</td><td colspan=3>Skor diperolehi</td><td colspan=2>/</td><td>&nbsp;</td></tr>
+</table>
+<br/>
+<table width=100% border=1 cellspacing=0cellpading=7 BORDERCOLOR="#C0C0C0">
+	<tr>
+		<td rowspan=2><b>BAHAGIAN E : TEKNIK UMUM MENGAJAR</b></td>
+		<td colspan=5 align=center><b>SKOR</b></td>
+		<td rowspan=2 align=center><b>ULASAN</b></td>
+	</tr>
+	<tr>
+		<td align=center>5</td>
+		<td align=center>4</td>
+		<td align=center>3</td>
+		<td align=center>2</td>
+		<td align=center>1</td>
+	</tr>
+	<tr>
+		<td width=45%>1. Mengikut pelan mengajar </td>
+		<td align=center><%= f.radio_button :gttq1 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq1 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq1 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq1 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq1 ,'1'%></td>
+		<td><%= f.text_field :gttq1review %></td>
+	</tr>
+		<tr>
+		<td width=45%>2. Bertutur dengan baik dan berkesan </td>
+		<td align=center><%= f.radio_button :gttq2 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq2 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq2 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq2 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq2 ,'1'%></td>
+		<td><%= f.text_field :gttq2review %></td>
+	</tr>
+	<tr>
+		<td width=45%>3. Mengawalkan emosi semasa mengajar </td>
+		<td align=center><%= f.radio_button :gttq3 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq3 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq3 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq3 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq3 ,'1'%></td>
+		<td><%= f.text_field :gttq3review %></td>
+	</tr>
+	<tr>
+		<td width=45%>4. Pembahagian masa mengajar yang betul </td>
+		<td align=center><%= f.radio_button :gttq4 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq4 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq4 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq4 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq4 ,'1'%></td>
+		<td><%= f.text_field :gttq4review %></td>
+	</tr>
+	<tr>
+		<td width=45%>5. Mendapatkan persefahaman pelajar </td>
+		<td align=center><%= f.radio_button :gttq5 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq5 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq5 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq5 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq5 ,'1'%></td>
+		<td><%= f.text_field :gttq5review %></td>
+	</tr>
+	<tr>
+		<td width=45%>6. Menggunakan teknik soalan yang baik </td>
+		<td align=center><%= f.radio_button :gttq6 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq6 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq6 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq6 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq6 ,'1'%></td>
+		<td><%= f.text_field :gttq6review %></td>
+	</tr>
+	<tr>
+		<td width=45%>7. Menggunakan BBM dengan baik </td>
+		<td align=center><%= f.radio_button :gttq7 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq7 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq7 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq7 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq7 ,'1'%></td>
+		<td><%= f.text_field :gttq7review %></td>
+	</tr>
+	<tr>
+		<td width=45%>8. Menunjukkan penguasaann dalam tajuk yang diajar </td>
+		<td align=center><%= f.radio_button :gttq8 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq8 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq8 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq8 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq8 ,'1'%></td>
+		<td><%= f.text_field :gttq8review %></td>
+	</tr>
+	<tr>
+		<td width=45%>9. Pelajar sentiasa mengikuti pelajaran </td>
+		<td align=center><%= f.radio_button :gttq9 ,'5'%></td>
+		<td align=center><%= f.radio_button :gttq9 ,'4'%></td>
+		<td align=center><%= f.radio_button :gttq9 ,'3'%></td>
+		<td align=center><%= f.radio_button :gttq9 ,'2'%></td>
+		<td align=center><%= f.radio_button :gttq9 ,'1'%></td>
+		<td><%= f.text_field :gttq9review %></td>
+	</tr>
+	<tr><td>&nbsp;</td><td colspan=3>Skor diperolehi</td><td colspan=2>/</td><td>&nbsp;</td></tr>
+</table>
+<br/>
+<table border=1 cellspacing=0 cellpadding=0>
+	<tr>
+		<td colspan=2><b>Komponen Prestasi</b></td>
+		<td align=center><b>Skor Max</b><br/> (x)</td>
+		<td align=center><b>Skor diperolehi</b><br/> (y)</td>
+		<td align=center><b>Pemberat/Kewajaran</b><br/> (w)</td>
+		<td align=center><b>Peratus</b> <br>y/x x w</td>
+	</tr>
+	<tr>
+		<td><b>A</b></td>
+		<td>PERSEDIAAN</td>
+		<td align=center>45</td>
+		<td align=center></td>
+		<td align=center>25</td>
+		<td align=center></td>
+	</tr>
+	<tr>
+		<td><b>B</b></td>
+		<td>PENYAMPAIAN</td>
+		<td align=center>60</td>
+		<td align=center></td>
+		<td align=center>30</td>
+		<td align=center></td>
+	</tr>
+	<tr>
+		<td><b>C</b></td>
+		<td>PENGGUNAAN</td>
+		<td align=center>20</td>
+		<td align=center></td>
+		<td align=center>5</td>
+		<td align=center></td>
+	</tr>
+	<tr>
+		<td><b>D</b></td>
+		<td>PENGESAHAN</td>
+		<td align=center>25</td>
+		<td align=center></td>
+		<td align=center>20</td>
+		<td align=center></td>
+	</tr>
+	<tr>
+		<td><b>E</b></td>
+		<td>TEKNIK UMUM MENGAJAR</td>
+		<td align=center>45</td>
+		<td align=center></td>
+		<td align=center>20</td>
+		<td align=center></td>
+	</tr>
+</table>
+<br/>
+
+<table border=1 cellspacing=0 cellpadding=0>
+	<tr>
+		<td align=center><b>Julat skor</b></td>
+		<td align=center><b>Gred</b></td>
+		<td align=center><b>Prestasi</b></td>
+	</tr>
+	<tr>
+		<td align=center>85-100</td>
+		<td align=center>A</td>
+		<td align=center>Sangat Baik</td>
+	</tr>
+	<tr>
+		<td align=center>70-84</td>
+		<td align=center>B</td>
+		<td align=center>Baik</td>
+	</tr>
+	<tr>
+		<td align=center>50-69</td>
+		<td align=center>C</td>
+		<td align=center>Sederhana</td>
+	</tr>
+	<tr>
+		<td align=center>40-49</td>
+		<td align=center>D</td>
+		<td align=center>Lemah</td>
+	</tr>
+	<tr>
+		<td align=center><40</td>
+		<td align=center>E</td>
+		<td align=center>Sangat Lemah</td>
+	</tr>
+</table>
+<br/>
+
+<table width=100%>
+	<tr>
+		<td width=20%><%= f.label :review %></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.text_area :review, :cols=>24, :rows=>5 %></td>
+	</tr>
+	<tr>
+		<td width=20%><%= f.label :evaluator_id %></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.collection_select :evaluator_id, Staff.find(:all, :conditions => ["id = ?", current_user.staff_id]), :id, :staff_name_with_title %></td>
+	</tr>
+</table>
+
+</div>

@@ -22,8 +22,20 @@ class Instructor < ActiveRecord::Base
     	  q41 + q42 + q43 + q44 + q45 + q46 + q47 + q48
     end
     
+    #6March2013-Feature#12
+    def instructor_details
+       #Staff.find(staff_id).staff_name_with_title
+       Instructor.find_by_staff_id(staff_id).instructor_name.staff_name_with_title
+    end
+    
+    #6March2013-Feature#12
+    def level
+      return "Baik" if total_mark>=90
+      return "Memuaskan" if total_mark<90 && total_mark>64
+      return "Tidak Memuaskan" if total_mark<65
+    end
+    
     #20Feb2013-Feature#11
-
     def self.totalmark(m,i)
     	@arraymark = []
       @arraymark << m if i.q1==m  

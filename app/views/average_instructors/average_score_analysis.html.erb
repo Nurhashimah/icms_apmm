@@ -1,0 +1,1006 @@
+<%= stylesheet_link_tag 'report' %>
+<div id="A4potrait">
+
+<form action="#">
+ <script>
+	document.write("<input type='button' " +
+			"onClick='window.print()' " +
+			"class='printbutton' " +
+			"value='Print This Page'/>");
+
+</script>
+</form>	
+<fieldset width=10px >
+
+<div id="title">
+
+<table id="box_logo">
+	<tr>
+		<th width="2%"><img src="/images/KM.jpg" alt="km"/></th>
+		<th><H3>PPL APMM<BR>NO.DOKUMEN: BK-KKM-04-02<br><br>BORANG PENILAIAN DAN ANALISA<br>SKOR PURATA JURULATIH</H3></th>
+		<th width="2%"><img src="/images/maritim.png" alt="maritim"/></th>
+	</tr>
+</table>
+
+<div id="title">
+
+<div id="box_info">
+	<table id="box_info_inner">
+		<tr>
+			<td class="left_title">Kursus</td>
+			<td>:</td>
+			<td colspan="6"><%=h @average_instructor.programme_id.blank? ? "" : @average_instructor.instructor_course.programme_with_specialisation %></td>
+		</tr>
+		<tr>
+			<td class="left_title">Nama Jurulatih</td>
+			<td>:</td>
+			<td colspan="6"><%=h @average_instructor.instructor_id.blank? ? "" : @average_instructor.evaluated_instructor.staff_name_with_title %></td>
+		</tr>
+		<tr>
+			<td class="left_title">Tarikh Penilaian</td>
+			<td>:</td>
+			<td colspan="6"><%=h @average_instructor.evaluatedate.strftime("%d %b %Y") %></td>
+		</tr>
+		<tr>
+			<td class="left_title">Tajuk</td>
+			<td>:</td>
+			<td colspan="6"><%=h @average_instructor.title.blank? ? ".................................................................................................................................................":@average_instructor.title %></td>
+		</tr>
+		<tr>
+			<td class="left_title">Objektif</td>
+			<td>:</td>
+			<td colspan="4" rowspan="5">
+				<% if @average_instructor.objective.blank? %>
+					................................................................................................<br>
+					................................................................................................<br>
+					................................................................................................<br>
+					................................................................................................<br>
+					................................................................................................
+				<% else %>
+					<%=h simple_format(@average_instructor.objective) %>
+				<% end %>
+			</td>
+			<td colspan="2"> Masa : ..............................</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td class="timing_top_left">Masa Mula</td>
+			<td class="timing_top_right"><%=h @average_instructor.starttime.blank? ? "-":@average_instructor.starttime.strftime("%H:%M") %></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td class="timing_left">Masa selesai</td>
+			<td class="timing_right"><%=h @average_instructor.endtime.blank? ? "-":@average_instructor.endtime.strftime("%H:%M") %></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td class="timing_bottom_left">Jumlah masa</td>
+			<td class="timing_bottom_right">
+				<% require 'time' %>
+				<% first = Time.parse(@average_instructor.starttime.to_s) %>
+				<% second = Time.parse(@average_instructor.endtime.to_s) %>
+				<%= difference = number_with_precision((second - first)/60, :precision=>2) %>
+			</td>
+		</tr>
+		<tr>
+			<td class="left_title">Jenis Penyampaian</td>
+			<td>:&nbsp;</td>
+			<td class="delivery_box">
+				<%= "T" if @average_instructor.deliverytype==1%>
+				<%= "P" if @average_instructor.deliverytype==2%>
+				<%= "L" if @average_instructor.deliverytype==3%>
+			</td>
+			<td class="tpl">T:Teori </td>
+			<td class="tpl">P:Praktikal</td>
+			<td class="tpl">L:Lain-lain</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>		
+</div>		<!--end for div id=box_info-->
+
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<table id="box_dimensi">
+	<tr><td colspan="3">1.Instrument ini mengandungi lima dimensi dengan wajaran seperti berikut:</td></tr>	
+	<tr>
+		<td class="no"></td>
+		<td class="center_dimensi">Dimensi</td>
+		<td class="center_top">Wajaran</td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="description">A. PERSEDIAAN</td>
+		<td class="center_other">25%</td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="description">B. PENYAMPAIAN</td>
+		<td class="center_other">30%</td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="description">C. PENGGUNAAN</td>
+		<td class="center_other">5%</td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="description">D. PENGESAHAN</td>
+		<td class="center_other">20%</td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="description">E. TEKNIK UMUM MENGAJAR</td>
+		<td class="center_other">20%</td>
+	</tr>
+</table>
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<table id="box_arahan">
+	<tr>
+		<td>
+			<span class="bold">Arahan:</span>
+			<br>
+			   1. Tandakan (&#10003;) pada ruangan skor yang berkaitan mengikut skala yang telah ditetapkan.<br>
+			   2. Tuliskan ulasan jika perlu.
+		</td>
+	</tr>
+</table>
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<table id="box_skala_pengukuran">
+	<tr>
+		<td class="center">Skala Pengukuran</td>
+		<td class="left"><center><b>5: Cemerlang</td>
+		<td class="left"><center><b>4: Baik</td>
+		<td class="left"><center><b>3: Sederhana</td>
+		<td class="left"><center><b>2: Lemah</td>
+		<td class="left"><center><b>1: Sangat Lemah</td>
+	</tr>
+</table>
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--box bahagian A-->
+<table id="box_bahagian">
+	<tr>
+		<th class="top_bottom_left1" rowspan="2">BAHAGIAN A : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERSEDIAAN</th>
+		<th class="top_bottom_left2" colspan=5>SKOR</th>
+		<th class="full" rowspan="2">ULASAN</th>
+	</tr>
+	<tr>
+		<th class="left_bottom" align=center>5</th>
+		<th class="left_bottom" align=center>4</th>
+		<th class="left_bottom" align=center>3</th>
+		<th class="left_bottom" align=center>2</th>
+		<th class="left_bottom" align=center>1</th>
+	</tr>
+</table>
+<!--box bahagian A-->
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--questions bahagian A-->
+<div id="outer_box">
+	<table id="box_question">
+		<tr>
+			<th colspan="2">Sebelum Sesi Mengajar</th>
+			<th colspan="5"></th>
+			<th></th>
+		</tr>
+		<tr>
+			<td class="no">1. </td>
+			<td class="wording"> Penampilan diri yang kemas</td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq1 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq1 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq1 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq1 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pbq1 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pbq1review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">2.</td>
+			<td class="wording">Mewujudkan persekitaran yang selesa</td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq2 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq2 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq2 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq2 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pbq2 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pbq2review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">3.</td>
+			<td class="wording">Bersedia dengan bahan pembelajaran</td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq3 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq3 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq3 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq3 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pbq3 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pbq3review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">4.</td>
+			<td class="wording">Memastikan peralatan yang cukup dan berfungsi dengan baik</td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq4 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq4 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq4 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pbq4 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pbq4 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pbq4review%></td>
+		</tr>
+		<tr>
+			<th colspan="2">Semasa Sesi Mengajar</th>
+			<th colspan="5"></th>
+			<th></th>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">1.</td>
+			<td class="wording">Memberi salam</td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq1 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq1 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq1 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq1 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pdq1 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pdq1review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">2.</td>
+			<td class="wording">Selesakan pelajar dan semak kehadiran </td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq2 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq2 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq2 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq2 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pdq2 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pdq2review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">3.</td>
+			<td class="wording">Tajuk diperkenalkan dengan jelas</td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq3 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq3 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq3 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq3 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pdq3 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pdq3review%></td>
+		</tr>	
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">4.</td>
+			<td class="wording">Memberi gambaran keseluruhan pelajaran</td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq4 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq4 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq4 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq4 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pdq4 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pdq4review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">5.</td>
+			<td class="wording">Objektif/hasil diperjelaskan</td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq5 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq5 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq5 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.pdq5 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.pdq5 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.pdq5review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td colspan="2"></td>
+			<td class="score_left" colspan="3">Skor diperolehi</td>
+			<td class="score_full" colspan="2"><%= @average_instructor.marks_a %>/<%= @average_instructor.total_a %></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+<!--questions bahagian A-->
+<!--finally end of page 1-->
+<br><br>
+<center>1 daripada 3</center>
+
+
+</div>
+</div>
+</fieldset>
+
+<!--start of page 2-->
+<br>
+
+<fieldset width=10px >
+<div id="title">
+
+<!--box bahagian B-->
+<table id="box_bahagian">
+	<tr>
+		<th class="top_bottom_left1" rowspan="2">BAHAGIAN B : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PENYAMPAIAN</th>
+		<th class="top_bottom_left2" colspan=5>SKOR</th>
+		<th class="full" rowspan="2">ULASAN</th>
+	</tr>
+	<tr>
+		<th class="left_bottom" align=center>5</th>
+		<th class="left_bottom" align=center>4</th>
+		<th class="left_bottom" align=center>3</th>
+		<th class="left_bottom" align=center>2</th>
+		<th class="left_bottom" align=center>1</th>
+	</tr>
+</table>
+<!--box bahagian B-->
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--questions bahagian B-->
+<div id="outer_box">
+	<table id="box_question">
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">1. </td>
+			<td class="wording">Mengulangkaji pelajaran lepas dan kaitkan dengan pelajaran yang akan diajar	</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq1 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq1 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq1 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq1 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq1 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq1review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">2.</td>
+			<td class="wording">Kandungan disampaikan dalam susunan yang logik</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq2 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq2 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq2 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq2 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq2 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq2review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">3.</td>
+			<td class="wording">Pelajaran teori/amali disampaikan menggunakan pelbagai kaedah yang bersesuaian</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq3 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq3 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq3 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq3 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq3 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq3review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">4.</td>
+			<td class="wording">Penyampaian yang terang dan jelas</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq4 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq4 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq4 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq4 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq4 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq4review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">5.</td>
+			<td class="wording">Mengajar di tahap keupayaan pelajar</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq5 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq5 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq5 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq5 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq5 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq5review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">6.</td>
+			<td class="wording">Menekankan perkara yang mustahak</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq6 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq6 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq6 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq6 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq6 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq6review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">7.</td>
+			<td class="wording"> Menekankan aspek keselamatan</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq7 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq7 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq7 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq7 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq7 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq7review%></td>
+		</tr>	
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">8.</td>
+			<td class="wording">Memberi contoh-contoh yang relevan</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq8 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq8 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq8 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq8 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq8 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq8review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">9.</td>
+			<td class="wording">Melibatkan pelajar dalam aktiviti pembelajaran</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq9 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq9 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq9 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq9 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq9 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq9review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">10.</td>
+			<td class="wording">Mengekalkan eye contact</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq10 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq10 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq10 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq10 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq10 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq10review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">11.</td>
+			<td class="wording">Bahasa yang sesuai dan jelas digunakan</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq11 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq11 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq11 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq11 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq11 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq11review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">12.</td>
+			<td class="wording">Menghadkan kandungan sewajarnya</td>
+			<td class="top_bottom_left">
+				<% if @average_instructor.dq12 == 5 %>
+					&#10003;
+				<%elsif @average_instructor.dq12 == 3 %>
+					<div style="color:#fff;">&#10003;</div>
+				<%else%>&nbsp;<% end %>
+			</td>
+			<td class="top_bottom_left"><% if @average_instructor.dq12 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq12 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.dq12 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.dq12 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.dq12review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td colspan="2"></td>
+			<td class="score_left" colspan="3">Skor diperolehi</td>
+			<td class="score_full" colspan="2"><%= @average_instructor.marks_b %>/<%= @average_instructor.total_b %></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+<!--questions bahagian B-->
+
+<br>
+
+<!--box bahagian C-->
+<table id="box_bahagian">
+	<tr>
+		<th class="top_bottom_left1" rowspan="2">BAHAGIAN C : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PENNGGUNAAN</th>
+		<th class="top_bottom_left2" colspan=5>SKOR</th>
+		<th class="full" rowspan="2">ULASAN</th>
+	</tr>
+	<tr>
+		<th class="left_bottom" align=center>5</th>
+		<th class="left_bottom" align=center>4</th>
+		<th class="left_bottom" align=center>3</th>
+		<th class="left_bottom" align=center>2</th>
+		<th class="left_bottom" align=center>1</th>
+	</tr>
+</table>
+<!--box bahagian C-->
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--questions bahagian C-->
+<div id="outer_box">
+	<table id="box_question">
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">1. </td>
+			<td class="wording">Pelajar menggunakan perkara penting</td>
+			<td class="top_bottom_left"><% if @average_instructor.uq1 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq1 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq1 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq1 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.uq1 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.uq1review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">2.</td>
+			<td class="wording">Segera perbetulkan kesilapan pelajar</td>
+			<td class="top_bottom_left"><% if @average_instructor.uq2 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq2 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq2 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq2 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.uq2 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.uq2review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">3.</td>
+			<td class="wording">Peringkat kefahaman pelajar selalu disemak</td>
+			<td class="top_bottom_left"><% if @average_instructor.uq3 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left">
+
+				<% if @average_instructor.uq3 == 4 %>
+					&#10003;
+				<!--<%# elsif @average_instructor.uq3 == 5 %>
+						<div style="color:#fff;">&#10003;</div>-->
+				<%else%>&nbsp;<% end %>
+			</td>
+			<td class="top_bottom_left"><% if @average_instructor.uq3 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq3 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.uq3 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.uq3review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">4.</td>
+			<td class="wording">Pastikan tujuan pembelajaran sudah dicapai</td>
+			<td class="top_bottom_left"><% if @average_instructor.uq4 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq4 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq4 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.uq4 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.uq4 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.uq4review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td colspan="2"></td>
+			<td class="score_left" colspan="3">Skor diperolehi</td>
+			<td class="score_full" colspan="2"><%= @average_instructor.marks_c %>/<%= @average_instructor.total_c %></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+<!--questions bahagian C-->
+
+<br>
+
+<!--box bahagian D-->
+<table id="box_bahagian">
+	<tr>
+		<th class="top_bottom_left1" rowspan="2">BAHAGIAN D : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PENGESAHAN</th>
+		<th class="top_bottom_left2" colspan=5>SKOR</th>
+		<th class="full" rowspan="2">ULASAN</th>
+	</tr>
+	<tr>
+		<th class="left_bottom" align=center>5</th>
+		<th class="left_bottom" align=center>4</th>
+		<th class="left_bottom" align=center>3</th>
+		<th class="left_bottom" align=center>2</th>
+		<th class="left_bottom" align=center>1</th>
+	</tr>
+</table>
+<!--box bahagian D-->
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--questions bahagian D-->
+<div id="outer_box">
+	<table id="box_question">
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">1. </td>
+			<td class="wording">Penilaian dijalankan pada masa yang bersesuaian</td>
+			<td class="top_bottom_left"><% if @average_instructor.vq1 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq1 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq1 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq1 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.vq1 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.vq1review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">2.</td>
+			<td class="wording">Nyatakan dengan terang tugas pelajar</td>
+			<td class="top_bottom_left"><% if @average_instructor.vq2 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq2 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq2 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq2 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.vq2 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.vq2review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">3.</td>
+			<td class="wording">Penilaian berasaskan kandungan pelajaran</td>
+			<td class="top_bottom_left"><% if @average_instructor.vq3 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq3 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq3 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq3 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.vq3 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.vq3review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">4.</td>
+			<td class="wording">Nyatakan kriteria penilaian</td>
+			<td class="top_bottom_left"><% if @average_instructor.vq4 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq4 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq4 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq4 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.vq4 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.vq4review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">5.</td>
+			<td class="wording">Dapat mengukur tujuan pelajaran</td>
+			<td class="top_bottom_left"><% if @average_instructor.vq5 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq5 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq5 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.vq5 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.vq5 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.vq5review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td colspan="2"></td>
+			<td class="score_left" colspan="3">Skor diperolehi</td>
+			<td class="score_full" colspan="2"><%= @average_instructor.marks_d %>/<%= @average_instructor.total_d %></td>
+			<td class="ulasan"></td>
+		</tr>
+	</table>
+</div>
+<!--questions bahagian D-->
+<br><br><br><br>
+<center>2 daripada 3</center>
+</div>
+</fieldset>
+
+<!--
+</div>
+</div>-->
+
+<!--start of page 3-->
+
+<br><br>
+<fieldset width=10px >
+<div id="title">
+
+<!--box bahagian E-->
+<table id="box_bahagian">
+	<tr>
+		<th class="top_bottom_left1" rowspan="2">BAHAGIAN E : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEKNIK UMUM MENGAJAR</th>
+		<th class="top_bottom_left2" colspan=5>SKOR</th>
+		<th class="full" rowspan="2">ULASAN</th>
+	</tr>
+	<tr>
+		<th class="left_bottom" align=center>5</th>
+		<th class="left_bottom" align=center>4</th>
+		<th class="left_bottom" align=center>3</th>
+		<th class="left_bottom" align=center>2</th>
+		<th class="left_bottom" align=center>1</th>
+	</tr>
+</table>
+<!--box bahagian E-->
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--questions bahagian E-->
+<div id="outer_box">
+	<table id="box_question">
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">1. </td>
+			<td class="wording">Mengikut pelan mengajar</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq1 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq1 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq1 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq1 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq1 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq1review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">2.</td>
+			<td class="wording"> Bertutur dengan baik dan berkesan</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq2 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq2 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq2 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq2 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq2 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq2review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">3.</td>
+			<td class="wording">Mengawalkan emosi semasa mengajar</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq3 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq3 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq3 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq3 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq3 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq3review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">4.</td>
+			<td class="wording">Pembahagian masa mengajar yang betul</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq4 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq4 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq4 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq4 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq4 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq4review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">5.</td>
+			<td class="wording">Mendapatkan persefahaman pelajar</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq5 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq5 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq5 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq5 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq5 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq5review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">6.</td>
+			<td class="wording">Menggunakan teknik soalan yang baik</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq6 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq6 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq6 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq6 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq6 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq6review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">7.</td>
+			<td class="wording">Menggunakan BBM dengan baik</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq7 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq7 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq7 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq7 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq7 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq7review%></td>
+		</tr>	
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">8.</td>
+			<td class="wording">Menunjukkan penguasaann dalam tajuk yang diajar</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq8 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq8 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq8 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq8 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq8 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq8review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td class="no">9.</td>
+			<td class="wording">Pelajar sentiasa mengikuti pelajaran</td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq9 == 5 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq9 == 4 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq9 == 3 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="top_bottom_left"><% if @average_instructor.gttq9 == 2 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="full"><% if @average_instructor.gttq9 == 1 %>&#10003;<%else%>&nbsp;<% end %></td>
+			<td class="ulasan"><%=@average_instructor.gttq9review%></td>
+		</tr>
+		<tr><td class="gap" colspan="8"></td></tr>
+		<tr>
+			<td colspan="2"></td>
+			<td class="score_left" colspan="3">Skor diperolehi</td>
+			<td class="score_full" colspan="2"><%= @average_instructor.marks_e %>/<%= @average_instructor.total_e %></td>
+			<td></td>
+		</tr>
+	</table>
+</div>
+<!--questions bahagian E-->
+
+<BR>
+
+<span class="bold">RINGKASAN PENILAIAN</span>
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--Ringkisan Penilaian-->
+<table id="box_dimensi">
+	<tr>
+		<td COLSPAN="2" class="no_penilaian_top">Komponen Prestasi</td>
+		<td class="center_top_max"><span class="bold">Skor Max</span><br>(x)</td>
+		<td class="center_top_diperolehi"><span class="bold">Skor<br>diperolehi</span><br>(y)</td>
+		<td class="center_top_diperolehi"><span class="bold">Pemberat/<br>Kewajaran</span><br>(w)</td>
+		<td class="center_top_diperolehi"><span class="bold">Peratus</span><br>(y/x * w)</td>
+	</tr>
+	<tr>
+		<td class="no_penilaian">A</td>
+		<td class="description">PERSEDIAAN</td>
+		<td class="center_other">45</td>
+		<td class="center_other_right"><%= @average_instructor.marks_a %></td>
+		<td class="center_other_right">25</td>
+		<td class="center_other_right"><%= score_a=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_a,@average_instructor.total_a,"A"), :precision => 2)%></td>
+	</tr>
+	<tr>
+		<td class="no_penilaian">B</td>
+		<td class="description">PENYAMPAIAN</td>
+		<td class="center_other">60</td>
+		<td class="center_other_right"><%= @average_instructor.marks_b %></td>
+		<td class="center_other_right">30</td>
+		<td class="center_other_right">	<%= score_b=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_b,@average_instructor.total_b,"B"), :precision => 2)%></td>
+	</tr>
+	<tr>
+		<td class="no_penilaian">C</td>
+		<td class="description">PENGGUNAAN</td>
+		<td class="center_other">20</td>
+		<td class="center_other_right"><%= @average_instructor.marks_c %></td>
+		<td class="center_other_right">5</td>
+		<td class="center_other_right"><%= score_c=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_c,@average_instructor.total_c,"C"), :precision => 2)%></td>
+	</tr>
+	<tr>
+		<td class="no_penilaian">D</td>
+		<td class="description">PENGESAHAN</td>
+		<td class="center_other">25</td>
+		<td class="center_other_right"><%= @average_instructor.marks_d %></td>
+		<td class="center_other_right">20</td>
+		<td class="center_other_right"><%= score_d=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_d,@average_instructor.total_d,"D"), :precision => 2)%></td>
+	</tr>
+	<tr>
+		<td class="no_penilaian">E</td>
+		<td class="description">TEKNIK UMUM MENGAJAR</td>
+		<td class="center_other">45</td>
+		<td class="center_other_right"><%= @average_instructor.marks_e %></td>
+		<td class="center_other_right">20</td>
+		<td class="center_other_right"><%= score_e=number_with_precision(AverageInstructor.percentage(@average_instructor.marks_e,@average_instructor.total_e,"E"), :precision => 2)%></td>
+	</tr>
+</table>
+<!--Ringkasan Penilaian-->
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--Julat Skor-->
+<table id="box_dimensi">
+	<tr>
+		<td class="no"></td>
+		<td class="center_top_max"><span class="bold">Julat Skor</bold></td>
+		<td class="center_top_diperolehi"><span class="bold">Gred</span></td>
+		<td class="center_top_diperolehi"><span class="bold">Prestasi</span></td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="center_other">85-100</td>
+		<td class="center_other_right">
+			<% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "A" %>C<%else%><span class="grey2">A</span><% end %>
+		</td>
+		<td class="center_other_end">Sangat Baik</td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="center_other">70-84</td>
+		<td class="center_other_right">
+			<% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "B" %>C<%else%><span class="grey2">B</span><% end %>
+		</td>
+		<td class="center_other_end">Baik</td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="center_other">50-69</td>
+		<td class="center_other_right">
+			<% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "C" %>C<%else%><span class="grey2">C</span><% end %>
+		</td>
+		<td class="center_other_end">Sederhana</td>
+
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="center_other">40-49</td>
+		<td class="center_other_right">
+			<% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "D" %>C<%else%><span class="grey2">D</span><% end %>
+		</td>
+		<td class="center_other_end">Lemah</td>
+	</tr>
+	<tr>
+		<td class="no"></td>
+		<td class="center_other"><40</td>
+		<td class="center_other_right">
+			<% if AverageInstructor.total_for_grade(score_a,score_b,score_c,score_d,score_e) == "E" %>C<%else%><span class="grey2">E</span><% end %>
+		</td>
+		<td class="center_other_end">Sangat Lemah</td>
+	</tr>
+</table>
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--Review part-->
+<table id="box_review">
+	<tr>
+		<td class="title" rowspan="6">Ulasan : </td>
+		<td>
+			<% if @average_instructor.review.blank? != true%>
+				<%=h @average_instructor.review %> 
+			<% else %>
+				.................................................................................................................................................
+				<br>.................................................................................................................................................
+				<br>.................................................................................................................................................
+				<br>.................................................................................................................................................
+				<br>.................................................................................................................................................
+				<br>.................................................................................................................................................
+			<% end %>
+		</td>
+	</tr>
+</table>
+<!--Review part-->	
+
+<table id="box_question"><tr><td class="gap"></td></tr></table>
+
+<!--Signatory part-->
+<table id="box_signatory">
+	<tr>
+		<td class="center">Tandatangan<br>(Jurulatih Yang Dinilai)</td>
+		<td class="in_between"></td>
+		<td class="center">Tandatangan<br>(Bahagian Pembangunan Kompetensi dan Kawalan Mutu)</td>
+	</tr>
+	<tr>
+		<td class="line1"></td>
+		<td class="in_between"></td>
+		<td class="line2"></td>
+	</tr>
+	<tr>
+		<td class="left">(Nama: <%=h @average_instructor.instructor_id.blank? ? "" : @average_instructor.evaluated_instructor.staff_name_with_title %>)</td>
+		<td class="in_between"></td>
+		<td class="left">(Nama: <%=h @average_instructor.evaluator_id.blank? ? "" : @average_instructor.instructor_evaluator.staff_name_with_title %>)</td>
+	</tr>
+	<tr>
+		<td class="left">Tarikh: <%=h @average_instructor.evaluatedate.strftime("%d %b %Y") %></td>
+		<td class="in_between"></td>
+		<td class="left">Tarikh: <%=h @average_instructor.evaluatedate.strftime("%d %b %Y") %></td>
+	</tr>
+</table>	
+<!--Signatory part-->
+
+<br>		
+<!--Prepared by BKKM-->
+<table id="box_tag">
+	<tr>
+		<td class="heading"> DISEDIAKAN OLEH: BKMM</td>
+		<td>TARIKH KEMASKINI: 5 DISEMBER 2011</td>
+	</tr>
+
+</table>
+<!--Prepared by BKKM-->
+
+
+<center>3 daripada 3</center>
+</div>
+</fieldset>
+
+</div>
+</div>
+</fieldset>

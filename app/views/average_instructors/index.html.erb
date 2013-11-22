@@ -1,0 +1,38 @@
+<!-- Box -->
+<div class="box">
+	<!-- Box Head -->
+	<div class="box-head">
+		<h2 class="left">Evaluation and Average Score Analysis for Instructors</h2>
+	</div>
+	</div>
+	<div class="tlist">
+	    <table width=100% border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+			<th>Programme</th>
+			<th>Instructor</th>
+			<th>Evaluation Date</th>
+			<th>Title</th>
+			<th>Objective</th>
+			<th>Delivery Type</th>
+			<th colspan=4 class="ac">Control</th>
+		</tr>
+
+<% @average_instructors.each do |average_instructor| %>
+  <tr>
+    <td><%=h average_instructor.programme_id.blank? ? "-": average_instructor.instructor_course.programme_with_specialisation%></td>
+    <td><%=h average_instructor.evaluated_instructor.staff_name_with_title %></td>
+    <td><%=h average_instructor.evaluatedate %></td>
+    <td><%=h average_instructor.title %></td>
+    <td><%=h average_instructor.objective %></td>
+    <td><%=h (AverageInstructor::DELIVERY_TYPE.find_all{|disp, value| value == average_instructor.deliverytype }).map {|disp, value| disp} %></td>
+    <td width=10px ><%= link_to image_tag("printer.png", :border => 0, :title => 'BK-KKM-04-02'), :action => 'average_score_analysis', :id => average_instructor %></td>
+	<td width=10px ><%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => average_instructor %></td>	
+    <td width=10px><%= link_to image_tag("edit.png", :border => 0), :action => 'edit', :id => average_instructor %></td>	
+	<td width=10px><%= link_to image_tag("delete.png", :border => 0, :title => 'Delete'), average_instructor, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<br />
+
+<%= link_to 'New evaluation & average score analysis', new_average_instructor_path %>

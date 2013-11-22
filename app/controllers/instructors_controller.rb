@@ -91,4 +91,12 @@ class InstructorsController < ApplicationController
   def qc_checked
     @instructor = Instructor.find(params[:id])
   end
+  
+  #6 March 2013-to display Laporan Penilaian DIRI Jurulatih
+  def report_instructor_appraisal
+     @instructor_appraisals = Instructor.find(:all, :order => "id", :limit => 20)
+     #@instructor_appraisal_programmes = @instructor_appraisals.group_by {|t| t.staff_id}
+     render :layout => 'report'
+  end
+  #6 March 2013-to display Laporan Penilaian DIRI Jurulatih
 end
