@@ -93,4 +93,17 @@ class TimetablesController < ApplicationController
        format.xml { render :xml => @timetables }
      end
    end
+   
+   def view_student
+      @classroom_id = params[:classroomid]
+      #@exammaker_eq = params[:exammaker_eq]
+      unless @classroom_id.blank? || @classroom_id.nil?
+        @all_students = Student.find(:all, :include => [:klasses], :conditions => ['klasses.id in (?)', @classroom_id])
+        #@objq2 = Exammaker.get_obj_questions(@subject_id)
+        #@mcqq2 = Exammaker.get_mcq_questions(@subject_id)
+  	     #@tfq2 = Exammaker.get_tf_questions(@subject_id)
+  	     #@seqq2 = Exammaker.get_seq_questions(@subject_id) 
+      end
+      render :partial => 'available_students', :layout => false   
+    end
 end
