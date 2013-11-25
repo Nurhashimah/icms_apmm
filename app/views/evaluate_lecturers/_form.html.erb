@@ -5,7 +5,13 @@
 			<tr>
 				<td class="leftcol"><label for="student_id">Student Name</label></td>
 				<td>:</td>
-				<td><%= f.collection_select :student_id, Student.find(:all), :id, :name,{:selected => current_user.student_id}, :include_blank => true %></td>
+				<td>
+				<% if @evaluate_lecturer.student_id.blank? %>
+					<%= f.collection_select :student_id, Student.find(:all), :id, :name,{:selected => current_user.student_id ,:include_blank => "Please select"}  %>
+				<% else %>
+					<%= @evaluate_lecturer.studentevaluate.name%>
+				<% end %>
+				</td>
 			</tr>
 			
 			<tr>

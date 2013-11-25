@@ -5,33 +5,36 @@
 		<td  width=20%><label for="short_name">&nbsp;Lecturer Name</label></td>
 		<td width=3%><b>:</b></td>
 		<td>
+			<% @exist_average = AverageLecturer.all.map(&:lecturer_id)%><!--lecturer-id refers to evaluate_lecturer_id-->
 			<!--20Feb2013-display lecturer's name-ONCE(unique)-->
 			<% @lecturers_evaluated=[]%>
 			<% EvaluateLecturer.all.group_by { |t| t.staff_id }.each do |staff, evaluations| %>
 				<% evaluations.each_with_index do |evaluation,index| %>
 					<% if index==0%>
-						<% @lecturers_evaluated << evaluation %>
+						<% unless @exist_average.include?(evaluation.id)  %>
+							<% @lecturers_evaluated << evaluation %>
+						<% end %>
 					<% end %>
 				<% end %>
 			<% end %>
-			<%= f.collection_select :lecturer_id, @lecturers_evaluated, :id, :lecturer_evaluate, :prompt => "Select Lecturer Name" %>
+			<%= f.collection_select :lecturer_id, @lecturers_evaluated, :id, :evaluate_detail, :prompt => "Select Lecturer - Course | Subject" %>
 			<!--20Feb2013-display lecturer's name-ONCE(unique)-->
 		<%#= f.collection_select :lecturer_id, EvaluateLecturer.find(:all), :id, :evaluate_detail, :prompt => "Select Lecturer Name | Course Name | Subject Name" %>
 		</td>
 	</tr>
 	<!--20Feb2013-add-in programme-->
-	<tr>
+	<!--<tr>
 		<td><label for="short_name">&nbsp;Course Name</label></td>
 		<td>:</td>
-		<td><%= f.collection_select :programme_id, Programme.all, :id, :programme_with_specialisation, :selected => 1,:prompt => "Select Course Name"  %></td>
-	</tr>
+		<td><%#= f.collection_select :programme_id, Programme.all, :id, :programme_with_specialisation, :selected => 1,:prompt => "Select Course Name"  %></td>
+	</tr>-->
 	<!--20Feb2013-add-in programme-->
 	<!--20Feb2013-add-in subject-->
-	<tr>
+	<!--<tr>
 		<td><label for="short_name">&nbsp;Subject Name</label></td>
 		<td>:</td>
-		<td><%= f.collection_select :subject_id, Subject.all, :id, :subject_code_with_subject_name,:prompt => "Select Subject Name" %></td>
-	</tr>
+		<td><%#= f.collection_select :subject_id, Subject.all, :id, :subject_code_with_subject_name,:prompt => "Select Subject Name" %></td>
+	</tr>-->
 	<!--20Feb2013-add-in subject-->
 </table>
 

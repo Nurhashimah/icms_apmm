@@ -19,7 +19,7 @@
     
   </tr>
 
-<% @evaluate_lecturers.each do |evaluate_lecturer| %>
+<% @evaluate_lecturers.sort_by{|t|t.staff_id}.each do |evaluate_lecturer| %>
   <tr>
 	<td><%= evaluate_lecturer.student_id.blank? ? "No Student" : check_kin{evaluate_lecturer.studentevaluate.name} %></td>
 	<!--20Feb2013-subject added-->

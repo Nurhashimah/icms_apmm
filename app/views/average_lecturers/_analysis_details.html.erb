@@ -26,7 +26,7 @@
 						<% elsif counter==7 %>Kesesuaian kerja sindikit dengan objektif pelajaran
 						<% elsif counter==8 %>Faedah bahan/nota yang diedarkan
 						<% end %>
-						<% @purata = AverageLecturer.find_average(@average_lecturer.lecturer.staff_id,@average_lecturer.subject_id,counter)%>
+						<% @purata = AverageLecturer.find_average(@average_lecturer.evaluations[0].staff_id,@average_lecturer.evaluations[0].subject_id,counter)%>
 					</td>
 					<td align="center"><% if @purata == 1  %><b><%= @purata %></b><% else %><font color="#A0A0A0">1</font><% end %></td>
 					<td align="center"><% if @purata == 2  %><b><%= @purata %></b<% else %><font color="#A0A0A0">2</font><% end %></td>	
