@@ -87,4 +87,12 @@ class EvaluateLecturersController < ApplicationController
      @evaluate_lecturer = EvaluateLecturer.find(params[:id])
      render :layout => 'report'
   end
+  
+  def view_subject
+    @course_id = params[:courseid]
+    unless @course_id.blank? || @course_id.nil?
+      @subjects = Programme.find(@course_id).subjects
+    end
+    render :partial => 'available_subjects', :layout => false
+  end
 end
