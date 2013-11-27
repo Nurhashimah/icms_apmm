@@ -158,6 +158,7 @@ ms_MY:
     rules: Undang-Undang dan Peraturan
     transaction: Transaksi Perpustakaan
     resources: Katalog Perpustakaan
+    averagelecturer: Analisa Skor Purata Penilaian Pensyarah
     
   staff: 
     new: Kakitangan Baru

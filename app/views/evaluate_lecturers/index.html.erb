@@ -11,22 +11,22 @@
 <div class="indextable">
 <table>
   <tr class="toprow">
-    <th>Student Name</th>
+    <th>Lecturer's Name</th>
     <th>Course - Subject Name</th>
     <th>Evaluate Date</th>
-    <th>Lecturer's Name</th>
+    <th>Student Name</th>
     <th colspan=4 class="ac"><%= t 'action' %></th>
     
   </tr>
 
-<% @evaluate_lecturers.each do |evaluate_lecturer| %>
+<% @evaluate_lecturers.sort_by{|t|t.staff_id}.each do |evaluate_lecturer| %>
   <tr>
-	<td><%= evaluate_lecturer.student_id.blank? ? "No Student" : check_kin{evaluate_lecturer.studentevaluate.name} %></td>
+	<td><%= evaluate_lecturer.staff_id.blank? ? "No Staff" : evaluate_lecturer.staffevaluate.staff_name_with_title %></td>
 	<!--20Feb2013-subject added-->
 	<td><%= evaluate_lecturer.course_id.blank? ? "No Course" : check_kin{evaluate_lecturer.stucourse.name}+" - "+ check_kin{evaluate_lecturer.subjectevaluate.name} %></td>
 	<!--20Feb2013-subject added-->
 	<td ><%= evaluate_lecturer.evaluate_date.blank? ? "-" : evaluate_lecturer.evaluate_date.strftime("%d %b %Y") %></td>
-	<td><%= evaluate_lecturer.staff_id.blank? ? "No Staff" : evaluate_lecturer.staffevaluate.staff_name_with_title %></td>
+	<td><%= evaluate_lecturer.student_id.blank? ? "No Student" : check_kin{evaluate_lecturer.studentevaluate.name} %></td>
 	<td width=10px >
 	<% if permitted_to? :show, evaluate_lecturer %>
 	<%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => evaluate_lecturer %><% end %></td>

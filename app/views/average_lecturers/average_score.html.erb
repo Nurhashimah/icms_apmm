@@ -31,12 +31,12 @@
 		<td colspan=3><font face="arial"><u><b>DATA PENSYARAH</font></td>
 	<tr>
 		<td width=2%>1.</td>
-		<td colspan=4><font face="arial">Nama Pensyarah : <%=h @average_lecturer.lecturer.lecturer_evaluate %> </td>
+		<td colspan=4><font face="arial">Nama Pensyarah : <%=h @average_lecturer.evaluations[0].lecturer_evaluate %> </td>
 	</tr>
     <tr>
 		<td>2.</td>
-		<td colspan=1 width=25%><font face="arial">No K/P : <%=h @average_lecturer.lecturer.lecturer_evaluate_icno %> </td> 
-		<td ><font face="arial">Pangkat/Jawatan : <%=h @average_lecturer.lecturer.lecturer_evaluate_rank %>  </td>
+		<td colspan=1 width=25%><font face="arial">No K/P : <%=h @average_lecturer.evaluations[0].lecturer_evaluate_icno %> </td> 
+		<td ><font face="arial">Pangkat/Jawatan : <%=h @average_lecturer.evaluations[0].lecturer_evaluate_rank %>  </td>
 	</td>
 	<tr>
 		<td>3.</td>
@@ -53,7 +53,7 @@
 	</tr>
 	<tr>
 		<td width=2%>5.</td>
-		<td colspan=3><font face="arial">Nama Kursus/Program : <%=h @average_lecturer.lecturer.course_evaluate %> </td>			
+		<td colspan=3><font face="arial">Nama Kursus/Program : <%=h @average_lecturer.evaluations[0].course_evaluate %> </td>			
 	</tr>						
 	<tr>
 		<td>6.</td>
@@ -73,8 +73,8 @@
 		<td>7.</td>
 		<td colspan=3><font face="arial">Jumlah Pelatih : 
 		<!--20Feb2013-Jumlah pelatih : total student completed appraisal out of total student-->
-		<%= AverageLecturer.find_evaluations(@average_lecturer.lecturer.staff_id,@average_lecturer.subject_id).count %>
-		 / <%=h Student.find(:all, :conditions=>['course_id=?', @average_lecturer.lecturer.course_id]).count %>
+		<%= AverageLecturer.find_evaluations(@average_lecturer.evaluations[0].staff_id,@average_lecturer.subject_id).count %>
+		 / <%=h Student.find(:all, :conditions=>['course_id=?', @average_lecturer.evaluations[0].course_id]).count %>
 		<!--20Feb2013-Jumlah pelatih : total student completed appraisal out of total student-->
 		</td>
 	</tr>					
@@ -92,7 +92,7 @@
 	</tr>
 	<tr>
 		<td>9.</td>
-		<td colspan=3><font face="arial">Tajuk Pelajaran : <%=h @average_lecturer.lecturer.subject_evaluate %> </td>
+		<td colspan=3><font face="arial">Tajuk Pelajaran : <%=h @average_lecturer.evaluations[0].subject_evaluate %> </td>
 	</tr>
 	<tr>
 		<td>10.</td>
@@ -119,7 +119,7 @@
 				<% elsif counter==7 %>Kesesuaian kerja sindikit dengan objektif pelajaran
 				<% elsif counter==8 %>Faedah bahan/nota yang diedarkan
 				<% end %>
-				<% @purata = AverageLecturer.find_average(@average_lecturer.lecturer.staff_id,@average_lecturer.subject_id,counter)%>
+				<% @purata = AverageLecturer.find_average(@average_lecturer.evaluations[0].staff_id,@average_lecturer.subject_id,counter)%>
 			</td>
 			<td align="center"><% if @purata == 1  %><b><%= @purata %></b><% else %><font color="#A0A0A0">1</font><% end %></td>
 			<td align="center"><% if @purata == 2  %><b><%= @purata %></b<% else %><font color="#A0A0A0">2</font><% end %></td>	

@@ -11,23 +11,29 @@
     		<th>Lecturer Name</th>
 		    <th>Course Name</th>
 			<th>Subject Name</th>
+			<th>Appraiser Ratio</th>
 		    <th>Evaluation Category</th><!--changed from evaluation category-->
-    <th colspan=3 class="ac">Control</th>
+    <th colspan=4 class="ac">Control</th>
   </tr>
 
 <% @average_lecturers.each do |average_lecturer| %>
 <tr>
-	 <td><%=h average_lecturer.lecturer.lecturer_evaluate %></td>
-	 <td><%=h average_lecturer.lecturer.course_evaluate %></td>
+	 <td><%=h average_lecturer.evaluations[0].lecturer_evaluate %></td>
+	 <td><%=h average_lecturer.evaluations[0].course_evaluate %></td>
 	 <!--20Feb2013-subject added-->
-	 <td><%=h average_lecturer.lecturer.subject_evaluate%></td>
+	 <td><%=h average_lecturer.evaluations[0].subject_evaluate%></td>
 	 <!--20Feb2013-subject added-->
+	 <td>	
+	 <!--20Feb2013-Jumlah pelatih : total student completed appraisal out of total student-->
+		<%= AverageLecturer.find_evaluations(average_lecturer.evaluations[0].staff_id,average_lecturer.subject_id).count %>
+		 / <%=h Student.find(:all, :conditions=>['course_id=?', average_lecturer.evaluations[0].course_id]).count %> students
+		<!--20Feb2013-Jumlah pelatih : total student completed appraisal out of total student--></td>
 	 <!--20Feb2013-changed from lesson_topic-->	
 	 <td><%=h (AverageLecturer::CATEGORY.find_all{|disp, value| value == average_lecturer.evaluate_category.to_s}).map {|disp, value| disp} %>		</td>
 	 <!--20Feb2013-changed from lesson_topic-->
+	 <td width=10px ><%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => average_lecturer %></td>	 
+	 <td width=10px><%= link_to image_tag("edit.png", :border => 0), :action => 'edit', :id => average_lecturer %></td>	
 	 <td width=10px ><%= link_to image_tag("printer.png", :border => 0, :title => 'BK-KKM-04-04'), :action => 'average_score', :id => average_lecturer %></td>
-	 <td width=10px ><%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => average_lecturer %></td>	
-     <td width=10px><%= link_to image_tag("edit.png", :border => 0), :action => 'edit', :id => average_lecturer %></td>	
 	 <td width=10px><%= link_to image_tag("delete.png", :border => 0, :title => 'Delete'), average_lecturer, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
   

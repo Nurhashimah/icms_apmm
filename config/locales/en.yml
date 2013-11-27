@@ -159,6 +159,7 @@ en:
     transaction: Library Transactions
     resources: Library Catalog 
     filling: E-Filling
+    averagelecturer: Data Analysis and Average Score of Lecturers
     
   staff: 
     new: New Staff
