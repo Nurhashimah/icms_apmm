@@ -57,12 +57,10 @@ class AverageInstructorsController < ApplicationController
   # PUT /average_instructors/1
   # PUT /average_instructors/1.xml
   def update
-    #raise params.inspect  #endtime(6i)
     @average_instructor = AverageInstructor.find(params[:id])
-@average_instructor.endtime
     respond_to do |format|
       if @average_instructor.update_attributes(params[:average_instructor])
-        flash[:notice] = 'AverageInstructor was successfully updated.'+@average_instructor.endtime.to_s
+        flash[:notice] = 'AverageInstructor was successfully updated.'
         format.html { redirect_to(@average_instructor) }
         format.xml  { head :ok }
       else
