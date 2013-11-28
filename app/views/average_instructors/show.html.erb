@@ -31,12 +31,12 @@
 	<tr>
 		<td class="leftcol"><label for="subject_id">Start Time</label></td>
 		<td><b>:</b></td>
-		<td> <%=h @average_instructor.starttime.strftime("%H:%M") %></td>
+		<td> <%=h @average_instructor.starttime.strftime("%H:%M:%S") %></td>
 	</tr>		
 	<tr>
 		<td class="leftcol"><label for="subject_id">End Time</label></td>
 		<td><b>:</b></td>
-		<td><%=h @average_instructor.endtime.strftime("%H:%M") %></td>
+		<td><%=h @average_instructor.endtime.strftime("%H:%M:%S") %></td>
 	</tr>
 	<tr>
 		<td class="leftcol"><label for="subject_id">Delivery Type</label></td>
