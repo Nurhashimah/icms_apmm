@@ -41,12 +41,17 @@
 	<tr>
 		<td width=20%><label>Start Time </label></td>
 		<td width=3%><b>:</b></td>
-		<td><%= f.time_select :starttime %></td>
+		<td><%#= f.time_select :starttime %>
+			<%=f.time_select :starttime, :include_seconds => true %>
+			&nbsp;&nbsp;&nbsp;<font color=grey>(Format - Hour : Minute : Seconds)</font>
+		</td>
 	</tr>
 	<tr>
 		<td width=20%><label>End Time</label></td>
 		<td width=3%><b>:</b></td>
-		<td><%= f.time_select :endtime %></td>
+		<td><%= f.time_select :endtime, :include_seconds=> true %>
+			&nbsp;&nbsp;&nbsp;<font color=grey>(Format - Hour : Minute : Seconds)</font>
+		</td>
 	</tr>
 	<tr>
 		<td width=20%>    <label>Delivery Type</label></td>

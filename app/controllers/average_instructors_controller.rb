@@ -58,7 +58,6 @@ class AverageInstructorsController < ApplicationController
   # PUT /average_instructors/1.xml
   def update
     @average_instructor = AverageInstructor.find(params[:id])
-
     respond_to do |format|
       if @average_instructor.update_attributes(params[:average_instructor])
         flash[:notice] = 'AverageInstructor was successfully updated.'
