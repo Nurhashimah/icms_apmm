@@ -1,7 +1,7 @@
 class Book < ActiveRecord::Base
   belongs_to :staff  , :foreign_key => 'receiver_id'
   belongs_to :addbook, :foreign_key => 'supplier_id'
-  has_many  :accessions
+  has_many  :accessions, :dependent => :destroy
   accepts_nested_attributes_for :accessions, :allow_destroy => true
   
   before_destroy :destroy_accession
