@@ -1,12 +1,17 @@
 <h3><%= t 'librarytransaction.edit' %></h3>
 
 <% form_for(@librarytransaction) do |f| %>
-  <%= f.error_messages %>
-
-  <%=render :partial => 'form', :locals => {:f => f} %> 
-  <p>
-    <%= f.submit (t 'update') %>
-  </p>
+	<%= f.error_messages %>
+  	<div class="tform">
+		<H2><%= t 'librarytransaction.details' %></H2>
+		<table width=100% border=0>
+			<%=render :partial => 'form1', :locals => {:f => f} %> 
+			<%=render :partial => 'form', :locals => {:f => f} %> 
+		</table>
+	</div>
+	<p>
+		<%= f.submit (t 'update') %>
+	</p>
 <% end %>
 
 <%= link_to 'Show', @librarytransaction %> |
