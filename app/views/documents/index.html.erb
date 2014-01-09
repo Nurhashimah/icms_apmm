@@ -17,7 +17,7 @@
 		<tr>
 		  <th>Category</th>
 		  <th>Title</th>
-		  <th>Received Date</th>
+		  <th width=80>Received Date</th>
 		  <th>From</th>
 		  <th>Filed By</th>
 		  <th>Circulation I </th>
@@ -49,26 +49,33 @@
 				<td><%=h document.cc2closed? ? "Yes" : "No" %></td>
 				<td width=10px><%= link_to image_tag("document.png", :border => 0, :title => 'Show'), :action => 'show', :id => document %></td>
 				
-				
+			<td width=10px>	
 				<% if permitted_to? :action1, @document %>
 				<% if (User.current_user.staff_id == document.cc1staff_id && document.cc1action == nil) %>
-				<td width=10px><%= link_to image_tag("approval.png", :border => 0, :title => 'Circulation I'), :action => 'action1', :id => document %></td>
+				<!--<td width=10px>--><%= link_to image_tag("approval.png", :border => 0, :title => 'Circulation I'), :action => 'action1', :id => document %><!--</td>-->
 				<% end %><% end %>
 				
 				<% if permitted_to? :action2, @document %>
-				<% if (document.cc2action == nil && document.cc2closed == FALSE) %>
-				<td width=10px><%= link_to image_tag("approval.png", :border => 0, :title => 'Circulation II'), :action => 'action2', :id => document %></td>
+				<% if (document.cc2action == nil && document.cc2closed != true && document.cc1staff_id != User.current_user.staff_id && document.stafffiled_id != User.current_user.staff_id) %>
+				
+				<!--<td width=10px>--><%= link_to image_tag("approval.png", :border => 0, :title => 'Circulation II'), :action => 'action2', :id => document %><!--</td>-->
 			    <% end %><% end%>
 			
 				<% if permitted_to? :feedback, @document %>
-				<% if (User.current_user.staff_id == document.cc1staff_id && document.received == FALSE) %>
-				<td width=10px><%= link_to image_tag("approval.png", :border => 0, :title => 'Feedback'), :action => 'feedback', :id => document %></td>
+				<% if (User.current_user.staff_id == document.cc1staff_id && document.received != true && document.feedback_sent == true) %>
+				<!--<td width=10px>--><%= link_to image_tag("approval.png", :border => 0, :title => 'Feedback'), :action => 'feedback', :id => document %><!--</td>-->
 				<% end %><% end %>
 				
 				<% if permitted_to? :update, document %>
-				<td width=10px><%= link_to image_tag("edit.png",     :border => 0, :title => 'Edit'), :action => 'edit', :id => document %></td><% end %>
+					<% if (User.current_user.staff_id == document.stafffiled_id && (document.cc1staff_id.blank? == true || document.file_id.blank? == true)) %>
+						<!--<td width=10px>--><%= link_to image_tag("edit.png",     :border => 0, :title => 'Edit'), :action => 'edit', :id => document %><!--</td>-->
+					<% end %>
+				<% end %>
+			</td>	
+			<td width=10px>	
 				<% if permitted_to? :destroy, document %>
-				<td width=10px><%= link_to image_tag("delete.png",   :border => 0, :title => 'Delete'), document, :confirm => 'Are you sure?', :method => :delete %></td><% end %>
+				<%= link_to image_tag("delete.png",   :border => 0, :title => 'Delete'), document, :confirm => 'Are you sure?', :method => :delete %><% end %>
+			</td>
 			</tr>
 			<% end %>
 		<% end %>

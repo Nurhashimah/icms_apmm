@@ -3,10 +3,17 @@
 <% form_for(@document, :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
 
-	
-	<% if current_user.staff_id == @document.cc1staff_id || User.current_user.staff_id %>
-   <%= render 'show' %>
+  	<!--@document.file_id.blank? -> @document.file_id IS BLANK-->
+  	<!--@document.cofile.blank? -> @document.cofile RETURNS NIL (no value) -->
+  	<% if @document.cc1staff_id.blank? || @document.file_id.blank? || (@document.cofile.blank? && (@document.cc2closed == false || @document.cc2closed.blank? == true)) %>
+		<%= render  :partial => 'form', :locals => {:f => f} %>
+	<% else %>
+		<% if current_user.staff_id == @document.cc1staff_id || User.current_user.staff_id %>
+   			<%= render 'show' %>
+		<% end %>
 	<% end %>
+	
+	
 	<% if current_user.staff_id == @document.cc1staff_id %>
     <%= render  :partial => 'action1', :locals => {:f => f} %>
 	<% end %>
