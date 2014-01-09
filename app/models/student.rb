@@ -99,7 +99,11 @@ class Student < ActiveRecord::Base
   
   def intake_for_student
     if intakestudent.blank?
-      "N/A"
+      if intake_id
+        "Intake no longer exist."
+      else
+        "N/A"
+      end
     else
       intakestudent.name
     end

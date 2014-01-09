@@ -1,10 +1,11 @@
 class Intake < ActiveRecord::Base
  # before_save :save_my_vars
-  
+ before_destroy :check_student_existance
+ 
   has_many :intakename,    :class_name => 'period_timing',    :foreign_key => 'intake_id'   #Link to Period_timing
   has_many :intake,        :class_name => 'time_table_entry', :foreign_key => 'intake_id'   #Link to Time Table Entry
   has_many :intakeclass,   :class_name => 'klass',            :foreign_key => 'intake_id'   #Link to Class
-  has_many :intakestudent, :class_name => 'Student',          :foreign_key => 'intake_id'  #Link to Student
+  has_many :intakestudent, :class_name => 'Student',          :foreign_key => 'intake_id'   #Link to Student
   has_many :intake_exam,        :class_name => 'Exammaker', :foreign_key => 'intake'   #Link to Time Table Entry
 
  # validates_presence_of :name
@@ -32,4 +33,12 @@ class Intake < ActiveRecord::Base
                 [ "July",         2 ]
   ]
 
+  private 
+  
+  def check_student_existance  #for current intake
+    intake_ids = Student.all.map(&:intake_id)
+    if intake_ids.include?(id)
+      return false
+    end
+  end
 end
