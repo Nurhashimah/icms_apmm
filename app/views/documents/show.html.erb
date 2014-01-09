@@ -1,4 +1,5 @@
 <%= render 'show' %>
 <% if permitted_to? :update, @document %>
-<%= link_to (t 'icms.update'), edit_document_path(@document) %> | <% end %>
+	<% if @document.cc1staff_id.blank? || @document.cofile.blank? %>
+<%= link_to (t 'icms.edit'), edit_document_path(@document) %> | <% end %><% end %>
 <%= link_to (t 'icms.back'), documents_path %>

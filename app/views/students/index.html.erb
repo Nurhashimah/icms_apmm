@@ -36,7 +36,8 @@
 		<tr>
 			<td align="center"><%=h bil %></td>
 			<td><%=h student.course_id.blank? ? " " : student.course.name %> </td>
-			<td><%=h student.intake_id.blank? ? "-" : student.intakestudent.name %></td>
+			<td><%=h student.intake_for_student %>
+				<%#=h student.intake_id%><%#=h student.intake_id.blank? ? "-" : student.intakestudent.name %></td>
 			<td><%=h student.name %></td>
 			<td><%=h (Student::STATUS.find_all{|disp, value| value == student.sstatus.to_s}).map {|disp, value| disp} %></td>
 			<td width=10px><%= link_to image_tag("document.png", :border => 0, :title => 'Show'),                    :action => 'show', :id => student %></td>
