@@ -48,27 +48,29 @@
   	<% end %>
 
 	<!-- Notification for Student Discipline -->
-	<% if User.current_user.staff.position.blank? %>
-		<% @staff_position = nil %>
-	<% else %>
-		<% @staff_position = User.current_user.staff.position.id %>
-	<% end %>
-	<% if User.current_user.staff.mentors.count>0 %>
-		<% @mentees_ids = User.current_user.staff.mentors[0].mentees.map(&:id)%>
-	<% end %>
-	<% a = Sdicipline.count(:all, :conditions => ["warden_id=? AND (status=? OR status=?)", User.current_user.staff_id, "New","Open"]) %>
-	<% b = Sdicipline.count(:all, :conditions => ["status=? AND action IS ? AND closedtcollege IS ? AND mentor_id IN (?)", "Refer to Mentor", nil, nil, @mentees_ids]) %> 
-	<% c = Sdicipline.count(:all, :conditions => ["caunsellor_id=? AND status=? AND (action IS ? OR action=?) AND closedtcollege IS ? ",@staff_position, "Refer to Counsellor", nil,'', nil]) %>
-	<% d = Sdicipline.count(:all, :conditions => ["commandant_id=? AND status=? AND jtkpdecision IS ? AND jtkpdescisionrxdt IS ? AND closedtcollege IS ? ",@staff_position, "Refer to Komandan", nil, nil,nil]) %>
-	<% e = Sdicipline.count(:all, :conditions => ["commandant_id=? AND status=? AND (jtkpdecision IS NOT NULL OR appealdecision IS NOT NULL)", @staff_position, "Refer to Komandan"])%>
-	<% dash_dicipline = a+b+c+d %>
-	<% if dash_dicipline == 0 %>
-		<% if e>0 %>
-			<%=e%> <%= link_to "Student Discipline Requires Closing", { :controller => "sdiciplines", :action => "index" } %><br>
+	<% if User.current_user.isstaff == true %><!--confirm logged-in user is staff first-->
+		<% if User.current_user.staff.position.blank? %>
+			<% @staff_position = nil %>
+		<% else %>
+			<% @staff_position = User.current_user.staff.position.id %>
 		<% end %>
-	<% else %>
+		<% if User.current_user.staff.mentors.count>0 %>
+			<% @mentees_ids = User.current_user.staff.mentors[0].mentees.map(&:id)%>
+		<% end %>
+		<% a = Sdicipline.count(:all, :conditions => ["warden_id=? AND (status=? OR status=?)", User.current_user.staff_id, "New","Open"]) %>
+		<% b = Sdicipline.count(:all, :conditions => ["status=? AND action IS ? AND closedtcollege IS ? AND mentor_id IN (?)", "Refer to Mentor", nil, nil, @mentees_ids]) %> 
+		<% c = Sdicipline.count(:all, :conditions => ["caunsellor_id=? AND status=? AND (action IS ? OR action=?) AND closedtcollege IS ? ",@staff_position, "Refer to Counsellor", nil,'', nil]) %>
+		<% d = Sdicipline.count(:all, :conditions => ["commandant_id=? AND status=? AND jtkpdecision IS ? AND jtkpdescisionrxdt IS ? AND closedtcollege IS ? ",@staff_position, "Refer to Komandan", nil, nil,nil]) %>
+		<% e = Sdicipline.count(:all, :conditions => ["commandant_id=? AND status=? AND (jtkpdecision IS NOT NULL OR appealdecision IS NOT NULL)", @staff_position, "Refer to Komandan"])%>
+		<% dash_dicipline = a+b+c+d %>
+		<% if dash_dicipline == 0 %>
+			<% if e>0 %>
+				<%=e%> <%= link_to "Student Discipline Requires Closing", { :controller => "sdiciplines", :action => "index" } %><br>
+			<% end %>
+		<% else %>
 	    	<%= dash_dicipline %> <%= link_to "Student Discipline To Take Action", { :controller => "sdiciplines", :action => "index" } %><br>
-	<% end %>
+		<% end %>
+	<% end %>	
 	
 	
 	<!-- Notification for Staff Apply Stock -->
