@@ -1,0 +1,103 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  programme_id: 1
+  instructor_id: 1
+  evaluatedate: 2013-11-22
+  title: MyString
+  objective: MyText
+  starttime: 2013-11-22 18:30:38
+  endtime: 2013-11-22 18:30:38
+  deliverytype: 1
+  pbq1: 1
+  pbq2: 1
+  pbq3: 1
+  pbq4: 1
+  pdq1: 1
+  pdq2: 1
+  pdq3: 1
+  pdq4: 1
+  pdq5: 1
+  dq1: 1
+  dq2: 1
+  dq3: 1
+  dq4: 1
+  dq5: 1
+  dq6: 1
+  dq7: 1
+  dq8: 1
+  dq9: 1
+  dq10: 1
+  dq11: 1
+  dq12: 1
+  uq1: 1
+  uq2: 1
+  uq3: 1
+  uq4: 1
+  vq1: 1
+  vq2: 1
+  vq3: 1
+  vq4: 1
+  vq5: 1
+  gttq1: 1
+  gttq2: 1
+  gttq3: 1
+  gttq4: 1
+  gttq5: 1
+  gttq6: 1
+  gttq7: 1
+  gttq8: 1
+  gttq9: 1
+  review: MyText
+  evaluator_id: 1
+
+two:
+  programme_id: 1
+  instructor_id: 1
+  evaluatedate: 2013-11-22
+  title: MyString
+  objective: MyText
+  starttime: 2013-11-22 18:30:38
+  endtime: 2013-11-22 18:30:38
+  deliverytype: 1
+  pbq1: 1
+  pbq2: 1
+  pbq3: 1
+  pbq4: 1
+  pdq1: 1
+  pdq2: 1
+  pdq3: 1
+  pdq4: 1
+  pdq5: 1
+  dq1: 1
+  dq2: 1
+  dq3: 1
+  dq4: 1
+  dq5: 1
+  dq6: 1
+  dq7: 1
+  dq8: 1
+  dq9: 1
+  dq10: 1
+  dq11: 1
+  dq12: 1
+  uq1: 1
+  uq2: 1
+  uq3: 1
+  uq4: 1
+  vq1: 1
+  vq2: 1
+  vq3: 1
+  vq4: 1
+  vq5: 1
+  gttq1: 1
+  gttq2: 1
+  gttq3: 1
+  gttq4: 1
+  gttq5: 1
+  gttq6: 1
+  gttq7: 1
+  gttq8: 1
+  gttq9: 1
+  review: MyText
+  evaluator_id: 1

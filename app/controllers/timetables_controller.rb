@@ -93,4 +93,12 @@ class TimetablesController < ApplicationController
        format.xml { render :xml => @timetables }
      end
    end
+   
+   def view_student
+      @classroom_id = params[:classroomid]
+      unless @classroom_id.blank? || @classroom_id.nil?
+        @all_students = Student.find(:all, :include => [:klasses], :conditions => ['klasses.id in (?)', @classroom_id])
+      end
+      render :partial => 'available_students', :layout => false   
+    end
 end

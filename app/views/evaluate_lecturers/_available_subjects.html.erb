@@ -1,0 +1,20 @@
+<!--form resubmission due to validation error-->
+<% if @evaluate_courseid || (@evaluate_courseid && @evaluate_subjectid) %>
+	<% @course_id = @evaluate_courseid %>
+	<% @subject_id = @evaluate_subjectid %>
+	<% if @subject_id!=0 %>
+		<% @subjects2 = Subject.find(:all, :conditions => ['id !=?',@subject_id]) %>
+	<% else %>
+		<% @subjects = Subject.all %>
+	<% end %>
+<% end %>
+
+<% unless @course_id.blank? || @course_id.nil? %>
+	<% if @subject_id.nil? || @subject_id.blank? || @subject_id==0 %>
+		<%= select_tag "evaluate_lecturer[subject_id]","<option value=0>Select Subject</option>"+options_from_collection_for_select(@subjects,:id, :subject_code_with_subject_name) %>
+	<% else %>
+		<%= select_tag "evaluate_lecturer[subject_id]","<option value="+@subject_id.to_s+">"+Subject.find(@subject_id).subject_code_with_subject_name+"</option>"+options_from_collection_for_select(@subjects2,:id, :subject_code_with_subject_name) %>
+	<% end %>
+<% else %>
+	Please select a course first.
+<% end %>

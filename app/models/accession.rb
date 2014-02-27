@@ -1,6 +1,6 @@
 class Accession < ActiveRecord::Base
   has_many :librarytransactions, :foreign_key => 'book_id'#, :dependent => :delete_all
-  belongs_to :book
+  belongs_to :book, :foreign_key => 'book_id'
   
   validates_uniqueness_of   :accession_no
   

@@ -76,8 +76,15 @@ class IntakesController < ApplicationController
   def destroy
     @intake = Intake.find(params[:id])
     @intake.destroy
+    
+      
 
     respond_to do |format|
+      if @intake.destroy
+        flash[:notice] ="Intake was successfully removed."
+      else
+        flash[:error] = "Removal of intake was forbidden, due to existing students of selected intake"
+      end  
       format.html { redirect_to(intakes_url) }
       format.xml  { head :ok }
     end

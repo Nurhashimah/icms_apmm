@@ -16,8 +16,16 @@ class Exammaker < ActiveRecord::Base
     
     validate :question_exist
     
+    def subject_name
+       "#{Subject.find(subject_id).subject_code_with_subject_name} - #{description}"
+    end
+    
+    def subject_name_exam_name_desc
+      "#{Subject.find(subject_id).subject_code_with_subject_name} : #{name} - #{description}"
+    end
+    
     def subject_of_exammaker
-      "#{Subject.find(subject_id).subject_code_with_subject_name} - #{description}"  #exammaker.examination.subject_code_with_subject_name
+      subject_name_exam_name_desc+" #{exam_date.strftime('%d-%b-%Y')}"  
     end
     
    # has_many :exampartquetions, :dependent => :destroy

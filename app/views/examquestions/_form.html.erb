@@ -25,7 +25,14 @@
 	<tr>
 		<td class="leftcol"><label for="creator_id">Creator Name</label></td>
 		<td><b>:</b></td>
-		<td><%= f.collection_select :creator_id, Staff.find(:all, :conditions => ["id = ?", current_user.staff_id]), :id, :staff_name_with_title, :include_blank => true %></td>
+		<td>
+			<% if(@examquestion.creator_id == current_user.staff_id)|| @examquestion.id.nil? %>
+				<% @creator = current_user.staff_id %>
+			<% else %>
+				<% @creator = @examquestion.creator_id %>
+			<% end %>
+				<%= f.collection_select :creator_id, Staff.find(:all, :conditions => ["id=?",@creator]), :id, :staff_name_with_title %>	
+		</td>
 	</tr>
 	
 	<tr>
@@ -40,7 +47,7 @@
 <table>	
 	
 	<tr>
-		<td class="leftcol"><label for="status">Add Attachment :</label></td>
+		<td class="leftcol"><label for="status">Add Diagram </label></td>
 		<td><b>:</b></td>
 		<td><%= f.file_field :diagram %></td>
 	</tr>
@@ -190,6 +197,7 @@
 	</tr>
 </table>
  <% if permitted_to? :manage, @examquestion%>
+	<% if @examquestion.qstatus!="Created" || @examquestion.qstatus.blank? %>
 <H2>Quality Control Details</H2>
 <table width=100%>	
 	<tr>
@@ -229,14 +237,20 @@
 	</tr>-->
 		
 </table>
-<% end %>
+	<% end %>
+ <% end %>
 <table width=100%>
 	<tr>
 		<td class="leftcol"><label for="qstatus">Status</label><font color="red"> * </font></td>
 		<td width=3%><b>:</b></td>
-		<td><%= f.select :qstatus, 
+		<td>	<%# if (@examquestion.qstatus=="Created" && @examquestion.creator_id==User.current_user.staff_id)%>
+		<% if (@examquestion.creator_id==User.current_user.staff_id) || (User.current_user.roles.map(&:id).include?(2)) || @examquestion.id.nil? || (@examquestion.qstatus!="Created" && (User.current_user.roles.map(&:id).include?(19)))%>
+			<%= f.select :qstatus, 
 		                 Examquestion::QSTATUS,
-		                 :prompt => "Select"  %></td>
+		                 :prompt => "Select"  %>
+		<% else %>
+			Created
+		<% end %></td>
 	</tr>
 </table>
 </div>

@@ -5,26 +5,59 @@
 			<tr>
 				<td class="leftcol"><label for="student_id">Student Name</label></td>
 				<td>:</td>
-				<td><%= f.collection_select :student_id, Student.find(:all), :id, :name,{:selected => current_user.student_id}, :include_blank => true %></td>
+				<td>
+				<% if @evaluate_lecturer.student_id.blank? %>
+					<%= f.collection_select :student_id, Student.find(:all), :id, :name,{:selected => current_user.student_id ,:include_blank => "Please select"}  %>
+				<% else %>
+					<%= @evaluate_lecturer.studentevaluate.name%>
+				<% end %>
+				</td>
 			</tr>
 			
 			<tr>
 				<td class="leftcol"><label for="course_id">Course Name</label></td>
 				<td>:</td>
-				<td><%= f.collection_select :course_id, Programme.find(:all), :id, :programme_with_specialisation, :include_blank => true %></td>
-			</tr>
+				<td><%#= f.collection_select :course_id, Programme.find(:all), :id, :programme_with_specialisation, :include_blank => true %>
+					<% if @evaluate_lecturer[:course_id].blank? || @evaluate_lecturer[:course_id].nil? %>
+						<!-- this part is for first time data entry -->
+						<%= f.collection_select :course_id, Programme.find(:all), :id, :programme_with_specialisation,{:include_blank => true},
+												:onchange => remote_function(:update => form_tag_id(f.object_name,:subject_list), 
+												:url => {:action => 'view_subject' }, 
+												:with => "'courseid='+$('"+form_tag_id(f.object_name, :course_id)+"').value") %>
+						<!-- this part is for first time data entry -->
+					<% else %>
+						<!-- this part is for re-submission WITH previously entered programme_id-->
+						<%= select_tag "evaluate_lecturer[course_id]",
+								"<option value="+@evaluate_lecturer[:course_id].to_s+">"+Programme.find(@evaluate_lecturer[:course_id]).programme_with_specialisation+"</option>" + 
+								options_from_collection_for_select(Programme.find(:all,:conditions=>['id!=?',@evaluate_lecturer[:course_id]]),:id, :programme_with_specialisation),
+								{:onchange => remote_function(:update => form_tag_id(f.object_name, :subject_list), 
+								:url => {:action => 'view_subject' },:with => "'courseid='+$('"+form_tag_id(f.object_name, :course_id)+"').value")} %>
+						<!-- this part is for re-submission WITH previously entered programme_id-->
+					<% end %>
+				</td>
+			</tr> 
 				
 			<tr>
 				<td class="leftcol"><label for="subject_id">Subject Name</label></td>
 				<td>:</td>
-				<td><%= f.collection_select :subject_id, Subject.find(:all), :id, :subject_code_with_subject_name, :include_blank => true %></td>
+				<td><%#= f.collection_select :subject_id, Subject.find(:all), :id, :subject_code_with_subject_name, :include_blank => true %>
+					<%= tag("div", :id => form_tag_id(f.object_name, :subject_list)) %>
+						<% if @evaluate_lecturer[:subject_id].blank? || @evaluate_lecturer[:subject_id].nil? %>
+							Select course name first.
+						<% else %>
+							<% @evaluate_courseid = @evaluate_lecturer[:course_id]%>
+							<% @evaluate_subjectid = @evaluate_lecturer[:subject_id]%>
+							<%= render :partial => 'available_subjects', :locals => {:courseid2=> @evaluate_courseid,:subjectid2=> @evaluate_subjectid } %> 
+						<% end %>
+					</div>
+				</td>
 				
 			</tr>
 	
 			<tr>
 				<td class="leftcol"><label for="staff_id">Lecturer Name</label></td>
 				<td>:</td>
-				<td><%= f.collection_select :staff_id, Staff.find(:all), :id, :staff_name_with_title, :include_blank => true %></td>
+				<td><%= f.collection_select :staff_id, Staff.find(:all, :order => 'titlecd_id ASC'), :id, :staff_name_with_title, :include_blank => true %></td>
 			</tr>
 			
 			<tr>

@@ -3,13 +3,17 @@
 
 
 <table width=100% >
-	
+	<!--
 	<tr>
 		<td class="leftcol"><label for="staff_id">Topic Name</label></td>
 		<td width=3%><b>:</b></td>
-		<td><%= f.collection_select :topic_id, Topic.find(:all), :id, :topic_subject %></td>
+		<td><%#= f.collection_select :topic_id, Topic.find(:all), :id, :topic_subject %></td>
+	</tr>-->
+	<tr>
+		<td class="leftcol"><label for="timetable">Timetable</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.collection_select :timetable_id, Timetable.find(:all), :id, :schedule_details, :include_blank => "Select a timetable"  %></td>
 	</tr>
-	
 	<tr>
 		<td class="leftcol"><label for="classtype">Type of Lecture</label></td>
 		<td><b>:</b></td>

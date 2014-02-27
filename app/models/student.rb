@@ -4,9 +4,9 @@ class Student < ActiveRecord::Base
 
   validates_presence_of     :name, :gender, :sbirthdt 
  #freeze - :icno, :stelno, :sbirthdt, :mrtlstatuscd, :sstatus
- # validates_numericality_of :icno, :stelno
- # validates_length_of       :icno, :is =>12
- # validates_uniqueness_of   :icno
+  validates_numericality_of :icno, :stelno
+  validates_length_of       :icno, :is =>12
+  validates_uniqueness_of   :icno
   
   
   #Link to HABTM klass_student
@@ -99,7 +99,11 @@ class Student < ActiveRecord::Base
   
   def intake_for_student
     if intakestudent.blank?
-      "N/A"
+      if intake_id
+        "Intake no longer exist."
+      else
+        "N/A"
+      end
     else
       intakestudent.name
     end

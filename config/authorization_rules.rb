@@ -170,11 +170,15 @@ authorization do
     
     has_permission_on :documents, :to => [:menu, :create] 
     
-    has_permission_on :documents, :to => [:action1, :edit, :delete, :feedback] do 
+    has_permission_on :documents, :to => [:edit, :update] do 
+      if_attribute :stafffiled_id => is {User.current_user.staff_id}
+    end
+    
+    has_permission_on :documents, :to => [:action1, :edit, :update, :delete, :feedback] do 
       if_attribute :cc1staff_id => is {User.current_user.staff_id}
     end
       
-    has_permission_on :documents, :to => [:action2, :edit, :delete] do 
+    has_permission_on :documents, :to => [:action2, :edit, :update, :delete] do 
       if_attribute :cc2action => nil
     end
    
@@ -295,7 +299,10 @@ end
    
    # Instructor Appraisal
    #has_permission_on :evaluate_coaches, :to => [:manage, :penilaijurulatih] 
-  
+   
+   # Average Instructor                                                                     #6 March 2013
+   has_permission_on :average_instructors, :to => [:manage, :average_score_analysis]        #6 March 2013-gives qc access
+   
    # Examination Question Bank
    has_permission_on :examquestions, :to => :manage 
    

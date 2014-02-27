@@ -4,7 +4,12 @@
 		<tr>
 			<td class="leftcol"><label for="class_id">Class Name</label></td>
 			<td><b>:</b></td>
-			<td><%= f.collection_select :classroom_id, Klass.find(:all), :id, :name, :include_blank => true %></td>
+			<td><%#= f.collection_select :classroom_id, Klass.find(:all), :id, :name, :include_blank => true %>
+				<%= f.collection_select :classroom_id, Klass.find(:all), :id, :name, {:include_blank => true},
+										:onchange => remote_function(:update => form_tag_id(f.object_name, :student_list), 
+										:url => {:action => 'view_student' }, 
+										:with => "'classroomid='+$('"+form_tag_id(f.object_name, :classroom_id)+"').value") %>
+			</td>
 		</tr>
 
 		<tr>
@@ -37,7 +42,14 @@
 			<td><%= f.datetime_select :end_at, :minute_step => 15, :include_blank => true %></td>
 		</tr>
 </table>
-
+<H2>Students</H2>
+<table width=90%>
+	<tr>
+		<td>
+			<%= tag("div", :id => form_tag_id(f.object_name, :student_list)) %></div>
+		</td>
+	</tr>
+</table>
 <!--<table width=100%>
 		<tr>
 			<td class="leftcol">Training Notes</td>

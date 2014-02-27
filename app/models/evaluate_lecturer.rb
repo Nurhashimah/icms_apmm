@@ -2,9 +2,8 @@ class EvaluateLecturer < ActiveRecord::Base
   belongs_to :studentevaluate,   :class_name => 'Student',   :foreign_key => 'student_id'
   belongs_to :stucourse,         :class_name => 'Programme', :foreign_key => 'course_id'
   belongs_to :subjectevaluate,   :class_name => 'Subject',   :foreign_key => 'subject_id'
-  belongs_to :staffevaluate,     :class_name => 'Staff',     :foreign_key => 'staff_id' 
-  
-  has_many :lecturer,       :class_name => 'Averagelecturer', :foreign_key => 'lecturer_id'
+  belongs_to :staffevaluate,     :class_name => 'Staff',     :foreign_key => 'staff_id'   
+  belongs_to :averagelecturer, :class_name => 'AverageLecturer', :foreign_key => 'average_lecturer_id'
   
   validates_presence_of :evaluate_date, :staff_id #20Feb2013-staff_id added
   
@@ -57,7 +56,7 @@ class EvaluateLecturer < ActiveRecord::Base
   end
   
   def evaluate_detail
-    "#{lecturer_evaluate} | #{course_evaluate} | #{subject_evaluate} "
+    "#{lecturer_evaluate} - #{course_evaluate} | #{subject_evaluate} "
   end
   
 

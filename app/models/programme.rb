@@ -38,6 +38,10 @@ class Programme < ActiveRecord::Base
   
   #links to Model exammaker
   has_many :studentattendances
+  
+  #links to Model average_instructor    #6 March 2013
+  has_many :averagescore_instructors, :class_name => 'AverageInstructor', :foreign_key => 'programme_id'
+  
 
   COURSETYPE = [
       #  Displayed       stored in db

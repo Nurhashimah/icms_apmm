@@ -25,9 +25,10 @@
 	<tr>
 		<td class="leftcol"><label for="duration">Duration for Topic</label></td>
 		<td><b>:</b></td>
-		<td><%= f.select :durahours, options_for_select([0,1,2,3], @topic.durahours) %>:
-		    <%= f.select :duramins, options_for_select([0,15,30,45], @topic.duramins) %>
-		    <font color=#AAA size=-2>Hours:Minutes</font></td>
+		<td><%#= f.select :durahours, options_for_select(['00','01','02','03'], @topic.durahours) %>:
+		    <%= f.select :duramins, options_for_select(['00','15','30','45'], @topic.duramins) %>
+		&nbsp;
+		    <font color=#AAA size=-2>Minutes</font><%#= f.time_select :duramins,:minute_step => 15 %></td>
 	</tr>
 </table>
 <H2>Training Plan Details</H2>

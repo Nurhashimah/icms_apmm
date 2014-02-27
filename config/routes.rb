@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :average_instructors
+
+  map.connect '/instructors/report_instructor_appraisal', :controller => 'instructors', :action => 'report_instructor_appraisal'  #6 March 2013
   map.resources :instructors, :collection => { :appraisal_score => :get, :qc_checked => :get}
 
   map.resources :marks

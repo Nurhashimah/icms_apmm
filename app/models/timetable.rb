@@ -118,4 +118,9 @@ class Timetable < ActiveRecord::Base
       topic.topic_subject
     end
   end
+  
+  def schedule_details 
+    "#{topic_class} | #{classroom_details} | #{start_at.strftime('%d %b %Y')}, #{start_at.strftime('%H:%M:%p')} - #{end_at.strftime('%H:%M:%p')}"
+  end
+    
 end

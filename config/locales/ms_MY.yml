@@ -65,6 +65,11 @@ ms_MY:
               sio_id: "Investigating Officer"
             librarytransaction:
               book_id: "Accession No"
+            analysispaperexam:
+              student_id: "Student"   
+              exam_id: "Examination Paper"
+              course_id: "Programme"              
+            
         errors:
           template:
             body: "Berikut adalah beberapa masalah:"
@@ -85,6 +90,7 @@ ms_MY:
     back: Kembali
     add: Tambah
     remove: Padam
+    edit: Sunting
     update: Kemaskini
     show: Papar
     
@@ -102,6 +108,8 @@ ms_MY:
     staffattendance: Kehadiran Staf
     appraisal: Penilaian Prestasi Staf
     instructor: Penilaian Jurulatih
+    instructor_report: Laporan Penilaian Diri Untuk Jurulatih
+    instructor_average: "Penilaian & Analisa Skor Purata Jurulatih"
     lecturer: Penilaian Pensyarah
     task: Tugas dan Tanggungjawab staf
     leave: Cuti Staf
@@ -151,6 +159,7 @@ ms_MY:
     rules: Undang-Undang dan Peraturan
     transaction: Transaksi Perpustakaan
     resources: Katalog Perpustakaan
+    averagelecturer: Analisa Skor Purata Penilaian Pensyarah
     
   staff: 
     new: Kakitangan Baru

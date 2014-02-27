@@ -1,66 +1,112 @@
-<table width=100% border=1 cellspacing=0 cellpadding=0>
-	<tr>
-		<th rowspan=2 width=30%>Name</th>
-		<!--<th rowspan=2>Rank</th>-->
-		<th rowspan=2 width=15%>MyKad No</th>
-		<th colspan='<%=@examquestions.mcq.count%>' width=3%>MCQ</th>
-		<% if @examquestions.obj.count!=0 %>
-			<th colspan='<%=@examquestions.obj.count%>' width=3%>OBJ</th>
-		<% end %>
-		<% if @examquestions.tf.count!=0 %>
-			<th colspan='<%=@examquestions.tf.count%>' width=3%>T/F</th>
-		<% end %>
-		<th rowspan=2>Total marks</th>
-	</tr>
-	<tr>
-		<% 1.upto(@examquestions.mcq.count) do |count| %>
-			<td>Q<%=count%> / <%=@examquestions.mcq[count-1].marks %></td>
-		<% end %>
-		<% 1.upto(@examquestions.obj.count) do |count| %>
-			<td>Q<%=count%>/ <%=@examquestions.obj[count-1].marks %></td>
-		<% end %>
-		<% 1.upto(@examquestions.tf.count) do |count| %>
-			<td>Q<%=count%>/ <%=@examquestions.tf[count-1].marks %></td>
-		<% end %>
-	</tr>
-	<% @students.each_with_index do |student, index| %>
-	<tr>
-		<td><%= student.name %></td>
-	<!--	<td><%#= student.pangkat %></td>-->
-		<td><%= student.icno %></td>
+<% unless @exam_id.nil? || @exam_id.blank?%>
+
+	<% if @students.count == 0 %> 
+		No students available for this subject.
+	<% else %>
+	<table width=100% border=1 cellspacing=0 cellpadding=0><!--dlm student listing<%#=@exam_id%> course-id<%#=@course_id%>-->
 	
-		<!---->
-		<% 0.upto(2) do |count| %>
-			<% if count == 0 %>
-				<% @examquestions2 = @examquestions.mcq %>
-				<% @index2 = 0 %>
-				<% @span_type_column = @examquestions.mcq.count %>
-				<% @title_span = 'MCQ'%>
-			<% elsif count == 1 %>
-				<% @examquestions2 = @examquestions.obj %>
-				<% @index2 = @examquestions.mcq.count %>
-				<% @span_type_column = @examquestions.obj.count %>
-				<% @title_span = 'OBJ'%>
-			<% elsif count == 2 %>
-				<% @examquestions2 = @examquestions.tf %>
-				<% @index2 = @examquestions.mcq.count+@examquestions.obj.count %>
-				<% @span_type_column = @examquestions.tf.count %>
-				<% @title_span = 'TRUE/FALSE'%>
-				<% end %>
+		<tr>
+			<th rowspan=2 width=30%>Name</th>
+			<!--<th rowspan=2>Rank</th>-->
+			<th rowspan=2 width=15%>MyKad No</th>
+			<th colspan='<%=@examquestions.mcq.count%>' width=3%>OBJ</th>
+			<% if @examquestions.obj.count!=0 %>
+				<th colspan='<%=@examquestions.obj.count%>' width=3%>T/F</th>
+			<% end %>
+			<% if @examquestions.tf.count!=0 %>
+				<th colspan='<%=@examquestions.tf.count%>' width=3%>MEQ</th>
+			<% end %>
+			<% if @examquestions.essay.count!=0 %>
+				<th colspan='<%=@examquestions.essay.count%>' width=3%>SEQ</th>
+			<% end %>
+			<th rowspan=2>Total marks</th>
+		</tr>
+		<tr>
+			<% 1.upto(@examquestions.obj.count) do |count| %>
+				<td>Q<%=count%>/ <%=@examquestions.obj[count-1].marks %></td>
+			<% end %>
+			<% 1.upto(@examquestions.tf.count) do |count| %>
+				<td>Q<%=count%>/ <%=@examquestions.tf[count-1].marks %></td>
+			<% end %>
+			<% 1.upto(@examquestions.mcq.count) do |count| %>
+				<td>Q<%=count%> / <%=@examquestions.mcq[count-1].marks %></td>
+			<% end %>
+			<% 1.upto(@examquestions.essay.count) do |count| %>
+				<td>Q<%=count%> / <%=@examquestions.essay[count-1].marks %></td>
+			<% end %>		
+		</tr>
+
 		
-				<% @examquestions2.each_with_index do |examquestion,index3| %>
-				
-			<td>
-				<%= text_field "analysispaperexams[#{index}][marks_attributes][#{@index2}]",:mark , :size=>4,:value=>@val_mark   %> 
-			</td>
-			
-				<% @index2+=1%>
-			
+		<% @students.each_with_index do |student, index| %>
+		
+			<%= hidden_field "analysispaperexams[#{index}]",:course_id,  :value=> @course_id %>
+			<%= hidden_field "analysispaperexams[#{index}]",:student_id,  :value=> student.id %>
+			<%= hidden_field "analysispaperexams[#{index}]",:exam_id, :value=> @exam_id %>
+
+		<tr>
+			<td><%= student.name %></td>
+			<!--<td><%#= student.pangkat %></td>-->
+			<td><%= student.icno %></td>
+			<% if @analysispaperexam && !@analysispaperexam.id.nil? %>
+				<% all_marks=Analysispaperexam.find(:all, :conditions=> ['exam_id=? AND student_id=?',@exam_id,student.id])%>
+				<% @marks_student=[] %>
+				<% @marksid_student=[] %>
+				<% all_marks.each do |m| %>
+					<%m.marks.sort_by{|x|x.id}.each do |m2|%>
+						<%@marks_student<<m2.mark%>
+						<%@marksid_student<<m2.id%>
+					<% end %>
+				<% end %>
 			<% end %>	
-		<% end %>	<!--end for 0.upto(2) do |count|-->
-		<!---->
-		<td><%#= text_field "analysispaperexams[#{index}]",:total_marks, :size => 5 , :value=> @value_total %></td>
 	
-	</tr>
-	<% end %>	
-</table>
+			<% 0.upto(3) do |count| %>
+				<% if count == 0 %>
+					<% @examquestions2 = @examquestions.obj %>
+					<% @index2 = 0 %>
+					<% @span_type_column = @examquestions.obj.count %>
+					<% @title_span = 'OBJ'%>
+				<% elsif count == 1 %>
+					<% @examquestions2 = @examquestions.tf %>
+					<% @index2 = @examquestions.obj.count %>
+					<% @span_type_column = @examquestions.tf.count %>
+					<% @title_span = 'TRUE/FALSE'%>
+				<% elsif count == 2 %>
+					<% @examquestions2 = @examquestions.mcq %>
+					<% @index2 = @examquestions.obj.count+@examquestions.tf.count %>
+					<% @span_type_column = @examquestions.mcq.count %>
+					<% @title_span = 'MCQ'%>
+				<% elsif count == 2 %>
+					<% @examquestions2 = @examquestions.essay %>
+					<% @index2 = @examquestions.obj.count+@examquestions.tf.count+@examquestions.mcq.count %>
+					<% @span_type_column = @examquestions.essay.count %>
+					<% @title_span = 'SEQ'%>
+				<% end %>
+			
+				<% @examquestions2.each_with_index do |examquestion,index3| %>
+				<td>
+					<%##= text_field "analysispaperexams[#{index}][marks_attributes][#{@index2}]",:mark , :size=>4,:value=>@val_mark   %>	
+					<% if @analysispaperexam && !@analysispaperexam.id.nil? %>
+						<%= hidden_field "analysispaperexams[#{index}][marks_attributes][#{@index2}]",:id, :size=>4,:value=> @marksid_student[@index2] %>
+						<%= text_field "analysispaperexams[#{index}][marks_attributes][#{@index2}]",:mark , :size=>4,:value=>@marks_student[@index2] %>
+					<% else %>
+						<%= text_field "analysispaperexams[#{index}][marks_attributes][#{@index2}]",:mark , :size=>4 %>
+					<% end %>
+				</td>
+				<% @index2+=1%>
+				<% end %>
+				
+			<% end %>	<!--end for 0.upto(2) do |count|-->
+			
+			<td><% if @analysispaperexam && !@analysispaperexam.id.nil? %>
+					<%=@analysispaperexam.total_marks2(@exam_id,student.id) %>
+				<% end %>	
+				<%#= text_field "analysispaperexams[#{index}]",:total_marks, :size => 5 , :value=> @value_total %></td>
+		</tr>
+		<% end %>
+				
+	</table>
+	<% end %>
+	
+<% else %>
+	Please select an exam paper.
+<% end %>
