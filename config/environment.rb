@@ -38,7 +38,7 @@ Rails::Initializer.run do |config|
   
   config.gem "declarative_authorization", :source => "http://gemcutter.org"
   config.gem "ancestry"
-  require 'decimal'
+  #require 'decimal'
  
   
 # config.gem "watu_table_builder", :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
