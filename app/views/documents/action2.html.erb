@@ -58,7 +58,7 @@
 			<tr>
 				<td class="leftcol"><label for="file_id">File No</label></td>
 				<td><b>:</b></td>
-				<td><%=h @document.cofile.name %></td>
+				<td><%=h @document.try(:cofile).try(:name) %></td>
 			</tr>
 
 
