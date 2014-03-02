@@ -20,7 +20,7 @@
   <tr>
     <td><%=h klass.name %></td>
 	<td><%=h klass.programclass.programme_with_specialisation %></td>
-	<td><%=h klass.subjectclass.subject_code_with_subject_name %></td>
+	<td><%=h klass.try(:subjectclass).try(:subject_code_with_subject_name) %></td>
     <td width=10px ><%= link_to image_tag("document.png", :border => 0), :action => 'show', :id => klass %></td>
     <% if permitted_to? :update, klass %>
     <td width=10px><%= link_to image_tag("edit.png", :border => 0), :action => 'edit', :id => klass %></td><% end %>
