@@ -24,7 +24,11 @@
 	<td><%=h stock.app_no %></td>
 	<td><%=h check_kin{stock.applicant.staff_name_with_title} %></td>
 	<td><%=h stock.app_date.strftime("%d %b %Y") unless stock.app_date.blank? %></td>
-	<td><% for stockdetail in stock.stockdetails %><%=h stockdetail.supplier.sub_category  %> / <%=h stockdetail.supplier.item_type  %> <% end %></td>
+	<td>
+    <% for stockdetail in stock.stockdetails %>
+      <%=h stockdetail.try(:supplier).try(:sub_category) %> / <%=h stockdetail.try(:supplier).try(:item_type) %> 
+    <% end %>
+  </td>
 	<td><%=h (Stock::STATUS.find_all{|disp, value| value == stock.status}).map {|disp, value| disp} %></td>
 	<td><%=h check_kin{stock.approver.staff_name_with_title} %></td>
 	<td width=10px><% if stock.status != 1  %>
