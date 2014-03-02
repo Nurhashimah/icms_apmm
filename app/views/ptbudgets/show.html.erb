@@ -12,7 +12,7 @@
 	<tr>
 		<td class="leftcol"><label for="name"><%= t 'ptbudget.fiscalstart' %></label></td>
 		<td><b>:</b></td>
-		<td><%=h @ptbudget.fiscalstart.strftime("%d %b %Y") %></td>
+		<td><%=h @ptbudget.fiscalstart.try(:strftime, "%d %b %Y") %></td>
 		
 	</tr>
 </table>  
