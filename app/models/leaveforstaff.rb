@@ -48,8 +48,8 @@ class Leaveforstaff < ActiveRecord::Base
   end
   
   def save_my_approvers
-		self.approval1_id = applicant.position.bosses.staff_id
-		self.approval2_id = applicant.position.bosses.bosses.staff_id
+		self.approval1_id = applicant.position.bosses.staff_id rescue current_user.staff_id
+		self.approval2_id = applicant.position.bosses.bosses.staff_id rescue current_user.staff_id
   end
   
   def apply_leave_status
