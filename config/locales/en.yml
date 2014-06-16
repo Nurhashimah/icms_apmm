@@ -752,8 +752,8 @@ en:
     checkoutdate: Checked Out
     studentname: Borrowed By
     duedate: Due Date
-    extend: Extend
-    extended: Returned
+    extended: Extended
+    returned: Returned
     returneddate: Returned On
     newrec: Create New Transaction
     edit: Edit Library Transaction
