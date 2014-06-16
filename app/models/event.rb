@@ -21,5 +21,11 @@ class Event < ActiveRecord::Base
       find(:all)
      end
    end
+   
+   def today
+     if (eventstdt - Time.now.end_of_day) * (Time.now.beginning_of_day - eventendt) >= 0
+       true
+     end
+   end
   
 end
