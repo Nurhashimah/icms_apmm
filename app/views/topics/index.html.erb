@@ -37,7 +37,7 @@
 		    <td><%=h topic.topic_code %></td>
 		    <td><%=h topic.sequenceno %></td>
 		    <td><%=h topic.name %></td>
-		    <td><%=h topic.durahours %>:<%=h topic.duramins %> Hours</td>
+		    <td><%=h topic.durahours %>:<%=h topic.duramins.to_s.rjust(2, '0') %> Hours</td>
 		    <!--<td><#%=h topic.version %></td>-->
 		    <td><%=h topic.created_details %></td>
 		    <td><%=h topic.approver_details %></td>

@@ -31,7 +31,7 @@
 	<tr>
 		<td class="leftcol"><label for="duration">Duration For Topic</label></td>
 		<td><b>:</b></td>
-		<td><%=h @topic.duramins %> Minutes</td>
+		<td><%=h @topic.durahours %>:<%=h @topic.duramins.to_s.rjust(2, '0') %> (H:MM)</td>
 	</tr>
 </table>
 <H2>Training Plan Details</H2>
