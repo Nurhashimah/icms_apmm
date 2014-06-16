@@ -4,7 +4,7 @@ class StaffsController < ApplicationController
   # GET /staffs
   # GET /staffs.xml
 def index
-    @staffs = Staff.with_permissions_to(:index).search(params[:search])
+    @staffs = Staff.with_permissions_to(:edit).search(params[:search])
   respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @staffs }
