@@ -9,9 +9,10 @@ class Leaveforstaff < ActiveRecord::Base
   
   validates_presence_of :staff_id, :leavetype, :submit
   
-  named_scope :mine,        :conditions =>  ["staff_id=?", User.current_user.staff_id]
-  named_scope :forsupport,  :conditions =>  ["approval1_id=? AND approval1 IS ?", User.current_user.staff_id, nil]
-  named_scope :forapprove,  :conditions =>  ["approval2_id=? AND approver2 IS ? AND approval1=?", User.current_user.staff_id, nil, true]
+  #named_scope :mine,        :conditions =>  ["staff_id=?", User.current_user.staff_id]
+  named_scope :mine, :conditions => ["staff_id=?", (User.current_user[:staff_id] rescue [0] )]
+  named_scope :forsupport,  :conditions =>  ["approval1_id=? AND approval1 IS ?", (User.current_user[:staff_id] rescue [0]), nil]
+  named_scope :forapprove,  :conditions =>  ["approval2_id=? AND approver2 IS ? AND approval1=?", (User.current_user[:staff_id] rescue [0]), nil, true]
   named_scope :rest,      :conditions => { :leavetype => 1 }
   named_scope :sick,    :conditions => { :leavetype => 2 }
   named_scope :norecord,   :conditions => { :leavetype => 3 }
