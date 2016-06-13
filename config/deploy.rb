@@ -32,6 +32,9 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 # set path to application
 #shared_path = "/opt/app/icms_apmm/current/shared"
 
+# shall remove 'No such file or directory' error for Public subfolders
+set :normalize_asset_timestamps, false
+
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
 
@@ -41,11 +44,9 @@ set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 pid_file = "/opt/app/icms_apmm/tmp/pids/server.pid"
 
 namespace :deploy do
-   #task :start_icms_apmm do
    task :start do
      run "cd /opt/app/icms_apmm/current; script/server -p 4000 -e production"
    end
-   #task :stop_icms_apmm do 
    task :stop do
      run "kill -s QUIT `cat #{pid_file}`" if File.exists?(pid_file)
    end
@@ -57,7 +58,5 @@ namespace :deploy do
 #   task :restart, :roles => :app, :except => { :no_release => true } do
 #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 #   end
-
 end
 
-#after "deploy:log_revision", "deploy:start_icms_apmm"
