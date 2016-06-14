@@ -23,14 +23,14 @@ set :rails_env, "production"
 set :deploy_via, :copy
 set :ssh_options, {:forward_agent => true, :port => 4321}
 
-set :rvm_type, :user                     # Defaults to: :auto
-#set :rvm_ruby_version, '1.8.7-p374@icms_apmm'      # Defaults to: 'default'
-set :rvm_ruby_string, '1.8.7-p374@icms_apmm' 
-set :rvm_custom_path, '/home/nurhashimah/.rvm/'  # only needed if not detected
+set :default_environment, {
+  'PATH' => "/home/nurhashimah/.rvm/rubies/ruby-1.8.7-p374/bin:/home/nurhashimah/.rvm/gems/ruby-1.8.7-p374@icms_apmm/bin:/home/nurhashimah/.rvm/gems/ruby-1.8.7-p374@global:/home/nurhashimah/.rvm/bin:$PATH",
+  'RUBY_VERSION' => 'ruby-1.8.7-p374',
+  'GEM_HOME' => '/home/nurhashimah/.rvm/gems/ruby-1.8.7-p374@icms_apmm',
+  'GEM_PATH' => '/home/nurhashimah/.rvm/gems/ruby-1.8.7-p374@icms_apmm:/home/nurhashimah/.rvm/gems/ruby-1.8.7-p374@global' 
+}
 
 set :linked_files, fetch(:linked_files, []).push('config/database.yml')
-# set path to application
-#shared_path = "/opt/app/icms_apmm/current/shared"
 
 # shall remove 'No such file or directory' error for Public subfolders
 set :normalize_asset_timestamps, false
@@ -41,14 +41,17 @@ set :normalize_asset_timestamps, false
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
-pid_file = "/opt/app/icms_apmm/tmp/pids/server.pid"
+#pid_file = "/opt/app/icms_apmm/current/tmp/pids/server.pid"
+#pid_file = "/opt/app/icms_apmm/shared/pids/server.pid"
 
 namespace :deploy do
    task :start do
      run "cd /opt/app/icms_apmm/current; script/server -p 4000 -e production"
    end
    task :stop do
-     run "kill -s QUIT `cat #{pid_file}`" if File.exists?(pid_file)
+     #run "kill -s QUIT `cat #{pid_file}`" if File.exists?(pid_file)
+     #run "kill -9 $(ps -aux | grep ruby | grep -v grep |  awk '{print $2}' )"
+     run "ps -aux | grep ruby | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9" 
    end
    task :restart do
      stop
@@ -58,5 +61,6 @@ namespace :deploy do
 #   task :restart, :roles => :app, :except => { :no_release => true } do
 #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 #   end
+   #after :restart, :cleanup
 end
 
