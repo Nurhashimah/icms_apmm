@@ -46,7 +46,8 @@ set :normalize_asset_timestamps, false
 
 namespace :deploy do
    task :start do
-     run "cd /opt/app/icms_apmm/current; script/server -p 4000 -e production"
+     #run "cd /opt/app/icms_apmm/current; script/server -p 4000 -e production"
+     run "cd /opt/app/icms_apmm/current; thin start -p 4000 -e production"
    end
    task :stop do
      #run "kill -s QUIT `cat #{pid_file}`" if File.exists?(pid_file)
