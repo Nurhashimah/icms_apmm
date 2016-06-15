@@ -42,26 +42,26 @@ set :normalize_asset_timestamps, false
 # these http://github.com/rails/irs_process_scripts
 
 #pid_file = "/opt/app/icms_apmm/current/tmp/pids/server.pid"
-#pid_file = "/opt/app/icms_apmm/shared/pids/server.pid"
+#pid_file = "/opt/app/icms_apmm/current/tmp/pids/thin.pid"
 
 namespace :deploy do
    task :start do
-     #run "cd /opt/app/icms_apmm/current; script/server -p 4000 -e production"
-     run "cd /opt/app/icms_apmm/current; thin start -p 4000 -e production"
+     #run "cd /opt/app/icms_apmm/current; script/server -p 4000 -e production"   #webrick
+     run "cd /opt/app/icms_apmm/current; thin -d start -p 4000 -e production"       #thin
+     #REMARK : thin -d start -> Run daemonized in the background (capistrano shall exit, but server still running)
+     #daemon - also remove stale PID file if exist
    end
    task :stop do
+     #run "kill -9 $(cat /opt/app/icms_apmm/current/tmp/pids/thin.pid)" #works too
      #run "kill -s QUIT `cat #{pid_file}`" if File.exists?(pid_file)
      #run "kill -9 $(ps -aux | grep ruby | grep -v grep |  awk '{print $2}' )"
-     run "ps -aux | grep ruby | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9" 
+     #run "ps -aux | grep ruby | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9"   #webrick
+     run "ps -aux | grep thin | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9"      #thin - only process stop, PID file still exist - start thin by daemonized resolved this
    end
    task :restart do
      stop
      sleep 2
      start
    end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-   #after :restart, :cleanup
 end
 
