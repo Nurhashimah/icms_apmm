@@ -52,6 +52,7 @@ namespace :deploy do
      #daemon - also remove stale PID file if exist
    end
    task :stop do
+     #run "kill -9 $(cat /opt/app/icms_apmm/current/tmp/pids/thin.pid)" #works too
      #run "kill -s QUIT `cat #{pid_file}`" if File.exists?(pid_file)
      #run "kill -9 $(ps -aux | grep ruby | grep -v grep |  awk '{print $2}' )"
      #run "ps -aux | grep ruby | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9"   #webrick
