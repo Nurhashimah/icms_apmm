@@ -41,8 +41,7 @@ set :normalize_asset_timestamps, false
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
-#pid_file = "/opt/app/icms_apmm/current/tmp/pids/server.pid"
-#pid_file = "/opt/app/icms_apmm/current/tmp/pids/thin.pid"
+pid_file = "/opt/app/icms_apmm/current/tmp/pids/thin.pid"
 
 namespace :deploy do
    task :start do
@@ -56,7 +55,10 @@ namespace :deploy do
      #run "kill -s QUIT `cat #{pid_file}`" if File.exists?(pid_file)
      #run "kill -9 $(ps -aux | grep ruby | grep -v grep |  awk '{print $2}' )"
      #run "ps -aux | grep ruby | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9"   #webrick
-     run "ps -aux | grep thin | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9"      #thin - only process stop, PID file still exist - start thin by daemonized resolved this
+     #BELOW - works well - but redundant with catechumen if both apps are run together
+     #run "ps -aux | grep thin | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9"      #thin - only process stop, PID file still exist - start thin by daemonized resolved this
+     #BEST solution
+     run "ps -aux | grep $(cat #{pid_file}) | grep -v grep |  awk '{print $2}' | xargs --no-run-if-empty kill -9"   
    end
    task :restart do
      stop
